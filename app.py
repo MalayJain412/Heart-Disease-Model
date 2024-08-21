@@ -7,7 +7,7 @@ st.title("❤️ Cardio-Vascular Disease Name Prediction ❤️")
 st.header("Input Patient's Details")
 
 # Function to load the trained model
-@st.cache(allow_output_mutation=True)
+@st.cache_resource
 def load_model(model_path):
     with open(model_path, 'rb') as file:
         model = pickle.load(file)
