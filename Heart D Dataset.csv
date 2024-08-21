@@ -1,0 +1,1001 @@
+Age,Chest pain,Shortness of breath,Fatigue,Systolic,Diastolic,Heart rate (bpm),Lung sounds,Cholesterol level (mg/dL),LDL level (mg/dL),HDL level (mg/dL),Diabetes,Atrial fibrillation,Rheumatic fever,Mitral stenosis,Aortic stenosis,Tricuspid stenosis,Pulmonary stenosis,Dilated cardiomyopathy,Hypertrophic cardiomyopathy,Drug use,Fever,Chills,Alcoholism,Hypertension,Fainting,Dizziness,Smoking,Obesity,Murmur,Heart disease name
+56,Yes,Yes,No,150,102,78,Wheeze,268,112,34,No,No,No,No,No,No,No,Yes,Yes,No,Yes,No,No,Yes,No,No,Never,Yes,No,Coronary Artery Disease (CAD)
+41,Yes,No,Yes,133,101,71,Rhonchi,160,125,68,Yes,No,No,Yes,Yes,No,Yes,No,Yes,No,No,No,Yes,No,No,No,Former,No,No,Cardiomyopathy
+70,Yes,Yes,Yes,106,69,99,Wheeze,287,136,65,Yes,Yes,No,No,No,No,No,No,Yes,Yes,Yes,No,Yes,No,No,No,Current,No,Yes,Cardiomyopathy
+61,Yes,Yes,No,157,109,64,Wheeze,275,96,40,No,No,No,No,No,Yes,Yes,No,Yes,No,No,Yes,Yes,Yes,No,No,Never,No,Yes,Arrhythmia
+51,Yes,No,Yes,91,110,73,Crackle,163,99,63,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,Yes,Yes,Current,No,Yes,Valvular Heart Disease
+77,Yes,Yes,No,153,70,87,Rhonchi,194,122,75,Yes,No,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,Yes,No,Yes,No,Former,No,Yes,Valvular Heart Disease
+38,Yes,Yes,Yes,143,97,61,Normal,263,111,80,No,Yes,No,No,No,No,No,No,Yes,No,No,No,No,Yes,Yes,Yes,Never,No,No,Arrhythmia
+80,Yes,No,Yes,130,104,92,Crackle,157,186,67,No,No,Yes,Yes,No,No,Yes,No,No,No,Yes,Yes,No,No,Yes,Yes,Never,No,Yes,Valvular Heart Disease
+35,Yes,No,Yes,92,66,85,Normal,163,128,72,No,No,No,Yes,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Yes,No,No,Yes,Never,No,Yes,Cardiomyopathy
+57,Yes,No,Yes,99,75,77,Crackle,163,89,37,No,No,No,No,Yes,No,No,No,No,Yes,No,Yes,No,No,No,No,Current,No,No,Cardiomyopathy
+64,No,Yes,No,155,103,100,Rhonchi,288,139,54,No,Yes,No,Yes,No,No,No,No,No,No,No,Yes,Yes,Yes,No,Yes,Never,Yes,Yes,Coronary Artery Disease (CAD)
+55,No,No,Yes,98,103,80,Wheeze,265,128,68,No,Yes,No,No,No,No,Yes,No,No,Yes,No,No,No,Yes,No,No,Never,Yes,No,Coronary Artery Disease (CAD)
+74,No,No,No,140,82,95,Normal,152,159,61,No,Yes,No,No,Yes,Yes,Yes,No,Yes,No,No,Yes,No,Yes,Yes,Yes,Former,Yes,Yes,Heart Failure
+72,Yes,Yes,Yes,146,110,89,Crackle,176,187,56,No,Yes,No,No,No,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,Yes,Yes,Current,Yes,Yes,Heart Failure
+43,Yes,No,No,118,82,81,Wheeze,234,131,38,Yes,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,Yes,Yes,No,Yes,No,Former,No,Yes,Valvular Heart Disease
+62,No,Yes,No,147,86,62,Normal,249,161,56,Yes,Yes,No,Yes,No,No,Yes,No,No,Yes,No,No,Yes,Yes,No,No,Current,Yes,Yes,Heart Failure
+59,Yes,No,Yes,128,118,99,Rhonchi,299,117,51,No,Yes,No,No,No,No,Yes,No,No,Yes,No,No,Yes,Yes,Yes,No,Current,Yes,Yes,Coronary Artery Disease (CAD)
+30,No,No,Yes,114,87,66,Wheeze,265,101,63,No,Yes,No,Yes,No,No,Yes,Yes,No,No,No,Yes,No,Yes,Yes,Yes,Former,Yes,Yes,Heart Failure
+38,No,Yes,No,100,107,85,Wheeze,168,121,59,No,Yes,No,No,No,No,Yes,No,No,No,No,Yes,No,No,No,Yes,Former,No,No,Cardiomyopathy
+34,Yes,No,Yes,101,91,98,Rhonchi,227,158,71,Yes,No,No,No,Yes,Yes,Yes,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,Current,Yes,No,Heart Failure
+48,Yes,No,Yes,145,92,95,Rhonchi,245,166,80,No,No,Yes,Yes,No,No,No,No,No,Yes,Yes,No,Yes,No,Yes,No,Never,No,Yes,Valvular Heart Disease
+73,Yes,Yes,No,117,60,74,Rhonchi,293,89,34,Yes,No,No,Yes,No,No,No,No,No,No,No,No,No,Yes,No,No,Never,Yes,Yes,Heart Failure
+51,Yes,Yes,Yes,178,70,81,Crackle,270,157,65,Yes,No,No,No,Yes,Yes,No,Yes,Yes,No,Yes,No,No,Yes,Yes,No,Current,Yes,No,Heart Failure
+35,Yes,No,Yes,134,77,69,Wheeze,192,167,60,Yes,No,No,No,No,Yes,No,No,No,Yes,Yes,No,Yes,Yes,No,No,Never,Yes,Yes,Heart Failure
+49,Yes,No,No,102,82,67,Rhonchi,254,155,45,Yes,No,No,No,Yes,No,No,Yes,No,No,No,No,No,Yes,No,Yes,Never,Yes,Yes,Heart Failure
+68,No,No,Yes,143,63,88,Wheeze,273,118,67,Yes,Yes,No,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,Yes,Yes,Yes,Current,Yes,No,Coronary Artery Disease (CAD)
+49,No,Yes,Yes,169,82,90,Crackle,186,190,47,Yes,Yes,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,Yes,No,Yes,Never,Yes,No,Heart Failure
+42,Yes,No,Yes,113,107,76,Normal,205,99,38,No,No,No,No,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,Yes,No,No,Former,Yes,No,Coronary Artery Disease (CAD)
+46,Yes,No,Yes,148,85,62,Rhonchi,231,118,77,No,Yes,No,No,No,Yes,No,Yes,Yes,Yes,Yes,No,Yes,No,No,No,Never,No,No,Cardiomyopathy
+64,Yes,No,No,113,103,81,Normal,159,88,57,No,Yes,No,No,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,Never,No,No,Arrhythmia
+44,No,No,Yes,168,86,94,Normal,238,80,30,Yes,Yes,No,Yes,Yes,No,No,No,No,No,No,No,Yes,No,No,No,Never,No,No,Cardiomyopathy
+61,No,No,No,120,79,79,Normal,219,75,59,No,Yes,No,No,Yes,No,No,Yes,Yes,Yes,No,No,Yes,Yes,Yes,No,Former,Yes,Yes,Coronary Artery Disease (CAD)
+67,No,Yes,No,118,98,78,Wheeze,232,127,63,No,Yes,No,Yes,Yes,No,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,No,Current,No,No,Arrhythmia
+65,No,No,Yes,126,65,69,Normal,198,169,42,No,No,No,Yes,No,Yes,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,Yes,Never,Yes,No,Coronary Artery Disease (CAD)
+51,Yes,No,No,153,82,79,Rhonchi,293,75,55,Yes,Yes,No,Yes,No,No,Yes,Yes,No,Yes,No,No,Yes,Yes,Yes,Yes,Former,No,Yes,Arrhythmia
+74,No,Yes,Yes,125,82,97,Normal,184,197,55,Yes,Yes,Yes,No,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,Yes,Yes,Never,No,No,Valvular Heart Disease
+76,No,No,Yes,138,66,96,Rhonchi,288,145,47,Yes,Yes,No,Yes,No,No,Yes,Yes,No,No,No,Yes,No,Yes,No,No,Former,Yes,No,Coronary Artery Disease (CAD)
+31,No,No,Yes,142,91,100,Wheeze,228,130,70,No,No,No,No,Yes,No,Yes,Yes,No,No,No,No,Yes,No,No,Yes,Never,No,Yes,Cardiomyopathy
+70,No,No,Yes,102,120,88,Crackle,206,151,80,No,No,No,Yes,No,Yes,No,No,Yes,Yes,Yes,No,Yes,Yes,No,No,Former,Yes,Yes,Coronary Artery Disease (CAD)
+69,Yes,No,No,139,104,99,Rhonchi,244,186,64,No,Yes,Yes,Yes,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,Former,No,No,Valvular Heart Disease
+62,Yes,No,No,131,79,88,Normal,299,183,53,Yes,No,No,No,No,Yes,No,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,No,Current,No,Yes,Arrhythmia
+38,No,No,No,101,76,78,Crackle,295,70,67,No,Yes,No,Yes,Yes,Yes,Yes,No,Yes,No,No,No,No,Yes,Yes,No,Never,Yes,Yes,Heart Failure
+32,Yes,No,No,132,72,62,Rhonchi,276,166,58,Yes,Yes,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,No,Yes,No,No,Yes,Former,No,Yes,Valvular Heart Disease
+60,No,Yes,No,166,103,92,Wheeze,252,106,71,No,No,No,No,No,No,No,Yes,No,No,No,No,No,No,No,No,Former,No,Yes,Cardiomyopathy
+37,Yes,Yes,No,174,75,89,Normal,173,191,56,No,No,Yes,Yes,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,No,Yes,Yes,Current,No,No,Valvular Heart Disease
+61,No,No,No,134,94,63,Wheeze,189,137,35,No,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,Yes,No,Yes,Former,Yes,Yes,Coronary Artery Disease (CAD)
+48,Yes,No,No,114,82,71,Wheeze,214,132,60,Yes,Yes,No,Yes,No,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,No,Never,No,No,Arrhythmia
+69,Yes,No,No,119,120,77,Normal,300,79,52,No,Yes,No,No,Yes,No,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Never,Yes,Yes,Heart Failure
+41,No,No,Yes,97,107,60,Wheeze,234,197,80,Yes,Yes,No,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,No,No,No,No,Current,No,No,Cardiomyopathy
+68,No,No,No,125,97,64,Crackle,177,125,58,Yes,No,No,Yes,Yes,No,No,No,No,No,No,Yes,No,Yes,No,Yes,Current,Yes,No,Coronary Artery Disease (CAD)
+42,No,No,Yes,177,78,84,Normal,260,71,35,Yes,Yes,Yes,No,Yes,Yes,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Never,No,No,Valvular Heart Disease
+60,Yes,Yes,Yes,139,106,72,Wheeze,284,154,77,No,Yes,No,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Yes,No,Former,Yes,Yes,Heart Failure
+56,Yes,No,No,120,109,62,Crackle,209,161,60,No,No,No,Yes,No,No,No,No,Yes,No,Yes,Yes,No,Yes,No,No,Never,No,No,Arrhythmia
+65,No,No,No,91,94,79,Wheeze,257,120,78,Yes,Yes,No,Yes,No,No,No,Yes,Yes,No,Yes,No,No,Yes,Yes,No,Former,Yes,Yes,Coronary Artery Disease (CAD)
+39,Yes,No,No,107,73,62,Rhonchi,177,109,56,No,No,Yes,Yes,Yes,No,Yes,No,Yes,No,No,Yes,No,No,No,No,Never,No,Yes,Valvular Heart Disease
+54,Yes,No,No,145,70,70,Rhonchi,172,191,33,Yes,No,No,Yes,No,No,Yes,Yes,Yes,No,Yes,No,Yes,Yes,Yes,Yes,Current,Yes,Yes,Heart Failure
+79,No,Yes,Yes,111,98,83,Rhonchi,176,97,75,No,No,No,Yes,Yes,Yes,No,Yes,No,No,Yes,Yes,No,Yes,Yes,No,Former,Yes,Yes,Heart Failure
+69,No,No,Yes,154,109,81,Wheeze,208,145,78,Yes,No,No,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,Yes,No,No,Yes,Former,No,Yes,Cardiomyopathy
+79,No,No,No,171,85,90,Crackle,210,128,74,No,Yes,No,Yes,No,No,No,No,Yes,Yes,No,Yes,No,No,Yes,No,Never,No,No,Cardiomyopathy
+45,Yes,No,No,163,82,76,Rhonchi,203,104,38,No,Yes,No,Yes,No,Yes,Yes,No,No,Yes,No,Yes,Yes,Yes,No,Yes,Former,Yes,No,Coronary Artery Disease (CAD)
+59,Yes,No,Yes,102,60,72,Crackle,251,133,73,No,Yes,No,No,Yes,No,Yes,No,No,No,No,Yes,No,No,No,Yes,Current,No,Yes,Cardiomyopathy
+63,Yes,No,No,167,94,92,Rhonchi,259,140,35,No,No,No,No,Yes,No,Yes,No,Yes,Yes,No,No,Yes,Yes,No,Yes,Never,Yes,Yes,Heart Failure
+61,No,No,Yes,92,90,85,Wheeze,282,138,66,No,Yes,No,No,Yes,No,No,Yes,Yes,No,No,No,No,Yes,Yes,Yes,Current,Yes,Yes,Coronary Artery Disease (CAD)
+62,Yes,No,Yes,146,110,80,Crackle,246,74,42,No,Yes,No,Yes,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Yes,No,Yes,Former,No,Yes,Arrhythmia
+42,Yes,No,Yes,141,82,79,Wheeze,207,118,47,Yes,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,No,No,Yes,Yes,No,Never,Yes,Yes,Heart Failure
+48,No,Yes,No,175,99,94,Normal,234,87,44,Yes,Yes,No,Yes,Yes,No,Yes,No,Yes,Yes,No,No,Yes,Yes,No,No,Current,Yes,No,Heart Failure
+64,Yes,Yes,Yes,164,84,100,Wheeze,218,114,78,Yes,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,Current,No,No,Cardiomyopathy
+39,No,Yes,Yes,159,63,66,Normal,213,113,59,Yes,No,No,Yes,Yes,No,Yes,Yes,Yes,No,No,No,No,Yes,No,Yes,Current,No,No,Arrhythmia
+52,Yes,No,No,138,88,87,Rhonchi,292,196,66,Yes,No,No,Yes,No,Yes,Yes,No,No,Yes,Yes,No,No,Yes,Yes,No,Current,No,No,Arrhythmia
+67,Yes,No,Yes,138,70,71,Rhonchi,152,82,59,No,No,Yes,No,Yes,No,No,Yes,Yes,No,No,No,No,No,Yes,No,Never,No,No,Valvular Heart Disease
+47,No,Yes,Yes,180,66,84,Wheeze,150,145,51,Yes,No,No,Yes,No,Yes,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Current,Yes,Yes,Coronary Artery Disease (CAD)
+41,Yes,No,Yes,172,115,87,Crackle,291,117,40,Yes,Yes,No,Yes,No,No,No,No,No,Yes,Yes,No,No,No,No,Yes,Current,No,No,Cardiomyopathy
+78,Yes,Yes,Yes,119,119,67,Crackle,291,144,52,No,No,Yes,Yes,No,No,No,Yes,Yes,No,Yes,No,No,No,No,Yes,Current,No,Yes,Valvular Heart Disease
+60,Yes,No,Yes,134,120,82,Wheeze,162,111,77,No,No,Yes,No,Yes,Yes,No,No,Yes,Yes,No,Yes,No,No,Yes,No,Never,No,Yes,Valvular Heart Disease
+41,No,No,Yes,100,95,81,Crackle,289,152,48,Yes,No,No,Yes,Yes,No,Yes,Yes,Yes,No,No,Yes,No,Yes,No,No,Never,Yes,Yes,Coronary Artery Disease (CAD)
+70,Yes,Yes,No,135,92,85,Wheeze,222,139,66,No,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,Current,No,Yes,Valvular Heart Disease
+48,Yes,No,No,169,69,66,Wheeze,151,161,72,No,Yes,No,Yes,Yes,No,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,No,Former,No,No,Arrhythmia
+30,No,Yes,No,121,96,98,Rhonchi,297,163,74,No,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,No,Yes,No,No,No,Current,No,Yes,Cardiomyopathy
+65,No,No,Yes,146,97,62,Wheeze,163,80,34,No,No,No,No,No,Yes,No,No,Yes,No,No,No,No,Yes,Yes,Yes,Never,Yes,Yes,Coronary Artery Disease (CAD)
+46,No,No,Yes,133,89,78,Crackle,285,86,50,Yes,No,No,Yes,No,Yes,Yes,No,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Never,No,No,Arrhythmia
+52,Yes,No,No,167,63,84,Crackle,267,172,34,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,Current,No,Yes,Arrhythmia
+57,Yes,Yes,No,91,120,81,Rhonchi,167,175,53,Yes,Yes,No,No,No,Yes,Yes,Yes,No,No,Yes,No,Yes,No,No,No,Former,No,Yes,Cardiomyopathy
+54,Yes,No,No,141,64,78,Rhonchi,242,198,61,Yes,No,No,Yes,Yes,Yes,Yes,Yes,No,No,Yes,No,Yes,Yes,No,No,Never,No,No,Arrhythmia
+42,Yes,No,No,131,118,99,Normal,266,117,33,No,Yes,No,Yes,No,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,Former,Yes,No,Coronary Artery Disease (CAD)
+50,No,Yes,Yes,95,108,66,Wheeze,234,168,78,No,Yes,No,No,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,No,Yes,Former,No,No,Arrhythmia
+70,Yes,No,No,132,93,80,Rhonchi,155,143,42,No,Yes,No,No,Yes,Yes,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,Yes,Never,No,No,Arrhythmia
+75,No,No,Yes,177,97,84,Rhonchi,175,101,61,No,Yes,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,Never,No,Yes,Cardiomyopathy
+57,Yes,No,Yes,99,97,85,Normal,259,129,58,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,No,No,No,No,Current,No,No,Valvular Heart Disease
+42,No,No,Yes,111,107,84,Wheeze,158,71,32,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,No,Current,No,No,Valvular Heart Disease
+38,No,Yes,Yes,137,78,63,Wheeze,185,126,32,No,Yes,No,Yes,No,Yes,Yes,Yes,No,No,Yes,Yes,No,Yes,No,No,Current,No,Yes,Arrhythmia
+46,No,No,Yes,100,110,93,Normal,294,82,45,Yes,Yes,No,Yes,No,No,No,Yes,Yes,No,Yes,No,Yes,Yes,Yes,Yes,Never,No,No,Arrhythmia
+54,No,Yes,No,151,60,81,Wheeze,262,186,32,Yes,No,No,Yes,No,No,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Current,Yes,No,Heart Failure
+75,No,No,Yes,177,84,98,Wheeze,174,151,44,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,No,Yes,No,Yes,No,No,Never,Yes,No,Coronary Artery Disease (CAD)
+57,Yes,No,Yes,123,114,94,Normal,199,113,50,No,Yes,No,Yes,No,Yes,No,No,No,Yes,Yes,No,No,No,No,No,Former,No,Yes,Cardiomyopathy
+50,No,Yes,Yes,126,102,95,Rhonchi,167,143,44,Yes,Yes,Yes,No,Yes,Yes,Yes,No,Yes,No,Yes,No,No,No,Yes,No,Former,No,No,Valvular Heart Disease
+64,Yes,Yes,Yes,179,78,97,Rhonchi,284,147,39,No,Yes,No,Yes,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,Yes,Former,No,No,Cardiomyopathy
+49,No,No,No,151,75,94,Wheeze,173,97,41,Yes,No,Yes,Yes,Yes,No,Yes,No,Yes,No,Yes,Yes,No,No,Yes,No,Current,No,Yes,Valvular Heart Disease
+62,No,No,No,112,81,79,Crackle,231,89,47,Yes,No,No,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,No,Yes,No,Yes,Former,Yes,No,Coronary Artery Disease (CAD)
+78,Yes,No,No,138,63,68,Normal,293,115,60,Yes,No,No,No,No,Yes,Yes,No,No,No,No,Yes,No,No,Yes,Yes,Current,No,No,Cardiomyopathy
+67,Yes,No,No,172,85,71,Normal,195,154,48,No,Yes,No,No,No,No,No,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,Former,Yes,No,Coronary Artery Disease (CAD)
+38,No,No,Yes,98,76,94,Wheeze,295,82,44,Yes,Yes,No,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,No,No,Yes,Former,No,Yes,Cardiomyopathy
+66,No,Yes,Yes,149,63,95,Normal,263,115,69,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,No,No,Never,No,No,Cardiomyopathy
+65,No,Yes,Yes,95,118,94,Normal,159,114,55,No,No,No,No,No,No,No,Yes,No,No,Yes,No,No,Yes,No,Yes,Never,Yes,No,Heart Failure
+77,No,No,No,166,91,71,Normal,152,199,35,Yes,No,No,No,Yes,No,Yes,Yes,Yes,Yes,No,Yes,Yes,No,No,No,Former,No,Yes,Cardiomyopathy
+57,No,No,Yes,158,74,76,Normal,250,111,73,No,No,No,No,Yes,Yes,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Former,No,No,Arrhythmia
+77,No,Yes,Yes,119,72,86,Rhonchi,166,93,42,No,No,No,Yes,Yes,No,Yes,No,No,Yes,Yes,No,No,Yes,No,Yes,Never,Yes,No,Heart Failure
+73,No,No,No,174,93,66,Normal,239,93,72,No,Yes,No,No,Yes,No,Yes,No,No,No,Yes,No,Yes,Yes,No,No,Former,No,No,Arrhythmia
+48,Yes,Yes,No,140,111,90,Normal,183,119,60,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Yes,No,Yes,No,No,Yes,Yes,Current,No,Yes,Cardiomyopathy
+38,Yes,Yes,No,152,92,93,Wheeze,185,128,32,Yes,No,No,No,No,No,No,No,No,Yes,Yes,No,Yes,Yes,No,No,Former,No,Yes,Arrhythmia
+37,Yes,Yes,Yes,144,64,71,Crackle,246,76,40,No,Yes,No,Yes,Yes,Yes,No,No,No,Yes,No,No,Yes,Yes,No,No,Former,Yes,No,Coronary Artery Disease (CAD)
+36,No,Yes,Yes,126,72,89,Crackle,256,130,56,No,No,No,Yes,No,Yes,Yes,No,No,No,No,No,No,Yes,Yes,Yes,Never,Yes,Yes,Coronary Artery Disease (CAD)
+63,No,Yes,No,157,83,94,Normal,297,162,70,Yes,No,No,No,No,No,No,No,No,No,Yes,No,No,Yes,No,No,Never,Yes,Yes,Coronary Artery Disease (CAD)
+45,No,No,No,154,93,74,Wheeze,261,157,35,Yes,Yes,Yes,Yes,No,Yes,No,Yes,No,Yes,No,Yes,No,No,Yes,Yes,Former,No,No,Valvular Heart Disease
+61,Yes,No,Yes,126,86,89,Wheeze,200,173,66,Yes,Yes,No,Yes,Yes,No,Yes,No,No,Yes,No,No,Yes,Yes,Yes,No,Current,No,No,Arrhythmia
+63,Yes,Yes,Yes,145,85,61,Normal,230,108,49,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,No,Yes,Yes,Yes,No,No,Yes,Current,No,No,Valvular Heart Disease
+54,No,Yes,No,102,88,63,Rhonchi,233,120,36,Yes,No,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,No,Yes,No,Yes,Yes,Former,No,Yes,Valvular Heart Disease
+47,No,Yes,No,108,120,78,Normal,291,72,76,Yes,No,No,Yes,Yes,No,No,No,No,No,Yes,No,No,Yes,Yes,No,Current,Yes,No,Heart Failure
+69,Yes,Yes,Yes,96,113,81,Rhonchi,150,177,47,No,No,No,Yes,Yes,Yes,No,No,No,Yes,No,Yes,No,Yes,Yes,No,Never,No,Yes,Arrhythmia
+38,No,Yes,Yes,124,89,83,Rhonchi,258,146,75,Yes,Yes,No,No,No,Yes,No,No,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,Current,Yes,No,Coronary Artery Disease (CAD)
+72,No,Yes,No,120,70,99,Rhonchi,151,191,53,No,No,No,No,Yes,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Former,Yes,No,Coronary Artery Disease (CAD)
+59,No,No,Yes,124,111,79,Normal,260,117,59,Yes,Yes,No,No,Yes,Yes,No,Yes,No,Yes,No,Yes,Yes,Yes,No,Yes,Current,No,Yes,Arrhythmia
+50,No,Yes,Yes,110,72,95,Crackle,230,88,55,No,No,No,Yes,No,No,Yes,Yes,No,No,No,No,Yes,No,No,Yes,Former,No,No,Cardiomyopathy
+45,Yes,No,No,162,100,78,Rhonchi,274,108,50,No,Yes,No,Yes,Yes,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,Yes,No,Current,No,No,Arrhythmia
+67,No,No,No,168,60,60,Normal,277,70,57,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,No,No,Yes,Former,No,Yes,Valvular Heart Disease
+35,No,Yes,No,101,60,66,Normal,284,175,68,Yes,Yes,Yes,No,No,No,Yes,No,No,No,Yes,Yes,Yes,No,Yes,No,Never,No,No,Valvular Heart Disease
+71,Yes,Yes,No,118,66,97,Rhonchi,278,170,51,Yes,Yes,No,No,Yes,Yes,Yes,No,Yes,Yes,No,No,Yes,No,Yes,Yes,Former,No,Yes,Cardiomyopathy
+68,No,No,Yes,109,64,99,Normal,267,95,68,Yes,No,No,Yes,Yes,No,No,Yes,No,No,Yes,Yes,Yes,Yes,No,Yes,Former,Yes,Yes,Heart Failure
+66,No,No,No,94,79,87,Crackle,282,95,79,No,Yes,Yes,No,Yes,No,No,Yes,No,Yes,Yes,Yes,No,No,Yes,Yes,Current,No,No,Valvular Heart Disease
+60,Yes,Yes,No,172,102,80,Crackle,260,148,49,No,Yes,No,No,Yes,Yes,No,No,Yes,Yes,No,No,No,Yes,Yes,No,Never,Yes,Yes,Coronary Artery Disease (CAD)
+76,No,No,Yes,99,60,73,Normal,234,90,72,No,Yes,No,No,No,Yes,No,Yes,No,Yes,No,Yes,Yes,Yes,No,No,Current,Yes,Yes,Coronary Artery Disease (CAD)
+69,Yes,Yes,No,92,71,72,Wheeze,239,169,66,Yes,No,No,Yes,Yes,No,No,No,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Never,Yes,Yes,Coronary Artery Disease (CAD)
+68,No,No,No,98,77,100,Wheeze,185,90,42,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,No,Yes,Yes,No,No,Yes,No,Current,No,No,Cardiomyopathy
+36,Yes,No,No,165,108,78,Rhonchi,158,172,75,No,No,Yes,No,No,No,No,Yes,No,Yes,No,No,No,No,No,No,Former,No,Yes,Valvular Heart Disease
+44,Yes,Yes,Yes,114,91,96,Wheeze,205,128,33,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,No,Yes,No,Yes,Yes,Yes,Never,Yes,Yes,Coronary Artery Disease (CAD)
+30,No,Yes,Yes,127,66,66,Rhonchi,173,149,49,Yes,No,No,Yes,No,Yes,Yes,No,Yes,No,No,Yes,Yes,Yes,Yes,No,Current,No,No,Arrhythmia
+60,No,No,No,155,114,64,Wheeze,287,151,68,No,No,No,Yes,Yes,No,Yes,Yes,Yes,No,No,Yes,Yes,Yes,No,No,Former,Yes,No,Coronary Artery Disease (CAD)
+51,No,No,Yes,167,66,99,Wheeze,161,118,44,No,Yes,No,No,Yes,Yes,Yes,Yes,No,Yes,No,Yes,Yes,Yes,No,Yes,Current,Yes,Yes,Coronary Artery Disease (CAD)
+43,No,No,Yes,130,78,92,Rhonchi,197,111,47,Yes,No,No,No,No,No,No,No,Yes,Yes,Yes,No,No,Yes,No,No,Never,No,Yes,Arrhythmia
+49,Yes,Yes,Yes,112,90,68,Rhonchi,183,84,70,Yes,No,No,Yes,No,No,No,Yes,Yes,Yes,No,Yes,Yes,No,No,No,Never,No,No,Cardiomyopathy
+32,No,Yes,Yes,134,106,84,Wheeze,214,154,71,No,No,No,Yes,No,Yes,Yes,Yes,No,No,Yes,No,No,Yes,No,No,Former,No,No,Arrhythmia
+58,No,No,Yes,112,68,97,Rhonchi,186,194,40,No,Yes,Yes,No,Yes,No,No,No,No,Yes,No,No,No,No,Yes,Yes,Former,No,No,Valvular Heart Disease
+58,No,No,Yes,166,67,71,Normal,218,81,32,Yes,No,No,Yes,No,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,No,Former,No,Yes,Cardiomyopathy
+55,Yes,No,No,159,104,61,Crackle,214,184,50,Yes,Yes,No,No,Yes,No,No,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,Never,Yes,Yes,Coronary Artery Disease (CAD)
+59,Yes,Yes,Yes,168,116,90,Crackle,255,72,80,Yes,No,No,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,Yes,No,Current,No,No,Cardiomyopathy
+73,No,No,Yes,146,91,87,Wheeze,268,88,50,No,Yes,No,Yes,Yes,Yes,No,Yes,No,Yes,No,No,Yes,Yes,No,Yes,Current,Yes,Yes,Heart Failure
+63,Yes,No,Yes,91,61,65,Crackle,174,180,50,No,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,No,Yes,No,No,No,Yes,Current,No,Yes,Cardiomyopathy
+76,Yes,No,Yes,161,92,94,Crackle,168,135,75,No,Yes,No,No,Yes,No,No,No,Yes,No,Yes,No,No,No,Yes,Yes,Never,No,No,Cardiomyopathy
+35,No,Yes,No,110,103,89,Normal,162,99,66,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Yes,No,No,No,Never,No,No,Valvular Heart Disease
+39,Yes,Yes,Yes,98,106,82,Crackle,266,157,49,No,Yes,No,Yes,No,Yes,No,No,No,Yes,No,Yes,Yes,No,Yes,Yes,Former,No,Yes,Cardiomyopathy
+77,No,Yes,Yes,174,116,93,Crackle,197,85,62,No,Yes,No,No,No,Yes,Yes,No,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,Never,Yes,Yes,Heart Failure
+38,No,Yes,No,158,105,100,Crackle,264,142,32,Yes,No,No,Yes,Yes,No,Yes,No,No,Yes,No,Yes,Yes,No,No,No,Never,No,No,Cardiomyopathy
+30,Yes,No,Yes,159,68,87,Wheeze,223,88,30,Yes,No,No,Yes,No,No,Yes,No,Yes,No,No,No,Yes,No,No,No,Never,No,Yes,Cardiomyopathy
+71,Yes,Yes,No,180,94,74,Normal,258,91,65,No,No,Yes,Yes,Yes,No,No,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,Former,No,No,Valvular Heart Disease
+78,No,Yes,Yes,161,72,71,Normal,152,118,41,No,No,No,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,Yes,No,No,Never,Yes,No,Heart Failure
+79,No,No,Yes,119,102,68,Crackle,284,115,57,No,No,No,No,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,Yes,Yes,Current,No,Yes,Cardiomyopathy
+35,No,Yes,Yes,138,63,63,Wheeze,222,149,64,No,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,No,Never,No,No,Cardiomyopathy
+57,No,No,No,162,117,68,Normal,269,185,56,No,No,No,No,Yes,No,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Current,Yes,No,Coronary Artery Disease (CAD)
+45,Yes,No,No,156,111,88,Normal,281,165,38,No,No,No,Yes,No,No,Yes,No,Yes,Yes,No,Yes,No,No,No,Yes,Never,No,Yes,Cardiomyopathy
+34,No,No,Yes,90,76,93,Wheeze,194,82,37,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,No,No,No,No,Former,No,Yes,Cardiomyopathy
+60,Yes,No,Yes,109,79,72,Crackle,254,105,56,Yes,No,No,No,Yes,Yes,Yes,Yes,No,Yes,No,No,No,Yes,No,Yes,Never,Yes,No,Coronary Artery Disease (CAD)
+48,Yes,Yes,No,122,85,86,Wheeze,250,151,44,Yes,Yes,No,No,No,Yes,No,No,Yes,No,Yes,No,Yes,No,Yes,No,Former,No,Yes,Cardiomyopathy
+63,No,Yes,No,111,91,69,Wheeze,216,85,62,No,No,No,Yes,Yes,No,No,Yes,No,No,Yes,No,No,Yes,Yes,No,Never,Yes,No,Coronary Artery Disease (CAD)
+66,No,No,No,99,90,78,Wheeze,220,84,58,Yes,Yes,No,Yes,Yes,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,Current,No,No,Arrhythmia
+36,No,Yes,Yes,149,75,97,Rhonchi,197,98,38,Yes,No,No,Yes,No,No,No,No,Yes,No,No,No,Yes,Yes,No,No,Never,Yes,Yes,Heart Failure
+78,Yes,Yes,Yes,102,93,91,Wheeze,241,140,69,No,No,No,Yes,Yes,No,No,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Current,No,No,Cardiomyopathy
+58,No,Yes,No,179,81,76,Wheeze,171,87,73,No,No,No,Yes,Yes,No,Yes,No,Yes,Yes,No,No,No,Yes,Yes,No,Former,Yes,Yes,Coronary Artery Disease (CAD)
+59,Yes,No,Yes,171,96,71,Rhonchi,156,154,63,No,Yes,No,Yes,No,Yes,Yes,No,No,No,No,Yes,Yes,Yes,No,Yes,Never,Yes,Yes,Coronary Artery Disease (CAD)
+47,Yes,Yes,No,135,79,80,Rhonchi,163,180,46,Yes,Yes,Yes,Yes,No,Yes,No,No,Yes,Yes,No,Yes,Yes,No,Yes,Yes,Current,No,Yes,Valvular Heart Disease
+42,No,No,Yes,180,86,84,Crackle,151,179,47,No,No,No,Yes,No,Yes,No,No,No,No,Yes,No,No,No,No,No,Never,No,No,Cardiomyopathy
+63,No,No,Yes,109,100,68,Normal,254,88,62,No,No,No,Yes,Yes,Yes,Yes,No,No,No,Yes,No,Yes,Yes,Yes,No,Current,No,Yes,Arrhythmia
+36,Yes,No,Yes,101,73,87,Crackle,150,110,32,Yes,Yes,No,No,Yes,No,Yes,No,No,Yes,No,No,No,No,Yes,No,Former,No,Yes,Cardiomyopathy
+55,No,No,Yes,132,81,95,Normal,277,100,37,Yes,No,No,Yes,Yes,Yes,No,Yes,No,No,No,No,Yes,Yes,No,Yes,Never,No,Yes,Arrhythmia
+43,Yes,No,Yes,143,75,64,Crackle,180,72,50,No,Yes,No,Yes,No,Yes,No,Yes,Yes,Yes,No,No,Yes,Yes,No,Yes,Current,No,No,Arrhythmia
+40,Yes,No,No,126,70,88,Crackle,271,100,39,No,Yes,No,No,Yes,Yes,No,No,Yes,Yes,No,Yes,Yes,Yes,Yes,No,Former,Yes,Yes,Coronary Artery Disease (CAD)
+53,No,Yes,No,170,114,92,Normal,275,99,67,No,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,No,Yes,Yes,No,Yes,Yes,Never,No,Yes,Valvular Heart Disease
+80,No,Yes,Yes,160,81,97,Rhonchi,269,108,76,Yes,No,No,No,No,Yes,Yes,Yes,No,No,No,No,Yes,Yes,No,Yes,Former,Yes,No,Heart Failure
+76,No,Yes,Yes,122,71,81,Crackle,219,157,45,Yes,Yes,No,No,No,Yes,Yes,No,No,No,No,Yes,No,Yes,Yes,No,Never,Yes,No,Heart Failure
+64,No,Yes,Yes,144,74,85,Rhonchi,156,177,71,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,Yes,Yes,No,Yes,No,No,No,Former,No,Yes,Cardiomyopathy
+62,Yes,No,Yes,171,117,61,Rhonchi,207,164,75,Yes,No,No,Yes,No,Yes,No,No,Yes,No,Yes,No,No,Yes,Yes,No,Former,Yes,Yes,Coronary Artery Disease (CAD)
+65,Yes,No,Yes,163,115,86,Wheeze,205,101,46,Yes,No,No,No,No,Yes,Yes,No,No,No,No,Yes,No,Yes,Yes,Yes,Never,Yes,Yes,Coronary Artery Disease (CAD)
+57,Yes,No,No,143,97,93,Normal,225,144,35,Yes,Yes,Yes,No,Yes,No,No,Yes,No,Yes,No,Yes,No,No,No,Yes,Former,No,Yes,Valvular Heart Disease
+40,No,Yes,No,177,111,71,Rhonchi,277,138,34,No,Yes,No,Yes,No,Yes,Yes,Yes,No,No,No,Yes,No,Yes,No,No,Current,Yes,No,Heart Failure
+33,No,No,No,132,100,97,Normal,231,159,49,Yes,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Current,Yes,No,Heart Failure
+52,No,No,No,105,107,95,Crackle,275,101,55,No,No,No,No,Yes,No,Yes,Yes,No,Yes,No,Yes,Yes,Yes,No,No,Never,Yes,Yes,Coronary Artery Disease (CAD)
+76,Yes,No,Yes,135,86,89,Wheeze,263,79,67,Yes,No,Yes,No,No,Yes,Yes,No,Yes,Yes,Yes,No,Yes,No,Yes,No,Never,No,No,Valvular Heart Disease
+36,No,No,No,180,65,80,Wheeze,260,195,32,No,Yes,No,Yes,Yes,No,No,No,Yes,Yes,No,No,Yes,No,Yes,Yes,Never,No,No,Cardiomyopathy
+65,No,No,Yes,175,109,92,Normal,263,157,44,Yes,Yes,No,No,No,Yes,No,Yes,Yes,No,No,No,Yes,Yes,Yes,No,Never,No,No,Arrhythmia
+56,No,No,No,152,109,69,Crackle,245,193,51,No,No,No,No,Yes,Yes,Yes,No,Yes,No,No,No,No,No,No,Yes,Former,No,No,Cardiomyopathy
+53,No,No,Yes,96,99,84,Wheeze,191,161,64,No,No,No,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,Current,Yes,Yes,Heart Failure
+55,Yes,Yes,Yes,127,94,99,Crackle,293,196,54,No,No,No,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,Yes,No,Yes,Current,Yes,No,Heart Failure
+47,Yes,No,Yes,144,87,67,Wheeze,150,162,45,Yes,Yes,No,Yes,No,No,No,No,No,Yes,Yes,Yes,Yes,No,No,No,Current,No,No,Cardiomyopathy
+70,No,Yes,Yes,129,83,60,Wheeze,265,181,53,No,No,No,Yes,Yes,No,Yes,Yes,Yes,No,No,No,No,Yes,Yes,Yes,Former,Yes,No,Heart Failure
+44,No,No,Yes,135,89,67,Wheeze,276,128,63,Yes,No,No,Yes,Yes,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,Never,Yes,Yes,Heart Failure
+73,No,Yes,Yes,178,64,70,Rhonchi,293,148,65,No,Yes,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,Yes,No,No,No,Yes,Never,No,Yes,Valvular Heart Disease
+45,Yes,Yes,Yes,109,109,76,Crackle,255,136,34,Yes,Yes,No,Yes,Yes,No,No,Yes,No,No,No,No,No,Yes,Yes,Yes,Former,Yes,No,Coronary Artery Disease (CAD)
+76,No,Yes,No,113,74,96,Rhonchi,227,146,56,Yes,Yes,Yes,Yes,No,No,No,Yes,Yes,Yes,Yes,No,Yes,No,No,No,Never,No,No,Valvular Heart Disease
+58,No,Yes,No,120,115,84,Rhonchi,193,97,61,Yes,Yes,Yes,Yes,Yes,No,No,No,No,Yes,Yes,Yes,No,No,Yes,No,Current,No,Yes,Valvular Heart Disease
+60,No,No,Yes,157,114,76,Crackle,157,189,80,Yes,No,No,Yes,No,No,Yes,No,No,Yes,No,Yes,Yes,Yes,No,Yes,Never,Yes,Yes,Coronary Artery Disease (CAD)
+33,No,Yes,No,140,105,80,Crackle,291,159,61,No,Yes,No,No,Yes,Yes,No,No,No,Yes,Yes,No,Yes,No,Yes,No,Former,No,Yes,Cardiomyopathy
+64,Yes,No,No,102,95,99,Crackle,168,99,37,No,Yes,No,No,No,No,No,Yes,No,Yes,No,No,Yes,Yes,No,Yes,Former,Yes,Yes,Heart Failure
+71,Yes,Yes,Yes,123,78,60,Normal,266,179,47,No,No,Yes,No,Yes,Yes,No,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Current,No,No,Valvular Heart Disease
+52,Yes,No,Yes,104,77,72,Wheeze,190,165,40,Yes,No,No,Yes,Yes,Yes,Yes,Yes,No,Yes,No,Yes,No,No,Yes,Yes,Former,No,No,Cardiomyopathy
+58,No,Yes,Yes,102,81,63,Crackle,180,96,72,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,No,No,Yes,Yes,No,Yes,Current,Yes,No,Coronary Artery Disease (CAD)
+52,Yes,Yes,Yes,92,84,63,Wheeze,154,167,38,Yes,No,No,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,No,Yes,Yes,No,Yes,Former,Yes,No,Coronary Artery Disease (CAD)
+39,Yes,No,Yes,133,71,86,Normal,299,109,54,No,No,Yes,Yes,No,Yes,Yes,No,No,No,Yes,Yes,No,No,Yes,No,Former,No,No,Valvular Heart Disease
+59,No,Yes,No,147,83,61,Rhonchi,231,74,51,No,No,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,Yes,Yes,No,No,Yes,Current,No,No,Valvular Heart Disease
+63,Yes,Yes,No,130,109,99,Crackle,180,146,40,No,No,Yes,No,Yes,No,Yes,No,Yes,No,Yes,Yes,No,No,Yes,Yes,Current,No,No,Valvular Heart Disease
+58,Yes,Yes,No,148,63,77,Crackle,193,162,78,No,No,No,Yes,No,Yes,No,Yes,No,No,Yes,No,Yes,Yes,Yes,No,Former,Yes,No,Coronary Artery Disease (CAD)
+67,No,No,No,124,91,100,Crackle,236,129,72,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,No,Yes,Yes,No,No,Yes,Former,No,Yes,Cardiomyopathy
+70,Yes,No,Yes,159,115,72,Rhonchi,164,89,35,No,Yes,No,Yes,Yes,No,Yes,Yes,Yes,No,Yes,No,No,Yes,No,Yes,Never,Yes,No,Heart Failure
+36,Yes,No,Yes,106,97,75,Rhonchi,165,188,65,No,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,No,Former,Yes,Yes,Heart Failure
+32,No,No,No,170,115,68,Normal,156,177,62,Yes,Yes,No,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Former,Yes,No,Coronary Artery Disease (CAD)
+63,No,Yes,No,146,87,97,Wheeze,283,161,41,Yes,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,No,No,No,No,No,Never,No,No,Cardiomyopathy
+38,No,Yes,No,121,114,86,Crackle,178,113,30,No,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Current,No,Yes,Arrhythmia
+80,No,Yes,Yes,121,77,60,Wheeze,177,108,36,Yes,No,No,No,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,Current,No,No,Arrhythmia
+56,No,Yes,Yes,94,96,61,Wheeze,182,94,36,Yes,Yes,No,No,Yes,No,Yes,No,No,No,No,Yes,No,Yes,No,No,Current,No,No,Arrhythmia
+50,No,Yes,No,163,62,83,Crackle,293,165,76,No,Yes,Yes,No,Yes,Yes,No,Yes,No,No,No,Yes,No,No,No,Yes,Former,No,No,Valvular Heart Disease
+32,Yes,Yes,Yes,179,93,98,Normal,180,116,51,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,No,Yes,No,No,Yes,Yes,Never,No,Yes,Valvular Heart Disease
+72,Yes,Yes,No,162,73,79,Rhonchi,156,127,38,Yes,Yes,Yes,No,Yes,Yes,Yes,No,Yes,No,Yes,No,No,No,No,Yes,Never,No,Yes,Valvular Heart Disease
+41,No,Yes,No,133,113,100,Wheeze,204,167,76,No,Yes,No,No,No,No,Yes,No,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Current,Yes,Yes,Coronary Artery Disease (CAD)
+38,Yes,No,Yes,96,75,86,Rhonchi,212,173,30,Yes,Yes,No,Yes,No,Yes,No,Yes,No,No,Yes,No,No,No,Yes,No,Never,No,No,Cardiomyopathy
+64,Yes,No,Yes,147,91,60,Crackle,220,194,68,Yes,Yes,No,No,Yes,Yes,Yes,No,No,Yes,Yes,No,Yes,No,No,No,Never,No,No,Cardiomyopathy
+71,No,Yes,Yes,104,91,62,Rhonchi,269,178,76,No,No,Yes,Yes,Yes,No,No,Yes,No,Yes,Yes,Yes,Yes,No,No,No,Current,No,No,Valvular Heart Disease
+36,Yes,No,Yes,107,114,86,Crackle,204,87,32,Yes,No,No,Yes,Yes,Yes,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,Current,Yes,No,Coronary Artery Disease (CAD)
+33,Yes,Yes,Yes,109,94,76,Normal,177,115,80,No,No,No,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,Yes,Yes,Former,No,Yes,Cardiomyopathy
+63,Yes,No,Yes,127,69,63,Normal,263,139,44,Yes,Yes,No,No,No,No,No,No,No,Yes,Yes,Yes,No,Yes,No,Yes,Current,Yes,Yes,Heart Failure
+58,No,No,No,137,63,65,Wheeze,164,114,60,Yes,No,No,Yes,No,No,Yes,Yes,No,No,Yes,Yes,No,Yes,No,No,Former,No,Yes,Arrhythmia
+71,Yes,No,Yes,162,95,60,Crackle,200,122,69,No,Yes,No,Yes,Yes,No,No,No,Yes,Yes,No,Yes,Yes,Yes,Yes,No,Current,Yes,Yes,Coronary Artery Disease (CAD)
+41,No,Yes,Yes,107,112,68,Normal,154,90,72,No,No,No,Yes,No,Yes,Yes,No,No,No,Yes,Yes,No,Yes,Yes,Yes,Current,Yes,Yes,Heart Failure
+34,Yes,No,Yes,127,89,100,Wheeze,282,142,71,No,Yes,Yes,Yes,Yes,No,No,Yes,No,No,No,Yes,No,No,No,No,Never,No,No,Valvular Heart Disease
+31,No,Yes,Yes,119,81,67,Rhonchi,258,96,41,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,No,No,No,No,Never,No,No,Valvular Heart Disease
+40,No,No,No,173,70,61,Crackle,241,130,48,No,Yes,No,Yes,No,No,Yes,No,Yes,No,Yes,Yes,No,Yes,No,Yes,Never,No,No,Arrhythmia
+42,Yes,No,Yes,91,105,76,Rhonchi,275,79,68,No,No,No,Yes,No,No,Yes,No,Yes,Yes,No,No,Yes,Yes,No,No,Former,Yes,Yes,Heart Failure
+50,Yes,No,Yes,104,83,99,Normal,157,70,32,No,No,No,No,No,Yes,No,No,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Never,Yes,Yes,Heart Failure
+61,Yes,Yes,No,162,86,99,Crackle,297,160,49,No,No,No,Yes,No,No,Yes,Yes,No,Yes,Yes,Yes,No,Yes,No,Yes,Never,Yes,Yes,Coronary Artery Disease (CAD)
+68,Yes,Yes,Yes,170,61,70,Rhonchi,175,98,48,No,Yes,No,No,Yes,No,No,No,No,Yes,No,No,No,Yes,No,No,Former,Yes,Yes,Coronary Artery Disease (CAD)
+37,No,Yes,Yes,110,83,95,Normal,180,138,72,Yes,Yes,No,No,No,No,No,No,No,No,No,No,No,Yes,Yes,Yes,Current,Yes,Yes,Heart Failure
+78,No,Yes,No,93,60,100,Crackle,298,113,66,Yes,No,Yes,Yes,Yes,Yes,No,No,Yes,No,Yes,No,No,No,Yes,No,Current,No,Yes,Valvular Heart Disease
+76,Yes,Yes,No,163,60,81,Normal,269,141,56,Yes,No,No,No,No,No,No,No,No,Yes,No,No,No,Yes,No,Yes,Former,No,No,Arrhythmia
+41,Yes,No,No,114,87,74,Normal,157,99,37,No,No,No,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Yes,No,No,Yes,No,Former,No,No,Cardiomyopathy
+44,Yes,Yes,No,128,115,67,Rhonchi,161,152,76,No,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,No,Yes,Yes,No,Current,No,Yes,Arrhythmia
+75,Yes,No,Yes,172,60,73,Wheeze,162,156,36,Yes,No,No,No,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Former,Yes,Yes,Heart Failure
+78,No,Yes,Yes,160,109,73,Normal,256,106,41,No,Yes,No,No,No,No,Yes,No,Yes,No,No,No,No,Yes,No,Yes,Never,No,No,Arrhythmia
+32,Yes,Yes,Yes,149,110,63,Crackle,253,138,32,No,No,No,No,Yes,No,Yes,Yes,No,No,Yes,Yes,No,Yes,No,No,Never,No,No,Arrhythmia
+75,Yes,Yes,Yes,106,110,95,Crackle,198,180,69,No,Yes,Yes,No,No,Yes,Yes,Yes,No,Yes,No,No,No,No,No,Yes,Never,No,Yes,Valvular Heart Disease
+71,Yes,Yes,No,176,78,66,Crackle,288,122,72,No,Yes,Yes,No,No,No,No,No,No,No,Yes,Yes,No,No,No,Yes,Former,No,Yes,Valvular Heart Disease
+48,Yes,No,Yes,130,86,100,Normal,279,184,33,No,No,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Yes,No,Yes,No,Former,No,Yes,Valvular Heart Disease
+61,Yes,No,No,166,109,73,Normal,206,128,67,Yes,Yes,No,No,No,Yes,Yes,Yes,No,No,No,Yes,Yes,Yes,Yes,Yes,Former,Yes,Yes,Heart Failure
+71,No,Yes,No,120,102,75,Wheeze,208,155,31,Yes,No,No,No,No,No,Yes,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,Current,Yes,No,Coronary Artery Disease (CAD)
+73,No,Yes,Yes,137,63,77,Wheeze,184,149,70,Yes,No,No,Yes,No,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Yes,No,No,Never,Yes,Yes,Coronary Artery Disease (CAD)
+36,Yes,Yes,No,158,111,74,Wheeze,259,114,43,No,Yes,No,No,No,No,No,Yes,No,Yes,No,Yes,No,Yes,Yes,Yes,Former,No,Yes,Arrhythmia
+41,No,Yes,No,115,73,85,Crackle,279,188,34,Yes,Yes,No,Yes,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,Yes,Former,Yes,No,Heart Failure
+73,No,Yes,No,160,120,95,Crackle,261,110,58,No,No,Yes,No,Yes,No,No,Yes,Yes,No,No,No,No,No,No,Yes,Never,No,Yes,Valvular Heart Disease
+78,Yes,No,No,177,83,65,Rhonchi,219,161,67,Yes,Yes,Yes,Yes,No,No,No,Yes,Yes,Yes,No,Yes,Yes,No,Yes,Yes,Former,No,Yes,Valvular Heart Disease
+49,No,Yes,No,179,95,83,Crackle,172,147,62,Yes,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Former,Yes,Yes,Coronary Artery Disease (CAD)
+54,Yes,Yes,No,123,64,95,Crackle,164,79,43,No,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,No,No,Never,Yes,Yes,Coronary Artery Disease (CAD)
+40,Yes,No,Yes,131,62,76,Crackle,171,146,43,Yes,No,No,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,No,No,Never,Yes,Yes,Heart Failure
+47,Yes,No,Yes,177,74,80,Rhonchi,271,87,80,No,Yes,No,No,Yes,Yes,Yes,No,Yes,No,No,No,Yes,Yes,No,No,Current,Yes,No,Heart Failure
+35,Yes,No,No,104,101,62,Crackle,265,126,72,No,Yes,No,Yes,No,Yes,No,No,No,Yes,Yes,No,Yes,Yes,Yes,No,Former,No,Yes,Arrhythmia
+35,No,Yes,Yes,156,109,69,Rhonchi,222,93,43,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,Yes,No,No,No,Current,No,Yes,Valvular Heart Disease
+56,No,Yes,Yes,162,72,75,Wheeze,287,77,68,No,Yes,No,Yes,No,No,No,Yes,Yes,Yes,Yes,Yes,No,No,No,Yes,Former,No,No,Cardiomyopathy
+49,No,No,No,151,88,93,Wheeze,286,72,77,No,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,No,Yes,No,No,Yes,Yes,Current,No,No,Cardiomyopathy
+51,No,No,No,153,66,86,Normal,240,137,68,No,Yes,No,Yes,No,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Current,Yes,No,Coronary Artery Disease (CAD)
+62,No,Yes,No,179,115,76,Rhonchi,252,87,46,No,No,No,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Yes,No,Former,Yes,No,Coronary Artery Disease (CAD)
+66,No,Yes,No,112,78,66,Rhonchi,175,179,36,No,Yes,No,Yes,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,Yes,No,Yes,Never,Yes,Yes,Heart Failure
+42,Yes,No,Yes,180,98,88,Rhonchi,174,158,65,Yes,No,No,No,No,Yes,No,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Former,Yes,Yes,Heart Failure
+70,Yes,No,No,128,93,83,Normal,269,93,48,Yes,No,No,Yes,Yes,No,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Never,Yes,Yes,Heart Failure
+78,No,No,No,173,65,92,Wheeze,257,141,49,Yes,Yes,No,Yes,Yes,Yes,No,No,No,Yes,No,Yes,No,Yes,Yes,No,Former,Yes,No,Heart Failure
+44,Yes,No,No,106,75,76,Wheeze,200,126,34,Yes,Yes,No,No,No,Yes,Yes,No,No,Yes,No,Yes,Yes,Yes,Yes,No,Former,Yes,No,Coronary Artery Disease (CAD)
+52,No,Yes,Yes,151,64,94,Rhonchi,219,116,65,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,No,Yes,Yes,No,No,Current,Yes,Yes,Coronary Artery Disease (CAD)
+63,Yes,No,No,171,81,65,Crackle,292,146,48,Yes,Yes,Yes,Yes,No,No,No,Yes,No,No,Yes,No,Yes,No,No,No,Current,No,No,Valvular Heart Disease
+38,Yes,Yes,No,90,95,81,Rhonchi,273,79,66,No,Yes,No,No,No,No,No,No,Yes,Yes,Yes,No,Yes,No,No,Yes,Current,No,Yes,Cardiomyopathy
+44,No,No,Yes,93,96,69,Crackle,267,86,37,No,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,Yes,Former,No,Yes,Cardiomyopathy
+43,No,Yes,Yes,168,77,89,Wheeze,291,106,70,No,No,No,Yes,No,No,Yes,No,No,Yes,Yes,No,Yes,Yes,Yes,No,Former,Yes,Yes,Coronary Artery Disease (CAD)
+74,Yes,No,No,94,98,80,Rhonchi,168,137,47,No,No,No,Yes,No,No,Yes,No,Yes,No,Yes,No,Yes,No,No,Yes,Former,No,No,Cardiomyopathy
+49,No,Yes,Yes,154,62,64,Crackle,287,165,32,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,Yes,No,No,Yes,No,No,Former,No,Yes,Arrhythmia
+30,No,No,Yes,94,116,84,Normal,278,137,43,Yes,Yes,No,No,Yes,No,No,Yes,Yes,No,Yes,No,No,Yes,No,Yes,Current,Yes,Yes,Heart Failure
+30,Yes,Yes,No,117,62,68,Wheeze,263,142,67,Yes,Yes,No,No,Yes,Yes,No,Yes,No,No,No,Yes,Yes,Yes,No,Yes,Never,Yes,Yes,Heart Failure
+62,No,No,No,100,77,61,Normal,177,181,30,Yes,No,Yes,No,No,Yes,Yes,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Never,No,Yes,Valvular Heart Disease
+62,No,Yes,Yes,96,86,95,Wheeze,230,178,68,Yes,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,Former,Yes,No,Heart Failure
+42,Yes,No,Yes,137,119,87,Normal,153,152,61,Yes,No,No,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Yes,No,Yes,No,No,Current,Yes,Yes,Heart Failure
+75,No,Yes,No,92,97,83,Normal,174,181,63,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,No,Yes,Yes,No,Yes,Current,Yes,Yes,Heart Failure
+67,Yes,Yes,No,147,114,77,Crackle,172,139,74,No,Yes,No,No,Yes,No,No,Yes,Yes,Yes,No,No,No,Yes,Yes,No,Never,Yes,No,Heart Failure
+56,Yes,No,No,170,115,88,Wheeze,289,108,37,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,No,No,Yes,No,Yes,Never,Yes,Yes,Coronary Artery Disease (CAD)
+71,Yes,Yes,No,167,116,99,Normal,208,118,45,No,Yes,No,Yes,No,Yes,Yes,No,Yes,No,No,Yes,No,No,Yes,Yes,Never,No,Yes,Cardiomyopathy
+36,No,No,No,118,66,76,Crackle,271,158,60,No,No,No,No,No,No,Yes,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Current,No,No,Arrhythmia
+70,No,Yes,No,177,66,94,Wheeze,265,129,33,Yes,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Current,Yes,Yes,Coronary Artery Disease (CAD)
+80,No,Yes,Yes,159,99,60,Crackle,255,170,67,Yes,No,No,Yes,Yes,No,No,Yes,No,No,Yes,Yes,No,Yes,No,Yes,Never,Yes,Yes,Heart Failure
+64,Yes,Yes,Yes,101,106,60,Wheeze,195,150,37,No,Yes,No,Yes,Yes,Yes,Yes,No,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Former,Yes,No,Coronary Artery Disease (CAD)
+66,Yes,No,Yes,101,61,90,Normal,269,120,78,No,No,No,Yes,Yes,No,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Former,Yes,No,Heart Failure
+46,No,No,Yes,141,96,89,Normal,178,188,58,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,No,Yes,Yes,No,Yes,Current,Yes,Yes,Coronary Artery Disease (CAD)
+34,Yes,No,Yes,139,112,89,Crackle,215,84,76,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,Yes,No,Yes,Yes,Never,No,Yes,Cardiomyopathy
+73,No,No,Yes,115,103,88,Rhonchi,161,161,57,Yes,Yes,Yes,No,No,No,No,Yes,Yes,No,Yes,Yes,No,No,Yes,Yes,Current,No,No,Valvular Heart Disease
+51,No,No,Yes,121,97,91,Rhonchi,170,147,72,Yes,Yes,No,No,Yes,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,No,No,Former,Yes,Yes,Coronary Artery Disease (CAD)
+41,Yes,No,Yes,105,71,76,Wheeze,267,123,47,Yes,No,No,Yes,Yes,No,No,Yes,Yes,No,No,Yes,Yes,Yes,No,No,Former,Yes,Yes,Coronary Artery Disease (CAD)
+79,Yes,Yes,Yes,155,115,80,Normal,249,113,60,No,Yes,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,Yes,Yes,No,Yes,Yes,Never,No,Yes,Valvular Heart Disease
+68,No,Yes,No,147,112,72,Wheeze,222,103,74,Yes,Yes,No,No,No,No,Yes,Yes,Yes,Yes,No,Yes,No,No,Yes,No,Current,No,Yes,Cardiomyopathy
+57,Yes,Yes,Yes,108,71,89,Rhonchi,262,157,56,Yes,Yes,No,Yes,No,No,No,Yes,No,No,No,No,No,Yes,No,Yes,Never,Yes,Yes,Coronary Artery Disease (CAD)
+61,Yes,Yes,No,122,84,78,Normal,188,188,76,No,Yes,No,Yes,No,No,No,No,Yes,Yes,No,Yes,Yes,Yes,No,Yes,Former,Yes,Yes,Heart Failure
+80,Yes,Yes,No,97,88,97,Wheeze,291,174,30,No,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,No,Yes,No,Yes,No,No,Former,Yes,No,Coronary Artery Disease (CAD)
+34,Yes,Yes,Yes,159,115,95,Crackle,194,176,63,No,Yes,No,No,Yes,No,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,Former,Yes,Yes,Coronary Artery Disease (CAD)
+65,No,Yes,No,98,63,91,Crackle,210,181,79,No,Yes,No,Yes,No,No,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,No,Current,Yes,No,Heart Failure
+75,Yes,No,No,124,81,65,Wheeze,265,166,58,Yes,No,Yes,Yes,No,No,No,No,Yes,No,Yes,No,No,No,No,Yes,Never,No,Yes,Valvular Heart Disease
+45,No,No,Yes,134,79,66,Rhonchi,189,122,40,Yes,No,No,No,Yes,No,No,No,No,Yes,No,Yes,No,No,Yes,Yes,Current,No,No,Cardiomyopathy
+66,Yes,No,Yes,166,99,82,Rhonchi,272,117,54,Yes,Yes,Yes,Yes,No,No,No,No,Yes,No,Yes,Yes,No,No,No,Yes,Current,No,No,Valvular Heart Disease
+64,Yes,No,Yes,97,94,66,Wheeze,202,124,32,No,Yes,Yes,No,No,No,No,Yes,No,No,Yes,No,No,No,Yes,Yes,Former,No,No,Valvular Heart Disease
+39,Yes,No,Yes,174,62,91,Crackle,271,111,80,No,No,No,No,Yes,No,No,Yes,Yes,No,Yes,Yes,No,Yes,Yes,No,Never,Yes,Yes,Coronary Artery Disease (CAD)
+70,No,Yes,Yes,149,76,95,Wheeze,182,118,38,No,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,Yes,Yes,No,Yes,No,Yes,Former,No,No,Arrhythmia
+38,No,No,Yes,128,64,63,Rhonchi,286,186,54,Yes,Yes,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,Yes,No,No,No,Never,No,Yes,Cardiomyopathy
+49,No,No,Yes,120,64,70,Wheeze,231,107,36,Yes,No,Yes,Yes,Yes,No,Yes,No,No,Yes,Yes,No,Yes,No,Yes,Yes,Former,No,Yes,Valvular Heart Disease
+50,No,No,No,100,88,82,Normal,187,174,70,Yes,No,No,No,Yes,No,Yes,Yes,Yes,No,Yes,No,Yes,Yes,No,No,Never,No,No,Arrhythmia
+42,Yes,Yes,Yes,138,62,81,Rhonchi,283,163,37,Yes,Yes,No,Yes,No,Yes,Yes,No,Yes,No,No,Yes,Yes,Yes,No,Yes,Former,Yes,Yes,Heart Failure
+68,Yes,Yes,No,126,116,96,Wheeze,260,137,76,No,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,Yes,Yes,Yes,No,No,Never,Yes,No,Heart Failure
+59,Yes,Yes,No,126,76,79,Rhonchi,201,72,39,Yes,Yes,Yes,Yes,Yes,No,No,Yes,No,No,No,No,Yes,No,No,No,Current,No,Yes,Valvular Heart Disease
+66,No,No,Yes,148,68,85,Wheeze,153,116,55,Yes,Yes,No,Yes,Yes,Yes,No,No,No,Yes,Yes,No,No,No,No,No,Never,No,Yes,Cardiomyopathy
+49,Yes,No,Yes,156,72,68,Wheeze,185,130,68,Yes,No,No,No,Yes,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,Current,Yes,Yes,Heart Failure
+59,No,No,Yes,165,81,98,Normal,176,107,51,No,No,No,No,No,No,No,No,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Former,Yes,Yes,Coronary Artery Disease (CAD)
+57,Yes,Yes,Yes,165,83,92,Normal,273,173,48,Yes,Yes,Yes,Yes,Yes,No,No,No,No,No,No,Yes,No,No,Yes,No,Former,No,No,Valvular Heart Disease
+47,No,No,Yes,90,65,97,Crackle,222,162,36,No,Yes,Yes,No,No,Yes,No,No,Yes,No,No,Yes,Yes,No,No,Yes,Never,No,Yes,Valvular Heart Disease
+30,Yes,Yes,Yes,173,97,97,Rhonchi,154,138,53,Yes,No,No,Yes,Yes,Yes,Yes,No,No,Yes,Yes,No,Yes,Yes,No,No,Former,Yes,Yes,Heart Failure
+38,No,Yes,Yes,125,82,66,Rhonchi,151,120,34,No,No,No,Yes,Yes,No,No,No,No,No,Yes,No,No,Yes,Yes,Yes,Current,No,Yes,Arrhythmia
+70,Yes,No,No,158,80,98,Crackle,242,149,41,Yes,Yes,No,Yes,Yes,Yes,No,Yes,No,No,Yes,No,No,Yes,No,No,Current,Yes,No,Coronary Artery Disease (CAD)
+51,Yes,No,Yes,111,93,96,Normal,283,193,61,Yes,No,No,Yes,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,Current,No,Yes,Arrhythmia
+57,No,Yes,No,109,65,77,Normal,180,185,50,No,No,No,No,Yes,Yes,Yes,Yes,Yes,No,No,Yes,No,Yes,No,No,Never,No,Yes,Arrhythmia
+61,Yes,No,No,161,105,80,Wheeze,272,129,66,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Yes,No,No,No,No,Yes,No,Current,No,No,Valvular Heart Disease
+66,No,No,Yes,143,117,93,Normal,219,140,40,No,No,Yes,Yes,No,No,No,Yes,No,No,Yes,No,No,No,No,Yes,Never,No,Yes,Valvular Heart Disease
+32,No,Yes,Yes,107,84,63,Wheeze,287,94,52,Yes,Yes,No,No,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,No,No,No,Former,No,Yes,Cardiomyopathy
+49,No,No,Yes,110,79,85,Rhonchi,210,193,33,No,Yes,No,No,Yes,Yes,Yes,Yes,No,Yes,Yes,No,Yes,No,Yes,No,Former,No,Yes,Cardiomyopathy
+70,Yes,No,Yes,128,63,87,Rhonchi,194,110,60,Yes,Yes,No,Yes,No,Yes,No,Yes,Yes,No,Yes,No,No,Yes,No,Yes,Current,Yes,No,Heart Failure
+59,No,No,Yes,97,64,60,Normal,241,84,74,Yes,Yes,Yes,Yes,Yes,No,Yes,No,No,No,No,No,No,No,No,No,Former,No,No,Valvular Heart Disease
+42,No,Yes,Yes,170,118,94,Crackle,181,119,77,Yes,Yes,No,No,Yes,Yes,No,Yes,Yes,Yes,No,No,Yes,Yes,No,No,Never,Yes,Yes,Heart Failure
+71,Yes,Yes,Yes,155,81,81,Wheeze,230,96,73,No,No,Yes,No,Yes,No,No,Yes,Yes,No,Yes,Yes,Yes,No,No,No,Current,No,No,Valvular Heart Disease
+41,Yes,No,Yes,175,113,72,Crackle,294,89,69,Yes,No,Yes,No,No,Yes,No,Yes,Yes,No,Yes,No,No,No,No,No,Former,No,No,Valvular Heart Disease
+65,No,No,No,95,79,85,Normal,259,163,57,Yes,No,No,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,No,No,Yes,Former,No,Yes,Cardiomyopathy
+65,No,No,Yes,175,63,73,Wheeze,206,193,30,No,No,No,Yes,Yes,Yes,No,No,No,No,No,No,Yes,No,Yes,Yes,Never,No,No,Cardiomyopathy
+60,No,Yes,No,141,81,98,Normal,165,142,69,Yes,Yes,No,No,Yes,Yes,Yes,No,Yes,Yes,No,No,No,No,No,No,Never,No,Yes,Cardiomyopathy
+57,Yes,No,Yes,117,79,69,Normal,281,104,39,Yes,Yes,No,Yes,No,No,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,Former,Yes,Yes,Coronary Artery Disease (CAD)
+77,Yes,No,No,147,109,78,Wheeze,237,167,34,No,Yes,No,No,Yes,Yes,No,No,Yes,No,No,No,No,Yes,No,Yes,Never,Yes,Yes,Heart Failure
+76,Yes,No,No,176,118,96,Crackle,250,137,68,No,Yes,No,No,Yes,Yes,Yes,Yes,No,No,Yes,Yes,No,Yes,Yes,Yes,Never,No,No,Arrhythmia
+59,No,No,No,111,80,87,Wheeze,213,109,60,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Yes,No,No,Never,Yes,No,Heart Failure
+32,No,No,Yes,178,100,76,Crackle,248,80,33,No,Yes,No,Yes,Yes,No,Yes,Yes,Yes,No,No,No,Yes,Yes,Yes,No,Never,Yes,No,Heart Failure
+35,No,No,No,178,105,62,Rhonchi,169,83,71,Yes,Yes,No,Yes,Yes,No,No,No,Yes,Yes,Yes,No,No,Yes,No,No,Current,No,No,Arrhythmia
+75,No,Yes,Yes,99,85,93,Normal,183,119,49,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,No,Yes,Yes,Yes,No,No,Former,Yes,Yes,Coronary Artery Disease (CAD)
+62,Yes,Yes,No,141,70,61,Normal,186,177,68,No,Yes,No,No,No,Yes,Yes,No,No,Yes,No,No,Yes,No,No,No,Never,No,No,Cardiomyopathy
+56,No,No,Yes,91,110,71,Rhonchi,192,127,65,Yes,Yes,No,Yes,Yes,No,Yes,Yes,Yes,No,Yes,Yes,No,Yes,Yes,No,Never,Yes,Yes,Coronary Artery Disease (CAD)
+37,No,No,Yes,108,72,84,Crackle,235,152,31,No,No,No,Yes,Yes,No,No,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,Former,Yes,No,Coronary Artery Disease (CAD)
+66,No,No,Yes,99,102,69,Rhonchi,163,142,65,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,Yes,Yes,No,Yes,No,Never,No,Yes,Valvular Heart Disease
+61,Yes,Yes,No,173,77,73,Normal,167,158,46,No,No,No,Yes,No,Yes,No,No,No,No,No,Yes,Yes,Yes,No,Yes,Never,Yes,Yes,Heart Failure
+45,No,No,No,120,96,62,Normal,229,165,35,Yes,Yes,Yes,No,Yes,No,Yes,No,No,Yes,Yes,No,No,No,Yes,No,Current,No,No,Valvular Heart Disease
+45,Yes,Yes,Yes,149,97,99,Normal,242,165,63,Yes,No,Yes,Yes,No,Yes,Yes,No,Yes,No,No,Yes,Yes,No,No,Yes,Never,No,Yes,Valvular Heart Disease
+34,No,Yes,Yes,169,95,73,Wheeze,187,125,73,Yes,Yes,No,Yes,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,Yes,Former,No,Yes,Arrhythmia
+53,No,No,Yes,125,99,78,Crackle,270,111,48,Yes,Yes,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,No,Yes,No,Yes,Never,Yes,No,Heart Failure
+58,Yes,No,No,137,102,88,Wheeze,232,192,52,No,No,No,No,No,Yes,No,Yes,No,No,Yes,No,No,Yes,Yes,No,Never,No,Yes,Arrhythmia
+35,No,No,Yes,155,100,81,Wheeze,236,111,67,No,Yes,No,Yes,Yes,No,Yes,Yes,No,No,No,No,Yes,Yes,Yes,Yes,Former,Yes,Yes,Heart Failure
+80,No,Yes,Yes,174,115,72,Normal,157,181,49,No,No,No,No,Yes,No,Yes,Yes,No,Yes,No,No,No,Yes,Yes,No,Never,No,No,Arrhythmia
+78,Yes,No,Yes,172,85,74,Wheeze,240,130,70,No,No,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,No,No,Yes,Yes,No,Former,Yes,No,Coronary Artery Disease (CAD)
+57,No,No,Yes,164,76,90,Crackle,210,190,70,Yes,No,No,No,Yes,No,No,No,No,Yes,Yes,Yes,No,Yes,No,No,Current,Yes,Yes,Coronary Artery Disease (CAD)
+60,Yes,No,Yes,123,60,92,Rhonchi,256,142,46,No,Yes,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,No,Yes,Yes,Yes,No,Former,Yes,No,Heart Failure
+67,Yes,No,Yes,156,82,76,Normal,256,124,54,No,No,No,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Yes,No,No,No,No,Never,No,No,Cardiomyopathy
+49,Yes,Yes,No,160,112,91,Rhonchi,150,74,76,No,No,No,No,Yes,Yes,No,No,Yes,No,No,No,No,Yes,No,Yes,Never,No,Yes,Arrhythmia
+59,No,Yes,Yes,133,114,100,Crackle,294,139,72,Yes,Yes,No,Yes,No,Yes,No,Yes,No,No,Yes,No,No,Yes,Yes,Yes,Current,Yes,Yes,Heart Failure
+41,No,No,No,159,64,69,Wheeze,164,125,38,Yes,Yes,No,Yes,Yes,No,No,Yes,Yes,No,Yes,No,No,Yes,No,Yes,Never,Yes,Yes,Coronary Artery Disease (CAD)
+41,Yes,Yes,Yes,163,77,82,Normal,184,133,65,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Yes,No,No,Yes,Former,No,No,Valvular Heart Disease
+42,No,Yes,No,172,110,88,Wheeze,274,101,53,Yes,Yes,No,Yes,No,No,Yes,Yes,Yes,Yes,No,Yes,No,Yes,Yes,No,Current,No,Yes,Arrhythmia
+38,Yes,No,No,123,72,97,Wheeze,229,181,77,Yes,No,No,No,Yes,No,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,No,Former,Yes,Yes,Heart Failure
+41,No,Yes,Yes,137,116,75,Normal,172,109,43,Yes,No,No,No,No,No,No,Yes,Yes,No,Yes,No,Yes,Yes,No,Yes,Never,Yes,Yes,Coronary Artery Disease (CAD)
+67,Yes,Yes,Yes,162,99,64,Crackle,201,168,53,Yes,Yes,No,Yes,Yes,No,No,No,Yes,Yes,Yes,No,No,No,No,Yes,Former,No,No,Cardiomyopathy
+41,Yes,No,Yes,177,101,62,Normal,175,198,66,Yes,No,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,No,Never,No,No,Arrhythmia
+56,Yes,No,No,104,71,73,Rhonchi,281,147,80,No,Yes,No,No,No,Yes,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Former,Yes,Yes,Coronary Artery Disease (CAD)
+48,No,Yes,No,104,109,75,Wheeze,158,119,55,Yes,No,No,No,Yes,No,No,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Current,Yes,No,Heart Failure
+71,No,No,No,175,60,63,Normal,186,88,63,Yes,No,Yes,Yes,No,No,Yes,No,No,Yes,No,Yes,No,No,Yes,Yes,Never,No,Yes,Valvular Heart Disease
+76,Yes,No,No,112,110,85,Rhonchi,179,186,80,No,Yes,No,No,Yes,Yes,No,No,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Never,Yes,Yes,Heart Failure
+65,No,Yes,Yes,90,86,63,Normal,279,105,80,No,Yes,No,Yes,Yes,No,Yes,Yes,Yes,No,No,No,Yes,Yes,No,No,Never,Yes,Yes,Heart Failure
+40,No,Yes,No,164,92,69,Normal,259,165,56,No,Yes,No,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,No,Yes,No,No,Never,Yes,Yes,Coronary Artery Disease (CAD)
+60,Yes,Yes,Yes,173,85,98,Rhonchi,271,72,57,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,Yes,Yes,No,Yes,No,No,Former,Yes,No,Heart Failure
+47,No,Yes,Yes,150,102,65,Normal,205,159,51,No,No,No,No,No,No,No,No,No,No,No,Yes,No,Yes,Yes,No,Current,No,Yes,Arrhythmia
+69,No,No,No,100,102,65,Normal,283,101,62,Yes,No,No,No,No,Yes,No,Yes,No,No,Yes,Yes,No,Yes,Yes,No,Current,Yes,No,Coronary Artery Disease (CAD)
+76,No,Yes,Yes,113,93,70,Wheeze,290,190,32,No,No,No,No,No,Yes,Yes,Yes,Yes,No,Yes,No,No,Yes,Yes,No,Never,Yes,Yes,Heart Failure
+74,No,No,Yes,170,85,90,Wheeze,227,143,35,Yes,No,Yes,No,No,No,Yes,Yes,No,Yes,No,Yes,Yes,No,No,No,Former,No,Yes,Valvular Heart Disease
+37,Yes,No,No,136,68,74,Normal,185,162,79,Yes,No,No,No,No,Yes,Yes,No,Yes,Yes,Yes,Yes,No,Yes,No,No,Former,Yes,Yes,Heart Failure
+65,Yes,No,Yes,123,92,89,Normal,180,175,45,No,No,No,Yes,No,No,No,Yes,Yes,Yes,No,No,No,No,Yes,Yes,Current,No,No,Cardiomyopathy
+33,No,Yes,Yes,164,114,62,Wheeze,173,153,70,Yes,No,No,No,No,Yes,No,No,Yes,No,Yes,No,No,No,Yes,No,Former,No,Yes,Cardiomyopathy
+74,No,Yes,Yes,112,110,99,Rhonchi,151,131,66,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Yes,No,Yes,No,Current,No,No,Valvular Heart Disease
+41,Yes,Yes,No,103,113,97,Rhonchi,231,165,79,Yes,No,No,No,No,Yes,No,No,Yes,Yes,Yes,No,No,Yes,Yes,No,Former,Yes,Yes,Coronary Artery Disease (CAD)
+76,No,Yes,No,101,71,85,Crackle,165,189,54,No,No,Yes,No,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,Never,No,No,Valvular Heart Disease
+32,No,No,Yes,149,99,73,Wheeze,166,139,62,No,No,No,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,No,No,Yes,No,No,Current,Yes,No,Coronary Artery Disease (CAD)
+55,No,No,No,156,66,91,Wheeze,158,162,38,Yes,No,No,No,No,Yes,No,Yes,Yes,No,Yes,No,Yes,No,Yes,Yes,Former,No,No,Cardiomyopathy
+45,No,Yes,Yes,124,66,73,Normal,246,90,49,Yes,No,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,No,Yes,No,Never,No,No,Cardiomyopathy
+58,Yes,Yes,No,172,77,90,Normal,159,127,57,No,Yes,No,No,No,Yes,No,No,Yes,Yes,No,Yes,No,No,No,Yes,Former,No,No,Cardiomyopathy
+31,Yes,No,No,175,116,78,Wheeze,180,189,75,Yes,Yes,No,Yes,No,Yes,No,No,No,No,No,No,Yes,Yes,Yes,No,Never,No,Yes,Arrhythmia
+68,No,No,No,178,86,63,Normal,180,97,55,No,Yes,No,Yes,No,No,Yes,No,No,No,Yes,No,No,Yes,No,Yes,Current,No,Yes,Arrhythmia
+60,Yes,Yes,No,180,65,88,Crackle,254,175,59,Yes,Yes,No,Yes,No,Yes,Yes,Yes,No,Yes,No,No,No,Yes,No,Yes,Current,Yes,Yes,Heart Failure
+37,Yes,Yes,No,139,108,66,Crackle,215,190,65,No,Yes,No,No,Yes,Yes,Yes,No,No,No,Yes,Yes,No,Yes,Yes,Yes,Former,Yes,Yes,Heart Failure
+58,No,No,Yes,153,69,90,Normal,155,94,61,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,No,No,No,No,Former,No,No,Valvular Heart Disease
+33,No,Yes,No,179,72,95,Wheeze,184,139,34,No,Yes,No,Yes,No,No,Yes,No,Yes,No,Yes,No,Yes,Yes,No,Yes,Former,Yes,Yes,Heart Failure
+46,Yes,Yes,Yes,153,71,88,Normal,236,128,35,Yes,No,No,No,No,No,Yes,Yes,Yes,No,No,Yes,Yes,No,Yes,No,Current,No,Yes,Cardiomyopathy
+53,No,No,No,138,98,100,Wheeze,299,200,47,No,Yes,No,No,No,Yes,No,Yes,No,No,Yes,No,No,Yes,Yes,Yes,Current,No,No,Arrhythmia
+71,No,Yes,Yes,149,60,66,Crackle,154,148,77,No,No,Yes,Yes,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,No,No,Yes,Never,No,No,Valvular Heart Disease
+63,Yes,No,Yes,151,116,90,Normal,160,92,62,No,Yes,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Former,No,Yes,Arrhythmia
+34,Yes,No,Yes,109,90,95,Rhonchi,243,192,38,No,No,No,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,Yes,No,Yes,Former,No,Yes,Arrhythmia
+59,No,No,Yes,136,119,99,Normal,277,199,75,Yes,Yes,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,No,Yes,No,No,Yes,Current,No,Yes,Valvular Heart Disease
+73,No,Yes,Yes,171,79,72,Wheeze,238,123,36,No,No,No,No,Yes,No,Yes,Yes,No,No,Yes,No,Yes,Yes,Yes,Yes,Never,No,Yes,Arrhythmia
+80,Yes,No,Yes,169,80,84,Crackle,229,126,41,No,No,No,No,No,No,Yes,Yes,Yes,Yes,No,No,No,Yes,Yes,No,Former,No,No,Arrhythmia
+76,No,No,Yes,104,99,63,Wheeze,251,87,40,No,Yes,No,No,No,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Yes,No,Former,Yes,No,Heart Failure
+55,Yes,Yes,No,131,82,91,Rhonchi,281,151,44,Yes,No,No,No,Yes,Yes,No,Yes,Yes,No,No,Yes,No,Yes,No,Yes,Current,No,No,Arrhythmia
+67,Yes,No,No,109,64,83,Crackle,230,86,49,Yes,Yes,No,No,No,Yes,Yes,No,Yes,Yes,Yes,No,Yes,Yes,No,Yes,Never,Yes,No,Coronary Artery Disease (CAD)
+62,No,Yes,No,112,76,75,Rhonchi,288,121,38,Yes,Yes,No,No,Yes,No,Yes,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,Former,Yes,No,Coronary Artery Disease (CAD)
+52,Yes,No,No,108,69,85,Normal,196,105,46,No,Yes,No,No,No,No,Yes,Yes,Yes,Yes,Yes,No,No,Yes,No,Yes,Current,Yes,Yes,Coronary Artery Disease (CAD)
+33,No,Yes,No,170,106,65,Normal,269,123,40,No,Yes,No,Yes,No,Yes,No,No,No,Yes,Yes,No,Yes,Yes,No,No,Never,Yes,No,Coronary Artery Disease (CAD)
+71,Yes,No,No,125,92,63,Rhonchi,195,131,43,No,Yes,Yes,No,Yes,No,No,No,Yes,Yes,No,Yes,Yes,No,Yes,Yes,Current,No,No,Valvular Heart Disease
+65,No,No,No,96,63,67,Crackle,213,199,64,Yes,No,No,Yes,Yes,Yes,Yes,Yes,No,No,No,Yes,No,Yes,Yes,No,Current,Yes,No,Heart Failure
+32,No,Yes,Yes,137,65,81,Crackle,266,108,31,No,Yes,No,No,No,No,No,Yes,Yes,Yes,No,Yes,No,Yes,No,Yes,Never,Yes,No,Heart Failure
+78,No,No,No,163,75,95,Normal,247,134,66,Yes,Yes,No,No,No,No,Yes,No,No,No,Yes,No,Yes,Yes,Yes,Yes,Current,Yes,No,Coronary Artery Disease (CAD)
+55,No,Yes,Yes,140,72,75,Crackle,205,81,74,Yes,Yes,No,Yes,Yes,No,No,No,No,No,No,No,Yes,Yes,No,No,Never,Yes,Yes,Heart Failure
+57,Yes,No,Yes,132,97,67,Normal,238,83,49,No,No,No,No,No,No,Yes,No,Yes,No,Yes,No,Yes,No,Yes,No,Former,No,Yes,Cardiomyopathy
+44,No,No,Yes,117,115,70,Wheeze,171,200,59,No,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,Yes,No,No,No,Former,No,Yes,Valvular Heart Disease
+55,Yes,Yes,Yes,127,84,61,Crackle,175,103,56,Yes,No,No,Yes,Yes,Yes,No,No,No,No,Yes,Yes,No,Yes,Yes,Yes,Former,No,Yes,Arrhythmia
+44,No,Yes,Yes,154,86,77,Wheeze,224,118,72,No,No,No,No,No,Yes,Yes,No,No,Yes,Yes,No,Yes,Yes,No,Yes,Former,Yes,No,Coronary Artery Disease (CAD)
+52,No,No,No,101,113,60,Normal,290,146,33,Yes,Yes,No,Yes,No,No,No,Yes,Yes,No,No,No,No,No,No,Yes,Current,No,No,Cardiomyopathy
+72,Yes,No,Yes,102,77,70,Normal,288,188,66,Yes,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,No,No,Current,Yes,No,Heart Failure
+78,No,Yes,Yes,106,106,75,Wheeze,264,149,67,No,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,No,Former,No,No,Cardiomyopathy
+33,No,Yes,Yes,161,100,62,Wheeze,278,157,80,Yes,Yes,No,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Yes,No,No,Current,Yes,No,Coronary Artery Disease (CAD)
+55,Yes,Yes,Yes,152,120,87,Normal,227,190,54,Yes,Yes,Yes,No,No,No,No,Yes,Yes,No,No,No,Yes,No,No,No,Former,No,No,Valvular Heart Disease
+79,No,No,No,171,79,88,Crackle,151,147,76,Yes,Yes,No,No,Yes,No,Yes,No,No,Yes,Yes,Yes,No,No,Yes,Yes,Former,No,Yes,Cardiomyopathy
+54,No,No,No,178,99,92,Crackle,165,191,72,No,No,No,No,No,No,Yes,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,Never,No,Yes,Cardiomyopathy
+37,Yes,No,Yes,137,78,80,Rhonchi,168,173,70,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,Current,Yes,No,Coronary Artery Disease (CAD)
+37,No,No,Yes,167,106,99,Crackle,189,163,32,No,Yes,No,No,Yes,Yes,Yes,No,No,Yes,No,No,No,Yes,No,No,Former,Yes,No,Heart Failure
+51,No,No,No,162,102,86,Crackle,203,183,38,Yes,Yes,Yes,Yes,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,No,Yes,Yes,Never,No,Yes,Valvular Heart Disease
+32,Yes,Yes,No,93,119,76,Crackle,269,146,49,No,Yes,Yes,Yes,No,No,Yes,No,Yes,No,No,No,No,No,Yes,Yes,Current,No,No,Valvular Heart Disease
+55,Yes,No,No,142,91,91,Normal,153,196,37,Yes,Yes,Yes,No,No,No,Yes,Yes,No,No,No,Yes,Yes,No,No,No,Never,No,Yes,Valvular Heart Disease
+70,No,No,No,126,86,75,Rhonchi,214,74,67,Yes,No,No,No,Yes,Yes,Yes,No,No,Yes,No,Yes,No,Yes,No,No,Former,Yes,No,Heart Failure
+80,Yes,Yes,No,166,93,85,Crackle,181,136,54,Yes,No,No,No,No,Yes,Yes,No,No,No,Yes,Yes,No,Yes,No,Yes,Current,Yes,Yes,Coronary Artery Disease (CAD)
+68,No,No,No,134,109,70,Normal,191,71,63,No,Yes,No,No,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Yes,Yes,No,Former,Yes,No,Heart Failure
+52,Yes,No,Yes,94,108,81,Wheeze,257,87,56,Yes,No,No,Yes,Yes,No,Yes,No,Yes,Yes,Yes,No,No,No,Yes,No,Current,No,Yes,Cardiomyopathy
+77,No,Yes,No,166,109,86,Crackle,284,85,35,No,No,No,Yes,Yes,No,Yes,No,No,No,Yes,No,Yes,Yes,No,No,Current,Yes,Yes,Heart Failure
+54,No,No,Yes,141,84,71,Normal,217,72,39,No,Yes,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Current,No,No,Cardiomyopathy
+52,Yes,No,Yes,108,100,74,Wheeze,298,126,69,No,Yes,No,Yes,No,Yes,Yes,Yes,No,No,No,No,No,Yes,No,No,Former,Yes,No,Heart Failure
+41,Yes,No,No,101,101,69,Crackle,270,148,71,No,No,Yes,No,No,Yes,No,Yes,No,Yes,No,Yes,No,No,Yes,Yes,Never,No,Yes,Valvular Heart Disease
+63,No,Yes,No,134,105,78,Crackle,200,176,73,Yes,Yes,No,Yes,No,No,Yes,No,No,No,No,Yes,No,No,Yes,Yes,Former,No,Yes,Cardiomyopathy
+59,Yes,No,No,125,82,74,Wheeze,181,91,65,No,Yes,No,No,Yes,No,Yes,No,No,Yes,No,No,Yes,Yes,No,No,Current,Yes,No,Heart Failure
+73,No,Yes,Yes,124,92,79,Normal,260,171,71,No,No,No,Yes,Yes,No,Yes,Yes,No,Yes,No,Yes,Yes,Yes,No,Yes,Former,Yes,No,Coronary Artery Disease (CAD)
+62,No,No,Yes,170,114,78,Normal,216,167,40,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,No,Yes,Former,No,Yes,Arrhythmia
+49,Yes,No,Yes,107,111,63,Crackle,230,162,55,Yes,Yes,No,Yes,No,No,No,No,Yes,Yes,No,Yes,No,Yes,No,No,Never,No,No,Arrhythmia
+69,No,No,Yes,173,82,96,Wheeze,195,175,36,Yes,Yes,Yes,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,Yes,Current,No,No,Valvular Heart Disease
+33,No,Yes,No,161,95,93,Rhonchi,259,89,50,No,Yes,Yes,Yes,No,No,Yes,No,No,No,Yes,Yes,Yes,No,No,No,Current,No,No,Valvular Heart Disease
+56,Yes,No,Yes,145,120,96,Crackle,259,159,51,No,No,Yes,Yes,Yes,Yes,Yes,No,Yes,No,Yes,No,Yes,No,Yes,Yes,Current,No,Yes,Valvular Heart Disease
+69,Yes,Yes,No,172,105,92,Rhonchi,216,137,72,No,Yes,No,No,No,No,No,No,Yes,Yes,No,Yes,Yes,Yes,No,Yes,Former,No,No,Arrhythmia
+76,No,Yes,Yes,162,112,63,Normal,245,78,36,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Current,Yes,Yes,Heart Failure
+49,No,Yes,Yes,149,96,84,Rhonchi,298,180,34,Yes,Yes,No,Yes,Yes,No,No,No,No,No,Yes,Yes,No,Yes,No,Yes,Former,Yes,Yes,Heart Failure
+75,Yes,Yes,No,139,88,66,Wheeze,167,106,54,No,Yes,No,Yes,Yes,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,Current,No,No,Arrhythmia
+42,No,Yes,Yes,139,64,80,Crackle,251,105,39,No,Yes,No,Yes,Yes,No,No,No,Yes,No,Yes,Yes,No,Yes,Yes,No,Former,Yes,Yes,Heart Failure
+30,Yes,Yes,Yes,94,66,67,Normal,186,144,57,Yes,No,Yes,Yes,Yes,No,No,No,Yes,Yes,No,No,No,No,Yes,Yes,Former,No,No,Valvular Heart Disease
+77,No,Yes,Yes,113,74,77,Normal,211,156,73,Yes,Yes,No,Yes,Yes,Yes,No,No,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Current,Yes,Yes,Coronary Artery Disease (CAD)
+56,No,Yes,No,101,90,82,Normal,232,152,70,No,Yes,No,No,Yes,No,Yes,Yes,Yes,No,No,No,No,Yes,No,No,Current,Yes,Yes,Coronary Artery Disease (CAD)
+49,No,Yes,No,165,105,61,Crackle,267,115,64,No,Yes,Yes,Yes,No,Yes,Yes,Yes,No,No,No,No,No,No,Yes,Yes,Never,No,No,Valvular Heart Disease
+66,Yes,No,Yes,170,77,90,Normal,154,93,43,No,No,No,No,Yes,No,Yes,Yes,No,Yes,No,No,No,No,No,No,Former,No,No,Cardiomyopathy
+56,No,No,No,159,103,69,Rhonchi,174,70,69,Yes,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,No,No,No,No,Yes,No,Never,No,No,Cardiomyopathy
+35,Yes,Yes,No,148,120,89,Crackle,266,160,70,Yes,Yes,Yes,No,Yes,No,No,No,Yes,No,No,No,No,No,Yes,Yes,Never,No,No,Valvular Heart Disease
+36,Yes,Yes,Yes,97,96,60,Wheeze,220,154,77,Yes,Yes,No,Yes,Yes,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Current,No,Yes,Arrhythmia
+76,No,Yes,No,119,67,62,Rhonchi,150,121,60,No,Yes,No,Yes,No,Yes,Yes,No,No,Yes,No,Yes,No,Yes,No,No,Current,Yes,No,Heart Failure
+35,No,Yes,No,156,107,95,Normal,205,155,47,No,Yes,No,No,No,Yes,No,Yes,No,No,No,No,Yes,Yes,No,No,Never,No,Yes,Arrhythmia
+42,No,Yes,No,146,110,86,Rhonchi,285,120,58,No,No,No,No,Yes,No,Yes,No,No,No,No,No,Yes,Yes,Yes,Yes,Former,No,No,Arrhythmia
+68,Yes,No,No,140,102,71,Crackle,188,137,32,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,No,Yes,No,No,Yes,No,Never,No,No,Cardiomyopathy
+47,No,No,No,120,109,71,Crackle,283,192,30,Yes,No,Yes,Yes,Yes,Yes,Yes,No,Yes,No,Yes,No,Yes,No,No,No,Never,No,Yes,Valvular Heart Disease
+56,No,No,No,162,82,68,Crackle,291,185,40,No,No,No,Yes,No,No,No,No,No,No,No,Yes,No,Yes,Yes,Yes,Former,No,No,Arrhythmia
+78,Yes,No,No,96,114,88,Rhonchi,277,75,57,No,Yes,No,Yes,No,Yes,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,No,Never,Yes,Yes,Coronary Artery Disease (CAD)
+31,Yes,No,Yes,141,106,72,Rhonchi,293,133,62,No,Yes,No,No,Yes,No,No,Yes,Yes,No,No,No,Yes,Yes,Yes,No,Never,No,Yes,Arrhythmia
+67,No,No,No,94,95,60,Wheeze,212,82,67,No,Yes,No,No,Yes,Yes,Yes,No,Yes,Yes,No,Yes,No,Yes,Yes,No,Never,Yes,Yes,Heart Failure
+71,No,No,Yes,166,86,79,Wheeze,204,132,41,No,Yes,No,Yes,No,No,Yes,Yes,No,No,No,Yes,Yes,No,No,No,Current,No,Yes,Cardiomyopathy
+75,Yes,Yes,No,142,112,75,Wheeze,163,93,71,Yes,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Yes,No,No,No,No,No,Yes,Never,No,No,Cardiomyopathy
+35,Yes,Yes,No,140,72,66,Crackle,207,156,42,No,Yes,No,No,Yes,No,Yes,Yes,No,No,No,No,Yes,Yes,Yes,No,Former,No,Yes,Arrhythmia
+37,No,No,No,116,110,100,Normal,225,173,54,Yes,Yes,No,No,Yes,Yes,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Never,Yes,Yes,Heart Failure
+47,No,No,Yes,156,93,88,Wheeze,210,106,72,Yes,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,Never,Yes,No,Coronary Artery Disease (CAD)
+38,No,Yes,No,147,61,80,Normal,220,172,61,No,No,No,No,No,No,Yes,No,Yes,No,No,No,Yes,Yes,No,Yes,Never,Yes,No,Heart Failure
+56,Yes,Yes,Yes,109,108,79,Crackle,248,91,39,No,Yes,No,No,No,No,No,Yes,No,Yes,No,Yes,No,No,No,No,Never,No,No,Cardiomyopathy
+61,Yes,No,Yes,97,100,72,Wheeze,203,197,42,No,Yes,No,No,No,No,Yes,Yes,No,No,No,Yes,No,Yes,Yes,No,Never,Yes,Yes,Heart Failure
+44,No,Yes,Yes,96,119,100,Crackle,220,173,75,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,No,Yes,Current,Yes,No,Coronary Artery Disease (CAD)
+44,No,No,Yes,147,74,95,Rhonchi,152,176,58,Yes,Yes,Yes,No,Yes,No,No,No,No,Yes,No,Yes,Yes,No,No,No,Former,No,No,Valvular Heart Disease
+76,No,No,Yes,116,118,81,Crackle,214,116,41,Yes,No,No,No,Yes,No,Yes,Yes,No,No,Yes,No,Yes,No,Yes,No,Never,No,No,Cardiomyopathy
+69,No,Yes,No,145,100,73,Wheeze,250,83,44,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,No,No,Yes,Yes,Yes,Yes,Current,Yes,Yes,Coronary Artery Disease (CAD)
+65,No,No,No,148,74,64,Wheeze,298,95,47,Yes,No,No,Yes,Yes,Yes,Yes,No,Yes,Yes,No,No,Yes,Yes,No,No,Never,Yes,Yes,Coronary Artery Disease (CAD)
+37,No,Yes,Yes,119,65,64,Normal,224,116,37,Yes,No,No,Yes,No,No,No,Yes,Yes,No,No,Yes,Yes,No,No,Yes,Current,No,Yes,Cardiomyopathy
+69,No,No,Yes,100,90,71,Crackle,287,118,61,No,No,No,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,No,No,Yes,Yes,No,Former,No,No,Arrhythmia
+57,Yes,No,Yes,158,96,80,Normal,202,186,39,Yes,Yes,Yes,Yes,Yes,No,Yes,No,No,No,No,Yes,No,No,Yes,Yes,Current,No,Yes,Valvular Heart Disease
+44,Yes,No,Yes,107,73,73,Wheeze,300,150,79,Yes,No,Yes,Yes,Yes,Yes,No,Yes,No,No,No,No,No,No,No,No,Current,No,No,Valvular Heart Disease
+62,No,Yes,Yes,155,87,77,Normal,195,184,31,Yes,Yes,No,No,No,No,No,No,No,No,No,No,Yes,Yes,No,Yes,Current,Yes,No,Coronary Artery Disease (CAD)
+42,Yes,No,No,172,60,88,Wheeze,164,137,59,No,Yes,No,No,Yes,No,No,Yes,No,No,No,Yes,Yes,Yes,No,No,Former,Yes,No,Heart Failure
+34,No,No,No,141,71,69,Crackle,286,110,48,No,No,No,No,No,No,Yes,No,Yes,No,No,No,No,Yes,No,Yes,Former,No,Yes,Arrhythmia
+52,No,Yes,Yes,118,69,98,Wheeze,279,91,59,No,Yes,No,No,Yes,Yes,Yes,Yes,No,Yes,Yes,No,Yes,Yes,Yes,No,Never,Yes,Yes,Heart Failure
+56,No,No,No,173,103,94,Rhonchi,178,81,57,Yes,No,No,Yes,Yes,Yes,No,No,Yes,Yes,No,No,No,Yes,No,No,Former,No,No,Arrhythmia
+72,Yes,No,Yes,99,83,71,Normal,175,104,73,No,Yes,No,Yes,No,Yes,No,Yes,No,No,Yes,Yes,Yes,Yes,No,No,Former,Yes,No,Heart Failure
+34,No,Yes,No,95,76,93,Normal,237,193,37,Yes,No,Yes,Yes,No,No,No,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Former,No,No,Valvular Heart Disease
+68,Yes,No,No,102,102,85,Wheeze,225,112,70,Yes,No,No,Yes,Yes,No,Yes,No,No,No,No,Yes,Yes,Yes,Yes,No,Current,No,No,Arrhythmia
+32,No,No,No,170,109,85,Crackle,210,84,70,Yes,No,No,No,No,Yes,No,Yes,Yes,No,Yes,No,No,No,No,No,Current,No,Yes,Cardiomyopathy
+43,Yes,Yes,Yes,116,101,91,Crackle,231,121,51,Yes,Yes,No,Yes,No,No,No,Yes,Yes,No,No,No,Yes,Yes,No,Yes,Current,No,Yes,Arrhythmia
+65,Yes,No,Yes,154,114,92,Normal,218,102,74,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,No,Current,No,No,Valvular Heart Disease
+33,Yes,No,No,108,63,100,Wheeze,253,99,65,Yes,Yes,No,No,Yes,Yes,Yes,No,No,No,No,No,No,Yes,Yes,No,Never,Yes,No,Heart Failure
+77,Yes,No,No,103,116,90,Wheeze,212,84,47,Yes,Yes,Yes,Yes,No,Yes,Yes,No,No,Yes,Yes,No,Yes,No,No,No,Never,No,No,Valvular Heart Disease
+58,Yes,Yes,Yes,134,82,99,Crackle,188,146,56,Yes,No,Yes,No,Yes,No,Yes,No,Yes,No,No,No,Yes,No,No,No,Former,No,Yes,Valvular Heart Disease
+50,No,No,No,131,107,87,Normal,168,168,53,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,Yes,No,No,Yes,No,Yes,Never,No,No,Arrhythmia
+73,No,Yes,Yes,90,104,72,Wheeze,297,143,56,Yes,Yes,No,No,Yes,No,No,No,Yes,Yes,Yes,No,Yes,No,No,Yes,Never,No,No,Cardiomyopathy
+37,No,No,No,170,80,73,Rhonchi,162,161,79,No,Yes,No,No,Yes,No,No,Yes,Yes,No,No,No,No,Yes,No,Yes,Former,Yes,No,Heart Failure
+42,Yes,Yes,Yes,158,115,72,Crackle,239,90,58,Yes,No,No,No,No,No,Yes,No,No,No,No,Yes,Yes,Yes,No,No,Never,Yes,Yes,Coronary Artery Disease (CAD)
+35,Yes,No,Yes,90,115,78,Crackle,175,168,57,Yes,Yes,No,No,Yes,No,Yes,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Former,No,Yes,Cardiomyopathy
+52,No,No,No,153,101,99,Crackle,287,84,54,Yes,No,No,No,No,No,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,Current,Yes,No,Heart Failure
+76,No,No,No,155,82,93,Crackle,210,107,79,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,Current,No,No,Valvular Heart Disease
+76,No,Yes,No,174,103,86,Normal,219,103,35,No,Yes,No,No,No,Yes,Yes,No,Yes,Yes,No,Yes,Yes,Yes,No,Yes,Current,Yes,Yes,Coronary Artery Disease (CAD)
+52,No,Yes,No,116,108,84,Rhonchi,174,189,73,No,No,Yes,No,Yes,Yes,No,No,Yes,Yes,No,No,No,No,No,No,Former,No,No,Valvular Heart Disease
+76,Yes,Yes,No,107,93,76,Normal,238,114,58,No,Yes,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,No,Yes,No,No,Current,Yes,No,Coronary Artery Disease (CAD)
+77,Yes,No,No,108,87,82,Crackle,197,151,64,Yes,Yes,No,Yes,No,Yes,No,Yes,Yes,Yes,No,No,Yes,No,Yes,No,Former,No,No,Cardiomyopathy
+69,Yes,No,Yes,140,120,94,Wheeze,293,109,49,Yes,No,No,Yes,No,No,Yes,No,No,No,Yes,Yes,No,Yes,Yes,Yes,Current,Yes,No,Heart Failure
+68,Yes,Yes,No,126,65,66,Wheeze,289,123,61,Yes,Yes,No,No,No,Yes,No,No,Yes,No,No,No,No,Yes,Yes,Yes,Former,No,No,Arrhythmia
+71,No,Yes,No,156,68,89,Crackle,166,152,78,No,No,Yes,Yes,Yes,No,Yes,Yes,No,No,No,Yes,Yes,No,Yes,No,Current,No,No,Valvular Heart Disease
+47,No,No,No,159,67,73,Normal,170,129,44,No,No,No,No,Yes,No,No,No,No,Yes,Yes,No,Yes,Yes,No,No,Current,Yes,Yes,Coronary Artery Disease (CAD)
+57,No,Yes,No,121,93,81,Normal,243,200,34,No,Yes,Yes,Yes,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,No,Yes,No,Current,No,Yes,Valvular Heart Disease
+65,Yes,No,Yes,174,105,97,Wheeze,175,182,65,Yes,Yes,No,Yes,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Former,No,Yes,Arrhythmia
+63,Yes,Yes,Yes,92,64,82,Rhonchi,183,86,74,Yes,No,No,Yes,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Never,No,Yes,Cardiomyopathy
+53,Yes,No,Yes,145,99,69,Crackle,159,180,37,No,Yes,Yes,No,No,No,No,Yes,Yes,Yes,Yes,No,Yes,No,Yes,Yes,Current,No,No,Valvular Heart Disease
+35,No,No,No,152,64,83,Normal,266,188,74,No,Yes,No,Yes,Yes,Yes,Yes,Yes,No,Yes,No,No,No,Yes,No,Yes,Never,Yes,No,Coronary Artery Disease (CAD)
+64,Yes,Yes,Yes,131,78,79,Crackle,238,98,46,Yes,Yes,No,No,No,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,Yes,Former,Yes,No,Heart Failure
+45,No,No,No,166,87,69,Crackle,161,113,30,Yes,No,No,No,No,Yes,Yes,Yes,No,No,Yes,Yes,No,Yes,Yes,No,Current,No,No,Arrhythmia
+37,Yes,Yes,Yes,90,119,67,Normal,188,188,52,No,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Current,Yes,No,Coronary Artery Disease (CAD)
+30,Yes,No,No,119,110,80,Normal,218,159,79,No,Yes,Yes,Yes,No,No,Yes,No,Yes,No,Yes,No,No,No,Yes,Yes,Former,No,Yes,Valvular Heart Disease
+70,No,No,Yes,164,97,80,Rhonchi,162,90,34,Yes,No,No,No,No,No,No,No,No,No,Yes,No,No,No,No,Yes,Never,No,Yes,Cardiomyopathy
+79,No,No,No,104,87,80,Wheeze,239,183,38,Yes,Yes,No,No,Yes,Yes,No,No,Yes,Yes,Yes,No,Yes,No,Yes,No,Current,No,No,Cardiomyopathy
+68,No,No,No,126,109,76,Crackle,232,159,75,Yes,Yes,No,Yes,No,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Yes,Yes,Current,Yes,No,Coronary Artery Disease (CAD)
+75,No,No,No,137,84,83,Normal,272,171,79,No,Yes,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,Yes,Never,Yes,Yes,Heart Failure
+78,Yes,No,No,146,84,70,Wheeze,183,92,52,No,No,No,Yes,Yes,No,No,No,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Former,Yes,No,Heart Failure
+48,Yes,No,No,109,64,92,Crackle,244,157,34,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Yes,Former,No,Yes,Cardiomyopathy
+55,No,No,Yes,165,113,97,Normal,213,77,65,Yes,No,No,No,No,Yes,No,No,No,No,No,Yes,Yes,Yes,No,No,Current,Yes,No,Heart Failure
+43,Yes,No,Yes,148,64,66,Rhonchi,175,93,69,Yes,No,Yes,Yes,Yes,Yes,No,Yes,No,Yes,No,No,No,No,No,Yes,Current,No,Yes,Valvular Heart Disease
+59,Yes,No,Yes,99,101,86,Wheeze,176,114,37,Yes,Yes,No,Yes,No,Yes,No,No,No,No,No,No,Yes,Yes,No,Yes,Former,Yes,No,Coronary Artery Disease (CAD)
+79,Yes,No,Yes,151,88,75,Wheeze,255,178,41,No,Yes,No,No,No,No,No,Yes,No,Yes,Yes,No,Yes,No,Yes,No,Never,No,No,Cardiomyopathy
+61,Yes,No,Yes,121,63,98,Crackle,253,125,38,Yes,Yes,No,Yes,Yes,Yes,Yes,No,Yes,Yes,No,Yes,No,Yes,No,No,Former,Yes,Yes,Coronary Artery Disease (CAD)
+45,No,Yes,Yes,156,72,68,Normal,251,102,78,Yes,No,No,No,Yes,No,No,Yes,No,No,No,No,Yes,Yes,No,Yes,Never,Yes,Yes,Heart Failure
+42,Yes,No,Yes,174,118,92,Wheeze,298,95,39,Yes,No,No,Yes,No,No,Yes,Yes,No,Yes,No,Yes,Yes,No,Yes,No,Current,No,Yes,Cardiomyopathy
+50,Yes,No,No,119,61,60,Wheeze,237,93,80,Yes,Yes,Yes,Yes,No,No,Yes,No,No,No,No,No,Yes,No,Yes,Yes,Current,No,Yes,Valvular Heart Disease
+59,No,No,No,102,110,99,Rhonchi,219,129,45,Yes,Yes,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,Yes,No,Yes,Former,No,Yes,Arrhythmia
+47,Yes,No,No,115,114,88,Wheeze,282,104,77,Yes,Yes,Yes,No,No,No,Yes,Yes,Yes,Yes,No,Yes,Yes,No,No,No,Former,No,No,Valvular Heart Disease
+35,No,No,Yes,147,66,95,Crackle,256,183,72,Yes,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Yes,No,No,No,Yes,Yes,No,Former,No,No,Arrhythmia
+77,No,Yes,No,133,94,64,Normal,245,148,38,No,No,No,No,Yes,No,Yes,Yes,No,No,No,Yes,Yes,Yes,No,Yes,Never,Yes,Yes,Coronary Artery Disease (CAD)
+62,No,Yes,No,179,114,70,Wheeze,208,195,38,Yes,No,No,No,Yes,Yes,Yes,No,No,No,No,No,No,Yes,No,Yes,Never,No,No,Arrhythmia
+42,No,No,No,179,94,78,Crackle,205,123,49,No,No,No,No,No,No,No,No,No,Yes,Yes,No,Yes,Yes,Yes,Yes,Former,Yes,Yes,Coronary Artery Disease (CAD)
+61,No,Yes,No,155,97,92,Crackle,274,142,40,No,Yes,Yes,No,No,Yes,No,Yes,Yes,No,No,Yes,Yes,No,Yes,No,Never,No,No,Valvular Heart Disease
+39,No,Yes,No,168,67,63,Wheeze,219,125,41,Yes,Yes,No,No,No,Yes,Yes,No,Yes,Yes,No,Yes,No,Yes,No,No,Former,No,Yes,Arrhythmia
+45,No,No,Yes,178,116,95,Rhonchi,210,156,45,Yes,No,No,Yes,No,No,No,Yes,No,No,No,No,No,Yes,Yes,No,Former,Yes,No,Heart Failure
+67,No,No,No,159,97,74,Wheeze,215,182,80,No,No,No,Yes,No,No,No,No,No,No,No,No,Yes,Yes,Yes,No,Former,No,No,Arrhythmia
+65,Yes,Yes,No,176,100,88,Crackle,154,172,70,Yes,Yes,No,No,Yes,No,No,Yes,Yes,No,Yes,Yes,Yes,Yes,No,Yes,Former,Yes,Yes,Heart Failure
+45,Yes,No,No,135,102,93,Normal,211,132,51,No,Yes,No,No,No,No,No,No,Yes,Yes,No,Yes,Yes,No,No,Yes,Former,No,Yes,Cardiomyopathy
+41,Yes,No,No,134,89,99,Crackle,270,100,38,Yes,Yes,No,No,No,Yes,Yes,No,Yes,No,Yes,Yes,No,No,Yes,No,Former,No,Yes,Cardiomyopathy
+55,Yes,No,No,157,75,100,Normal,156,137,32,Yes,No,Yes,Yes,No,No,No,No,Yes,No,No,Yes,Yes,No,Yes,Yes,Former,No,Yes,Valvular Heart Disease
+73,Yes,No,Yes,119,116,73,Wheeze,241,109,51,No,Yes,No,Yes,Yes,Yes,No,No,Yes,No,No,No,No,Yes,Yes,No,Never,No,No,Arrhythmia
+31,No,Yes,Yes,99,66,64,Normal,249,107,34,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Yes,No,No,Current,Yes,Yes,Heart Failure
+52,No,Yes,Yes,164,100,92,Rhonchi,210,115,72,No,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,No,No,No,Never,No,No,Cardiomyopathy
+79,No,No,No,145,113,71,Normal,196,74,75,No,Yes,No,No,No,Yes,Yes,Yes,No,No,Yes,No,No,Yes,No,Yes,Never,Yes,Yes,Heart Failure
+72,No,Yes,Yes,117,97,94,Rhonchi,207,132,55,No,Yes,No,No,No,No,Yes,No,No,No,Yes,No,Yes,Yes,No,Yes,Never,Yes,Yes,Heart Failure
+45,Yes,Yes,Yes,91,96,72,Normal,171,133,61,Yes,No,Yes,No,Yes,No,Yes,No,Yes,Yes,No,No,Yes,No,Yes,No,Never,No,No,Valvular Heart Disease
+80,No,No,Yes,121,67,87,Crackle,235,185,74,Yes,No,No,Yes,Yes,No,Yes,No,No,No,Yes,No,No,Yes,No,No,Former,No,Yes,Arrhythmia
+71,Yes,No,Yes,106,71,98,Crackle,269,186,65,Yes,Yes,No,Yes,No,No,Yes,No,Yes,Yes,Yes,No,No,Yes,No,Yes,Never,Yes,Yes,Heart Failure
+70,No,Yes,Yes,163,82,78,Wheeze,170,136,60,No,No,No,Yes,Yes,Yes,Yes,No,Yes,No,No,Yes,No,No,No,Yes,Former,No,Yes,Cardiomyopathy
+79,Yes,Yes,No,178,70,67,Normal,244,151,67,Yes,No,No,No,Yes,No,No,Yes,No,No,Yes,Yes,No,Yes,Yes,Yes,Former,Yes,No,Coronary Artery Disease (CAD)
+73,No,No,No,107,78,99,Crackle,151,193,80,No,Yes,No,Yes,Yes,No,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Never,Yes,No,Heart Failure
+45,Yes,No,No,105,71,100,Normal,234,200,45,Yes,No,No,Yes,No,No,Yes,Yes,Yes,No,Yes,Yes,No,Yes,No,No,Former,No,No,Arrhythmia
+65,No,Yes,No,107,93,86,Crackle,195,159,62,No,No,No,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,No,Yes,Yes,Former,No,Yes,Cardiomyopathy
+53,Yes,No,Yes,104,70,66,Crackle,233,160,49,Yes,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,Yes,No,Yes,No,No,Current,No,No,Arrhythmia
+48,Yes,Yes,No,137,96,79,Normal,203,119,78,No,Yes,No,Yes,Yes,No,Yes,No,Yes,No,Yes,No,No,Yes,No,No,Current,Yes,Yes,Coronary Artery Disease (CAD)
+77,No,Yes,No,173,116,76,Crackle,178,96,33,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,No,No,Yes,Never,No,Yes,Valvular Heart Disease
+73,Yes,Yes,No,151,119,97,Wheeze,210,143,51,Yes,Yes,No,No,No,Yes,Yes,No,No,Yes,Yes,No,Yes,Yes,Yes,Yes,Never,Yes,No,Coronary Artery Disease (CAD)
+74,No,Yes,Yes,112,91,97,Wheeze,228,146,79,No,No,No,No,Yes,Yes,No,No,Yes,No,Yes,No,No,Yes,Yes,Yes,Former,No,No,Arrhythmia
+53,No,Yes,Yes,129,65,70,Crackle,205,96,51,Yes,Yes,No,Yes,Yes,No,Yes,Yes,No,No,Yes,Yes,No,No,Yes,Yes,Former,No,No,Cardiomyopathy
+54,Yes,No,No,109,69,81,Rhonchi,270,187,64,Yes,No,No,No,No,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,Yes,Former,No,No,Cardiomyopathy
+49,Yes,No,No,156,61,62,Crackle,285,116,58,No,No,No,Yes,No,No,Yes,Yes,No,Yes,No,No,Yes,Yes,Yes,No,Never,No,No,Arrhythmia
+49,Yes,Yes,No,90,110,78,Rhonchi,283,166,55,No,Yes,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Never,No,No,Cardiomyopathy
+39,No,No,Yes,101,65,81,Crackle,189,99,50,Yes,Yes,Yes,Yes,No,Yes,No,Yes,No,Yes,Yes,Yes,No,No,No,Yes,Current,No,Yes,Valvular Heart Disease
+47,Yes,No,No,150,63,67,Crackle,181,196,54,Yes,No,No,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Former,Yes,No,Coronary Artery Disease (CAD)
+37,No,No,No,165,115,93,Rhonchi,206,176,39,Yes,No,No,No,No,Yes,No,Yes,No,Yes,No,No,No,Yes,Yes,Yes,Former,Yes,No,Heart Failure
+50,Yes,Yes,Yes,159,79,95,Rhonchi,257,101,80,Yes,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,No,Yes,Yes,No,Yes,No,Former,No,Yes,Cardiomyopathy
+56,No,Yes,Yes,136,113,69,Wheeze,201,96,70,No,No,No,Yes,No,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,Yes,Current,No,No,Cardiomyopathy
+40,No,Yes,No,170,104,73,Rhonchi,172,97,65,No,No,No,No,No,Yes,No,Yes,No,No,No,Yes,Yes,Yes,No,Yes,Former,Yes,No,Coronary Artery Disease (CAD)
+69,No,Yes,Yes,94,98,90,Rhonchi,216,113,41,No,Yes,No,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Yes,No,Never,No,Yes,Arrhythmia
+40,Yes,No,No,166,94,92,Crackle,275,78,39,Yes,No,No,No,Yes,Yes,No,Yes,No,No,No,Yes,No,Yes,Yes,No,Current,No,Yes,Arrhythmia
+35,No,No,No,142,110,92,Wheeze,184,157,78,Yes,No,No,No,No,No,No,Yes,No,No,No,No,No,Yes,No,No,Former,No,Yes,Arrhythmia
+39,Yes,No,No,130,82,60,Crackle,249,95,33,No,Yes,No,No,No,No,Yes,No,No,No,No,No,Yes,Yes,Yes,Yes,Never,Yes,Yes,Coronary Artery Disease (CAD)
+70,No,Yes,Yes,169,78,60,Crackle,161,189,78,Yes,No,No,No,Yes,Yes,No,Yes,Yes,No,No,No,Yes,Yes,No,No,Current,Yes,Yes,Coronary Artery Disease (CAD)
+50,Yes,No,No,93,110,96,Crackle,258,114,77,Yes,No,No,Yes,No,Yes,No,No,Yes,No,No,Yes,Yes,Yes,No,Yes,Never,Yes,No,Coronary Artery Disease (CAD)
+61,Yes,Yes,Yes,160,76,97,Normal,224,191,78,Yes,No,No,Yes,No,Yes,Yes,No,No,Yes,Yes,No,No,Yes,No,No,Never,Yes,No,Heart Failure
+78,Yes,No,No,176,117,88,Normal,155,92,69,Yes,Yes,No,Yes,No,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,Former,No,No,Arrhythmia
+68,Yes,No,Yes,118,99,91,Crackle,225,99,46,No,No,No,Yes,Yes,No,Yes,No,No,No,No,Yes,Yes,Yes,Yes,No,Never,Yes,No,Coronary Artery Disease (CAD)
+31,Yes,Yes,Yes,174,111,72,Rhonchi,210,73,73,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,Yes,No,No,Never,No,Yes,Arrhythmia
+60,Yes,No,No,179,116,62,Rhonchi,163,187,56,Yes,Yes,No,Yes,Yes,No,No,No,Yes,Yes,Yes,No,No,No,Yes,Yes,Former,No,No,Cardiomyopathy
+41,Yes,Yes,Yes,94,118,98,Crackle,191,145,78,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,Yes,No,No,No,No,Former,No,No,Valvular Heart Disease
+31,Yes,No,Yes,177,76,75,Crackle,237,112,32,Yes,Yes,No,Yes,No,No,Yes,No,No,Yes,Yes,Yes,No,No,No,No,Former,No,No,Cardiomyopathy
+73,Yes,Yes,Yes,157,67,86,Normal,288,181,53,No,No,No,Yes,No,Yes,Yes,No,Yes,Yes,No,No,No,Yes,Yes,Yes,Never,Yes,No,Coronary Artery Disease (CAD)
+65,Yes,No,No,101,81,80,Wheeze,175,71,53,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,Yes,No,No,No,No,Yes,Never,No,No,Cardiomyopathy
+38,Yes,No,No,92,68,100,Crackle,255,94,63,No,Yes,Yes,No,Yes,No,Yes,No,Yes,Yes,No,No,No,No,Yes,No,Former,No,Yes,Valvular Heart Disease
+78,No,No,No,154,85,68,Rhonchi,189,125,35,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Yes,No,Yes,Former,Yes,Yes,Coronary Artery Disease (CAD)
+44,Yes,No,Yes,177,112,66,Wheeze,257,126,38,Yes,Yes,No,No,No,No,No,No,Yes,No,Yes,Yes,Yes,Yes,No,No,Former,Yes,Yes,Coronary Artery Disease (CAD)
+47,Yes,No,No,157,90,73,Crackle,262,154,46,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,Yes,Yes,No,No,No,No,Former,No,No,Cardiomyopathy
+30,Yes,No,No,101,90,95,Rhonchi,150,176,32,No,No,No,Yes,No,No,No,Yes,No,No,Yes,No,Yes,No,No,No,Former,No,No,Cardiomyopathy
+39,Yes,No,Yes,154,108,73,Rhonchi,161,78,79,Yes,Yes,No,Yes,No,No,Yes,Yes,Yes,No,No,No,No,Yes,No,No,Current,Yes,Yes,Coronary Artery Disease (CAD)
+71,No,No,Yes,151,112,95,Normal,248,109,80,Yes,Yes,No,No,No,No,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,Former,No,No,Arrhythmia
+45,Yes,Yes,No,134,71,94,Normal,300,105,59,No,Yes,No,No,No,Yes,No,Yes,Yes,No,No,Yes,No,No,No,Yes,Former,No,No,Cardiomyopathy
+65,Yes,Yes,Yes,122,84,86,Wheeze,213,192,75,No,Yes,No,No,No,No,Yes,No,No,No,Yes,Yes,No,Yes,No,Yes,Never,No,Yes,Arrhythmia
+37,Yes,Yes,No,102,82,77,Rhonchi,216,173,70,No,Yes,No,Yes,No,No,No,No,No,Yes,Yes,No,No,Yes,No,Yes,Former,No,Yes,Arrhythmia
+39,Yes,Yes,Yes,97,106,68,Rhonchi,230,105,69,Yes,No,Yes,Yes,No,Yes,Yes,No,Yes,No,No,No,Yes,No,Yes,No,Never,No,No,Valvular Heart Disease
+50,No,No,No,94,92,80,Rhonchi,170,98,45,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,No,No,Yes,Yes,No,No,Former,Yes,Yes,Heart Failure
+60,Yes,No,No,99,87,90,Crackle,227,171,62,No,Yes,Yes,No,No,Yes,No,Yes,No,No,No,Yes,No,No,Yes,No,Current,No,No,Valvular Heart Disease
+50,No,No,Yes,119,69,89,Crackle,263,87,36,No,No,No,No,No,No,Yes,No,No,Yes,Yes,Yes,Yes,Yes,No,No,Never,Yes,Yes,Heart Failure
+40,No,Yes,Yes,107,99,80,Rhonchi,220,78,38,No,No,Yes,No,No,Yes,No,No,Yes,Yes,No,No,Yes,No,No,Yes,Never,No,No,Valvular Heart Disease
+42,No,No,No,160,93,60,Wheeze,260,113,52,No,Yes,Yes,No,Yes,Yes,Yes,No,Yes,No,Yes,No,Yes,No,Yes,Yes,Never,No,Yes,Valvular Heart Disease
+73,No,No,No,174,67,64,Crackle,233,117,79,Yes,Yes,No,No,No,Yes,Yes,No,No,Yes,No,Yes,Yes,Yes,No,No,Current,Yes,No,Heart Failure
+70,Yes,No,No,163,108,90,Wheeze,256,144,74,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Never,No,Yes,Arrhythmia
+37,No,Yes,No,155,101,83,Normal,204,119,35,Yes,Yes,No,No,No,No,No,No,No,No,No,No,No,Yes,No,No,Never,Yes,No,Coronary Artery Disease (CAD)
+39,No,Yes,No,105,115,70,Crackle,279,120,43,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,No,Yes,No,Current,No,No,Valvular Heart Disease
+58,Yes,No,Yes,178,105,68,Wheeze,247,94,56,Yes,Yes,No,No,Yes,No,No,Yes,No,No,No,Yes,No,Yes,Yes,No,Never,No,Yes,Arrhythmia
+80,No,Yes,Yes,122,113,73,Normal,297,72,38,No,No,No,No,No,No,No,Yes,Yes,No,Yes,Yes,No,Yes,No,No,Current,Yes,Yes,Coronary Artery Disease (CAD)
+66,No,Yes,No,157,63,66,Rhonchi,221,127,33,No,No,Yes,No,No,Yes,Yes,No,No,Yes,Yes,No,Yes,No,Yes,Yes,Current,No,Yes,Valvular Heart Disease
+61,No,Yes,No,175,72,60,Normal,296,134,41,No,Yes,Yes,No,Yes,No,Yes,No,Yes,No,No,No,Yes,No,No,Yes,Former,No,No,Valvular Heart Disease
+69,No,No,No,152,68,72,Rhonchi,252,118,71,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,Yes,Yes,No,No,No,Yes,No,Never,No,Yes,Valvular Heart Disease
+35,Yes,No,No,174,102,100,Rhonchi,266,162,57,Yes,No,No,No,Yes,Yes,No,Yes,No,No,Yes,Yes,No,No,No,Yes,Former,No,No,Cardiomyopathy
+69,No,No,No,171,61,66,Crackle,190,140,72,Yes,Yes,Yes,No,No,No,Yes,No,Yes,No,No,Yes,No,No,Yes,No,Current,No,Yes,Valvular Heart Disease
+38,Yes,Yes,Yes,170,62,100,Normal,235,78,54,Yes,No,Yes,No,No,Yes,Yes,No,No,No,No,No,No,No,Yes,No,Current,No,Yes,Valvular Heart Disease
+58,Yes,Yes,No,137,77,69,Rhonchi,186,83,59,No,Yes,No,No,Yes,Yes,No,Yes,Yes,Yes,No,Yes,Yes,No,No,Yes,Never,No,No,Cardiomyopathy
+54,Yes,No,Yes,172,90,74,Normal,185,137,40,Yes,No,No,Yes,No,Yes,No,No,No,Yes,No,Yes,No,No,Yes,No,Current,No,Yes,Cardiomyopathy
+36,Yes,No,Yes,170,116,79,Crackle,194,135,61,Yes,No,No,Yes,Yes,Yes,No,No,No,Yes,No,No,Yes,No,Yes,Yes,Never,No,No,Cardiomyopathy
+53,Yes,No,Yes,178,73,89,Normal,209,199,40,No,Yes,No,Yes,Yes,No,Yes,No,No,No,No,Yes,Yes,Yes,No,No,Current,Yes,Yes,Heart Failure
+39,Yes,Yes,Yes,155,120,70,Wheeze,190,186,36,Yes,Yes,No,No,No,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,Never,Yes,Yes,Coronary Artery Disease (CAD)
+31,No,No,No,138,61,63,Normal,164,88,54,No,Yes,No,No,No,No,Yes,Yes,Yes,Yes,Yes,No,Yes,No,Yes,No,Current,No,No,Cardiomyopathy
+46,Yes,No,No,143,75,85,Wheeze,249,190,37,No,Yes,No,No,No,No,Yes,Yes,No,No,No,Yes,Yes,No,Yes,Yes,Former,No,No,Cardiomyopathy
+60,Yes,Yes,Yes,138,95,93,Normal,244,83,74,No,No,No,Yes,Yes,Yes,No,No,No,No,Yes,Yes,No,Yes,Yes,No,Current,Yes,No,Coronary Artery Disease (CAD)
+33,Yes,Yes,No,175,106,93,Wheeze,174,172,80,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,No,Yes,No,Yes,No,Current,No,Yes,Cardiomyopathy
+61,No,No,Yes,101,73,88,Rhonchi,271,190,66,Yes,No,No,No,No,Yes,Yes,No,No,No,Yes,Yes,Yes,Yes,No,Yes,Never,Yes,No,Heart Failure
+77,No,Yes,No,173,85,96,Normal,229,84,57,No,No,No,Yes,Yes,No,Yes,No,Yes,No,No,No,Yes,Yes,Yes,No,Current,No,Yes,Arrhythmia
+43,No,Yes,No,146,91,80,Crackle,220,146,49,No,Yes,No,Yes,Yes,Yes,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,No,Never,No,Yes,Arrhythmia
+47,Yes,Yes,Yes,173,78,100,Crackle,258,97,56,No,No,No,Yes,Yes,No,Yes,No,No,Yes,No,No,No,Yes,Yes,No,Never,No,No,Arrhythmia
+78,Yes,No,Yes,143,70,83,Normal,229,76,78,Yes,No,No,No,No,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Former,Yes,Yes,Heart Failure
+60,No,No,No,141,84,72,Rhonchi,160,129,50,No,No,No,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,No,No,No,No,No,Former,No,Yes,Cardiomyopathy
+44,Yes,No,No,161,113,97,Crackle,241,113,63,Yes,No,No,No,No,No,No,Yes,No,No,Yes,No,Yes,No,No,No,Current,No,Yes,Cardiomyopathy
+48,No,Yes,No,90,116,74,Rhonchi,261,191,55,Yes,Yes,No,No,Yes,No,Yes,No,No,No,No,No,Yes,Yes,Yes,No,Current,Yes,Yes,Coronary Artery Disease (CAD)
+44,Yes,Yes,No,101,87,62,Normal,184,165,33,No,No,No,Yes,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,No,Yes,Never,No,Yes,Arrhythmia
+59,Yes,Yes,Yes,148,87,84,Crackle,232,127,47,Yes,No,Yes,Yes,Yes,Yes,No,Yes,No,No,No,No,Yes,No,No,No,Former,No,Yes,Valvular Heart Disease
+70,No,Yes,No,112,76,94,Crackle,236,181,57,No,Yes,No,Yes,Yes,Yes,Yes,No,Yes,No,No,No,Yes,Yes,Yes,No,Former,No,No,Arrhythmia
+33,No,No,No,163,82,96,Crackle,247,140,42,No,Yes,No,No,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,No,Yes,Current,Yes,Yes,Coronary Artery Disease (CAD)
+79,Yes,No,No,105,85,90,Normal,187,82,33,No,Yes,No,Yes,No,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Never,No,No,Arrhythmia
+71,Yes,No,No,111,101,100,Crackle,281,91,34,Yes,Yes,No,No,No,No,Yes,No,Yes,Yes,No,Yes,No,No,Yes,Yes,Never,No,Yes,Cardiomyopathy
+31,No,No,Yes,103,68,76,Crackle,300,156,78,Yes,Yes,No,No,Yes,No,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,Former,No,No,Arrhythmia
+34,No,Yes,Yes,153,68,78,Rhonchi,176,143,64,Yes,Yes,No,No,Yes,Yes,Yes,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Former,Yes,Yes,Heart Failure
+30,Yes,No,Yes,117,86,69,Wheeze,245,153,43,No,No,No,No,No,No,No,No,No,Yes,Yes,Yes,Yes,No,No,No,Current,No,No,Cardiomyopathy
+75,Yes,Yes,Yes,92,66,85,Wheeze,250,128,50,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Current,Yes,Yes,Coronary Artery Disease (CAD)
+71,No,Yes,No,133,94,71,Crackle,260,135,73,Yes,No,No,Yes,No,Yes,Yes,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Never,No,Yes,Cardiomyopathy
+61,Yes,Yes,No,166,95,81,Crackle,171,152,48,No,No,No,No,Yes,No,No,Yes,No,No,No,No,No,Yes,Yes,Yes,Never,No,Yes,Arrhythmia
+60,Yes,Yes,Yes,161,77,61,Rhonchi,259,178,57,Yes,No,No,Yes,Yes,No,No,No,Yes,No,Yes,Yes,No,Yes,No,No,Never,Yes,No,Heart Failure
+36,Yes,No,Yes,106,92,87,Wheeze,207,119,78,Yes,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,No,Yes,No,Yes,No,Never,No,No,Cardiomyopathy
+64,No,Yes,No,175,89,76,Rhonchi,173,181,71,Yes,Yes,No,Yes,No,Yes,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Former,Yes,Yes,Heart Failure
+47,Yes,No,Yes,134,117,88,Crackle,190,186,71,No,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,No,Yes,No,Yes,No,No,Yes,Current,No,No,Valvular Heart Disease
+71,No,No,Yes,119,93,62,Rhonchi,189,192,63,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,No,No,No,No,No,Current,No,Yes,Cardiomyopathy
+33,Yes,Yes,Yes,144,109,86,Crackle,164,147,62,Yes,Yes,No,No,Yes,No,Yes,No,No,No,No,No,Yes,Yes,Yes,Yes,Never,Yes,Yes,Coronary Artery Disease (CAD)
+42,No,No,No,175,76,88,Crackle,234,119,71,No,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,No,No,Yes,No,No,No,Former,No,No,Valvular Heart Disease
+67,No,No,Yes,108,96,60,Normal,196,111,30,No,Yes,No,No,Yes,No,Yes,No,No,No,No,No,No,Yes,Yes,Yes,Never,No,Yes,Arrhythmia
+30,No,Yes,Yes,125,113,61,Rhonchi,171,140,47,Yes,No,No,Yes,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,Yes,Current,Yes,Yes,Coronary Artery Disease (CAD)
+35,Yes,Yes,Yes,100,76,91,Normal,186,176,80,No,Yes,No,No,No,No,Yes,Yes,No,No,No,No,Yes,Yes,No,Yes,Former,Yes,Yes,Coronary Artery Disease (CAD)
+49,No,No,No,154,116,76,Crackle,169,107,70,No,No,Yes,Yes,No,Yes,Yes,Yes,No,Yes,No,Yes,Yes,No,Yes,No,Former,No,Yes,Valvular Heart Disease
+78,Yes,No,Yes,116,78,62,Wheeze,256,91,45,No,No,No,No,No,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,No,No,Current,No,Yes,Arrhythmia
+49,Yes,Yes,Yes,167,63,84,Wheeze,193,133,42,No,No,No,No,Yes,No,No,Yes,Yes,No,Yes,No,Yes,No,Yes,Yes,Never,No,No,Cardiomyopathy
+43,No,No,Yes,106,61,72,Normal,297,151,68,No,No,No,Yes,No,Yes,Yes,Yes,Yes,No,No,No,No,Yes,No,No,Never,No,Yes,Arrhythmia
+44,No,No,No,148,89,87,Crackle,264,105,76,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,Yes,No,Never,No,Yes,Cardiomyopathy
+71,Yes,No,No,105,92,85,Rhonchi,291,107,42,Yes,No,No,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,No,No,Never,Yes,Yes,Coronary Artery Disease (CAD)
+30,No,No,Yes,153,93,89,Wheeze,228,145,37,No,Yes,No,No,No,No,No,No,Yes,Yes,No,Yes,No,Yes,Yes,No,Current,No,Yes,Arrhythmia
+55,Yes,No,No,149,90,60,Wheeze,261,105,43,Yes,No,Yes,Yes,Yes,No,No,Yes,No,Yes,Yes,Yes,No,No,Yes,Yes,Current,No,No,Valvular Heart Disease
+41,No,Yes,Yes,171,78,83,Crackle,228,172,78,No,Yes,No,No,Yes,No,No,No,Yes,No,No,Yes,Yes,Yes,No,No,Never,Yes,Yes,Coronary Artery Disease (CAD)
+38,No,No,No,115,120,63,Wheeze,257,114,76,No,No,Yes,No,Yes,No,Yes,Yes,Yes,No,No,Yes,Yes,No,No,Yes,Current,No,No,Valvular Heart Disease
+74,No,No,Yes,172,111,89,Rhonchi,189,132,50,Yes,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,Current,Yes,Yes,Heart Failure
+73,No,Yes,No,95,81,84,Crackle,283,106,69,No,No,Yes,No,No,No,No,No,Yes,Yes,No,Yes,No,No,No,No,Former,No,No,Valvular Heart Disease
+48,No,Yes,No,113,117,63,Crackle,249,132,47,Yes,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,Current,No,Yes,Arrhythmia
+40,Yes,Yes,No,151,107,74,Rhonchi,291,191,44,No,No,No,No,Yes,Yes,Yes,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,Former,Yes,Yes,Heart Failure
+50,Yes,Yes,Yes,101,92,98,Normal,162,189,53,No,Yes,Yes,No,Yes,No,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Yes,Never,No,No,Valvular Heart Disease
+61,No,Yes,No,141,119,94,Wheeze,265,130,48,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,No,No,No,Yes,No,Former,No,No,Valvular Heart Disease
+41,No,Yes,Yes,153,71,64,Crackle,261,131,72,Yes,Yes,Yes,Yes,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,No,Former,No,Yes,Valvular Heart Disease
+73,Yes,No,No,180,81,69,Crackle,239,192,63,No,No,No,No,Yes,Yes,Yes,Yes,No,Yes,Yes,No,No,Yes,Yes,No,Current,Yes,Yes,Coronary Artery Disease (CAD)
+37,Yes,No,Yes,121,81,78,Wheeze,238,136,37,Yes,Yes,No,Yes,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,Yes,Current,Yes,No,Heart Failure
+68,No,Yes,No,134,114,95,Normal,150,147,61,Yes,No,No,Yes,Yes,Yes,No,Yes,No,Yes,No,Yes,No,Yes,Yes,No,Never,Yes,No,Coronary Artery Disease (CAD)
+50,Yes,No,No,154,102,96,Rhonchi,199,136,78,No,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Former,No,Yes,Arrhythmia
+79,No,No,No,159,78,85,Wheeze,287,94,72,No,Yes,No,Yes,No,No,Yes,No,Yes,Yes,No,Yes,No,Yes,Yes,No,Never,Yes,Yes,Coronary Artery Disease (CAD)
+78,No,Yes,No,143,98,98,Rhonchi,247,174,68,Yes,Yes,No,Yes,Yes,No,No,Yes,Yes,No,Yes,Yes,Yes,No,No,Yes,Current,No,No,Cardiomyopathy
+79,Yes,Yes,No,125,78,69,Wheeze,274,131,62,No,Yes,No,No,Yes,Yes,No,Yes,No,No,Yes,No,Yes,Yes,No,No,Current,Yes,No,Heart Failure
+32,No,No,No,110,103,78,Wheeze,226,177,62,Yes,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Yes,No,No,Former,No,No,Arrhythmia
+73,No,Yes,Yes,147,79,80,Wheeze,284,153,70,No,No,Yes,Yes,Yes,No,No,Yes,Yes,No,No,Yes,Yes,No,No,Yes,Former,No,No,Valvular Heart Disease
+69,No,Yes,No,167,98,87,Wheeze,260,159,50,No,Yes,No,No,No,No,Yes,Yes,Yes,Yes,No,Yes,No,No,No,Yes,Never,No,No,Cardiomyopathy
+66,No,Yes,Yes,125,71,89,Crackle,266,103,60,Yes,Yes,No,Yes,Yes,No,Yes,No,No,No,No,Yes,Yes,No,No,Yes,Current,No,Yes,Cardiomyopathy
+37,No,Yes,Yes,123,76,76,Rhonchi,196,177,54,No,Yes,No,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,No,Yes,Current,Yes,No,Coronary Artery Disease (CAD)
+61,Yes,No,Yes,100,61,100,Normal,238,179,52,No,No,No,Yes,No,Yes,No,No,Yes,No,Yes,Yes,Yes,Yes,No,Yes,Current,Yes,No,Coronary Artery Disease (CAD)
+36,No,Yes,No,143,104,83,Crackle,231,103,77,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,Yes,Yes,No,No,No,No,Yes,Current,No,No,Valvular Heart Disease
+30,Yes,Yes,No,100,120,92,Wheeze,296,159,42,No,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,No,No,No,Yes,Yes,Never,No,No,Valvular Heart Disease
+60,Yes,Yes,Yes,104,120,70,Normal,175,118,63,Yes,Yes,No,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,Yes,No,Yes,Never,Yes,Yes,Coronary Artery Disease (CAD)
+73,No,No,No,91,98,98,Crackle,253,175,32,Yes,Yes,No,No,Yes,Yes,Yes,No,Yes,No,Yes,Yes,Yes,No,No,Yes,Current,No,No,Cardiomyopathy
+74,Yes,No,Yes,164,102,84,Normal,189,92,71,Yes,Yes,No,Yes,Yes,No,Yes,Yes,Yes,No,Yes,Yes,No,No,No,No,Former,No,Yes,Cardiomyopathy
+46,Yes,Yes,No,169,117,100,Normal,235,141,53,Yes,Yes,No,Yes,Yes,No,No,Yes,Yes,No,No,Yes,Yes,Yes,No,Yes,Never,No,Yes,Arrhythmia
+41,No,No,No,162,73,70,Rhonchi,167,146,40,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,No,No,No,Yes,No,Yes,No,Current,No,No,Valvular Heart Disease
+45,No,Yes,Yes,99,65,71,Rhonchi,152,110,78,Yes,No,No,Yes,No,Yes,Yes,No,No,Yes,Yes,No,Yes,Yes,No,Yes,Former,Yes,No,Coronary Artery Disease (CAD)
+34,No,Yes,Yes,122,91,70,Rhonchi,165,191,60,Yes,No,Yes,Yes,Yes,No,Yes,Yes,No,No,Yes,No,No,No,No,Yes,Current,No,No,Valvular Heart Disease
+38,Yes,No,Yes,156,104,65,Normal,294,199,70,No,No,No,Yes,No,No,No,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,Current,No,Yes,Arrhythmia
+62,No,No,No,157,69,85,Wheeze,151,180,53,No,No,No,No,Yes,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,Never,Yes,No,Heart Failure
+60,Yes,Yes,Yes,97,62,96,Wheeze,269,167,62,Yes,No,No,No,Yes,Yes,No,No,Yes,Yes,No,Yes,No,Yes,No,Yes,Never,Yes,Yes,Coronary Artery Disease (CAD)
+40,Yes,Yes,No,107,84,73,Crackle,283,140,50,No,No,No,No,No,Yes,Yes,Yes,No,No,Yes,Yes,No,Yes,No,Yes,Current,Yes,No,Heart Failure
+80,Yes,Yes,Yes,154,115,70,Normal,169,114,41,No,No,No,No,Yes,Yes,Yes,No,No,No,No,Yes,Yes,Yes,No,No,Former,Yes,Yes,Heart Failure
+58,No,Yes,Yes,130,109,85,Rhonchi,288,157,55,Yes,Yes,No,No,No,Yes,No,Yes,Yes,No,Yes,No,No,Yes,Yes,Yes,Former,No,Yes,Arrhythmia
+33,No,Yes,Yes,149,85,88,Normal,219,182,61,Yes,Yes,No,Yes,Yes,No,No,Yes,No,No,No,Yes,Yes,No,Yes,No,Current,No,Yes,Cardiomyopathy
+52,No,No,No,113,92,85,Crackle,257,182,36,No,No,No,No,Yes,No,Yes,No,Yes,No,Yes,No,No,No,No,Yes,Never,No,No,Cardiomyopathy
+64,No,Yes,No,112,89,82,Crackle,201,132,48,No,Yes,No,No,Yes,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Never,Yes,No,Coronary Artery Disease (CAD)
+75,Yes,Yes,No,92,85,78,Crackle,226,115,57,No,No,Yes,No,No,No,No,No,No,Yes,Yes,Yes,Yes,No,No,No,Never,No,Yes,Valvular Heart Disease
+69,Yes,No,Yes,110,78,61,Crackle,300,146,52,No,No,No,Yes,Yes,No,No,Yes,No,Yes,No,Yes,Yes,Yes,No,Yes,Current,Yes,Yes,Heart Failure
+52,Yes,No,No,176,95,89,Crackle,288,93,67,Yes,No,Yes,Yes,Yes,No,Yes,Yes,No,Yes,No,No,No,No,Yes,Yes,Never,No,No,Valvular Heart Disease
+55,Yes,Yes,Yes,100,77,74,Crackle,259,94,80,No,Yes,Yes,Yes,No,No,Yes,Yes,No,No,Yes,Yes,No,No,No,Yes,Never,No,Yes,Valvular Heart Disease
+76,Yes,No,Yes,138,62,77,Rhonchi,266,163,65,Yes,Yes,No,No,No,Yes,Yes,Yes,No,No,No,No,Yes,Yes,Yes,Yes,Current,Yes,Yes,Coronary Artery Disease (CAD)
+75,Yes,Yes,Yes,168,62,67,Normal,277,171,69,No,Yes,Yes,Yes,No,Yes,No,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,Never,No,Yes,Valvular Heart Disease
+76,Yes,No,No,144,83,79,Wheeze,295,191,30,No,No,Yes,Yes,No,Yes,No,Yes,Yes,No,No,No,No,No,No,Yes,Former,No,No,Valvular Heart Disease
+32,Yes,Yes,Yes,125,75,83,Crackle,204,190,79,Yes,No,No,No,No,Yes,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,Never,No,Yes,Arrhythmia
+45,No,No,Yes,92,71,65,Wheeze,167,185,60,Yes,No,No,No,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,No,Former,Yes,No,Coronary Artery Disease (CAD)
+40,Yes,No,No,111,69,83,Crackle,289,165,51,Yes,No,No,No,Yes,No,No,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,Current,Yes,No,Coronary Artery Disease (CAD)
+76,Yes,No,No,172,61,85,Wheeze,263,157,40,Yes,Yes,No,Yes,No,Yes,No,No,No,No,Yes,Yes,Yes,Yes,No,No,Former,Yes,No,Coronary Artery Disease (CAD)
+43,No,No,No,133,105,89,Rhonchi,243,78,65,No,Yes,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,Former,Yes,No,Heart Failure
+61,No,Yes,Yes,149,108,98,Crackle,159,102,38,No,Yes,No,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,No,Yes,No,Yes,Never,No,No,Arrhythmia
+44,Yes,No,No,161,109,65,Wheeze,229,186,54,Yes,No,No,No,Yes,Yes,Yes,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Current,Yes,No,Coronary Artery Disease (CAD)
+49,Yes,Yes,Yes,144,100,66,Rhonchi,183,184,44,Yes,No,No,Yes,No,No,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,No,Current,Yes,No,Coronary Artery Disease (CAD)
+71,No,No,Yes,173,119,77,Rhonchi,181,146,65,No,Yes,No,No,No,Yes,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,Current,No,No,Arrhythmia
+54,Yes,No,No,172,111,94,Rhonchi,195,119,49,No,No,No,Yes,Yes,Yes,Yes,No,No,Yes,No,No,No,Yes,No,Yes,Former,Yes,Yes,Coronary Artery Disease (CAD)
+52,No,No,No,119,71,97,Wheeze,233,140,44,Yes,No,Yes,Yes,No,No,No,Yes,Yes,No,Yes,Yes,No,No,Yes,Yes,Former,No,Yes,Valvular Heart Disease
+70,Yes,Yes,No,130,104,87,Rhonchi,200,189,50,Yes,No,No,No,No,Yes,No,No,No,No,No,No,No,Yes,Yes,No,Current,Yes,No,Heart Failure
+64,No,No,Yes,170,105,71,Crackle,171,192,58,No,No,No,Yes,Yes,Yes,No,No,No,No,Yes,No,No,Yes,No,Yes,Current,No,Yes,Arrhythmia
+36,Yes,No,No,136,70,63,Wheeze,166,176,62,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Yes,No,Yes,No,Yes,No,Yes,No,Current,No,Yes,Valvular Heart Disease
+44,No,Yes,No,147,119,64,Normal,298,103,67,Yes,Yes,No,Yes,Yes,Yes,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,No,Never,No,No,Arrhythmia
+39,Yes,No,No,141,85,83,Normal,281,129,60,No,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Yes,No,Yes,No,No,No,Current,No,No,Valvular Heart Disease
+63,No,No,No,101,85,63,Crackle,196,144,31,No,No,Yes,Yes,No,Yes,Yes,No,No,No,Yes,Yes,No,No,No,Yes,Former,No,Yes,Valvular Heart Disease
+40,No,Yes,Yes,122,105,83,Crackle,264,186,46,Yes,No,Yes,No,No,No,No,Yes,Yes,Yes,No,Yes,No,No,No,Yes,Current,No,Yes,Valvular Heart Disease
+44,No,No,No,138,94,71,Rhonchi,232,179,67,Yes,No,No,Yes,No,No,No,No,Yes,No,No,No,No,Yes,No,Yes,Former,Yes,No,Coronary Artery Disease (CAD)
+71,Yes,Yes,Yes,127,101,71,Crackle,199,143,48,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,No,Yes,Yes,No,No,Former,Yes,No,Coronary Artery Disease (CAD)
+46,Yes,No,Yes,179,76,91,Crackle,209,183,80,No,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,No,No,Yes,Yes,No,No,Yes,Former,No,Yes,Valvular Heart Disease
+60,Yes,Yes,No,166,74,71,Wheeze,174,129,66,Yes,No,No,No,No,Yes,No,No,Yes,No,No,Yes,No,Yes,No,No,Former,No,No,Arrhythmia
+80,No,Yes,Yes,112,109,61,Crackle,211,180,63,No,Yes,No,No,Yes,Yes,No,No,Yes,Yes,No,Yes,Yes,No,No,No,Current,No,Yes,Cardiomyopathy
+30,No,No,No,130,76,97,Crackle,161,113,44,No,No,Yes,Yes,No,Yes,No,No,No,Yes,Yes,No,No,No,Yes,No,Never,No,Yes,Valvular Heart Disease
+30,Yes,No,No,134,112,75,Normal,222,87,73,No,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,Former,Yes,No,Coronary Artery Disease (CAD)
+56,Yes,Yes,Yes,117,112,66,Normal,180,150,71,Yes,No,No,Yes,Yes,No,Yes,No,No,Yes,No,No,Yes,Yes,Yes,Yes,Former,No,No,Arrhythmia
+67,No,No,Yes,147,88,93,Rhonchi,234,103,42,No,No,No,Yes,No,No,No,No,No,No,No,No,No,Yes,No,Yes,Former,Yes,No,Heart Failure
+47,Yes,Yes,Yes,139,82,73,Rhonchi,171,139,67,No,No,No,No,Yes,No,No,Yes,Yes,No,No,No,Yes,Yes,No,No,Current,Yes,No,Coronary Artery Disease (CAD)
+54,No,No,Yes,105,116,71,Normal,245,153,51,No,Yes,No,Yes,Yes,No,No,No,No,No,Yes,No,Yes,Yes,Yes,No,Never,No,Yes,Arrhythmia
+47,No,Yes,Yes,125,67,72,Wheeze,198,119,46,Yes,Yes,No,Yes,Yes,Yes,No,Yes,No,Yes,No,Yes,Yes,Yes,No,Yes,Former,Yes,Yes,Coronary Artery Disease (CAD)
+72,No,No,Yes,104,95,76,Crackle,277,172,73,Yes,Yes,No,No,Yes,No,No,Yes,No,No,Yes,No,No,No,Yes,Yes,Never,No,Yes,Cardiomyopathy
+52,Yes,No,No,179,78,62,Rhonchi,185,121,75,Yes,No,No,Yes,No,Yes,Yes,Yes,No,Yes,No,No,No,Yes,Yes,No,Current,Yes,Yes,Coronary Artery Disease (CAD)
+30,No,No,No,101,89,82,Rhonchi,219,194,72,No,Yes,No,No,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,No,No,No,Current,No,Yes,Cardiomyopathy
+48,Yes,Yes,No,161,82,82,Normal,204,109,46,Yes,Yes,No,No,No,Yes,Yes,Yes,No,No,No,No,Yes,Yes,No,No,Former,No,Yes,Arrhythmia
+78,Yes,No,No,173,75,90,Wheeze,200,176,53,Yes,No,No,No,No,No,No,Yes,Yes,Yes,No,No,No,No,No,No,Current,No,No,Cardiomyopathy
+52,No,No,Yes,104,81,67,Rhonchi,201,148,72,No,No,No,Yes,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Never,Yes,Yes,Heart Failure
+78,No,Yes,Yes,135,90,100,Crackle,287,138,30,No,No,No,Yes,Yes,No,No,No,Yes,No,Yes,No,Yes,No,Yes,Yes,Current,No,No,Cardiomyopathy
+45,Yes,No,No,128,109,69,Crackle,275,189,30,No,Yes,No,No,Yes,Yes,No,Yes,No,No,Yes,No,No,Yes,No,Yes,Former,Yes,No,Coronary Artery Disease (CAD)
+51,Yes,Yes,No,120,70,95,Wheeze,258,175,53,No,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Never,Yes,No,Coronary Artery Disease (CAD)
+31,No,Yes,Yes,143,71,92,Crackle,265,145,41,No,No,No,Yes,No,No,No,No,Yes,No,No,Yes,No,Yes,Yes,No,Former,Yes,Yes,Coronary Artery Disease (CAD)
+70,Yes,No,Yes,93,94,71,Wheeze,269,199,79,Yes,No,No,No,Yes,No,Yes,Yes,Yes,No,Yes,No,Yes,Yes,No,No,Current,Yes,No,Heart Failure
+45,Yes,Yes,Yes,116,95,93,Wheeze,161,178,35,No,No,Yes,No,Yes,No,No,No,No,No,No,No,Yes,No,Yes,No,Former,No,Yes,Valvular Heart Disease
+67,Yes,Yes,Yes,118,89,94,Rhonchi,181,78,30,Yes,Yes,Yes,Yes,No,No,No,Yes,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Former,No,No,Valvular Heart Disease
+48,No,No,Yes,118,99,69,Normal,285,130,57,Yes,No,No,Yes,No,Yes,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Current,Yes,No,Coronary Artery Disease (CAD)
+72,Yes,No,Yes,157,66,76,Crackle,180,161,42,Yes,Yes,No,Yes,No,Yes,Yes,No,No,Yes,No,Yes,No,Yes,No,Yes,Current,Yes,No,Coronary Artery Disease (CAD)
+65,Yes,No,Yes,156,102,93,Normal,287,179,51,No,No,No,No,No,Yes,Yes,No,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Current,Yes,No,Coronary Artery Disease (CAD)
+67,Yes,Yes,No,98,61,99,Rhonchi,269,199,72,No,Yes,No,Yes,No,Yes,Yes,No,Yes,No,Yes,Yes,Yes,Yes,Yes,No,Never,Yes,Yes,Heart Failure
+57,No,No,Yes,97,72,69,Rhonchi,258,108,65,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,Former,Yes,No,Heart Failure
+42,Yes,Yes,No,147,100,80,Rhonchi,167,109,64,No,Yes,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,Yes,No,No,No,No,Former,No,Yes,Valvular Heart Disease
+54,Yes,Yes,No,97,110,64,Wheeze,284,83,64,Yes,Yes,No,Yes,No,Yes,Yes,Yes,No,Yes,No,Yes,Yes,No,No,Yes,Never,No,No,Cardiomyopathy
+37,No,Yes,Yes,145,79,82,Wheeze,267,167,77,Yes,No,No,No,No,No,Yes,No,Yes,Yes,No,Yes,Yes,Yes,Yes,No,Current,No,No,Arrhythmia
+76,No,No,No,137,104,74,Wheeze,266,189,71,Yes,No,No,Yes,No,Yes,No,No,Yes,Yes,No,No,Yes,Yes,No,Yes,Never,Yes,No,Heart Failure
+54,No,Yes,No,139,71,81,Rhonchi,284,151,68,No,No,No,No,Yes,No,No,No,No,No,Yes,Yes,Yes,Yes,No,No,Current,Yes,Yes,Heart Failure
+61,Yes,No,No,134,81,80,Rhonchi,280,127,35,Yes,Yes,No,Yes,No,No,No,No,No,Yes,No,No,No,Yes,No,Yes,Never,No,No,Arrhythmia
+55,Yes,Yes,No,178,118,82,Crackle,300,83,31,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,No,Yes,Yes,Yes,No,No,No,Never,No,Yes,Cardiomyopathy
+56,Yes,No,No,115,76,86,Normal,196,149,68,No,Yes,No,No,Yes,No,No,Yes,Yes,No,Yes,No,No,Yes,Yes,Yes,Never,Yes,No,Heart Failure
+56,Yes,No,No,93,111,62,Normal,230,121,31,Yes,Yes,Yes,Yes,No,Yes,No,No,No,Yes,Yes,No,Yes,No,Yes,Yes,Current,No,Yes,Valvular Heart Disease
+32,No,Yes,Yes,173,72,98,Normal,165,127,65,No,No,No,No,Yes,No,No,Yes,No,No,No,Yes,No,Yes,Yes,No,Current,No,No,Arrhythmia
+49,Yes,No,Yes,145,112,67,Crackle,251,170,40,Yes,Yes,No,Yes,No,Yes,No,No,Yes,No,Yes,No,Yes,Yes,Yes,No,Former,Yes,Yes,Coronary Artery Disease (CAD)
+52,Yes,No,No,96,77,73,Crackle,256,185,43,No,Yes,No,No,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,No,Yes,Current,Yes,No,Coronary Artery Disease (CAD)
+49,Yes,No,Yes,179,88,83,Rhonchi,229,111,72,No,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,No,No,Yes,Yes,No,No,Never,No,No,Arrhythmia
+60,Yes,No,No,128,62,68,Rhonchi,294,166,63,Yes,No,No,No,Yes,No,No,No,Yes,No,Yes,No,No,Yes,Yes,No,Former,No,No,Arrhythmia
+77,Yes,Yes,Yes,174,112,85,Normal,171,78,54,No,Yes,No,Yes,Yes,Yes,No,Yes,No,No,No,No,No,Yes,No,No,Former,Yes,No,Coronary Artery Disease (CAD)
+80,Yes,No,Yes,144,66,81,Wheeze,235,158,39,Yes,Yes,No,Yes,No,No,No,No,No,No,Yes,Yes,No,No,Yes,No,Former,No,Yes,Cardiomyopathy
+59,No,No,No,166,84,77,Rhonchi,166,196,74,No,Yes,No,Yes,Yes,No,No,No,Yes,No,No,No,No,Yes,Yes,Yes,Never,Yes,Yes,Heart Failure
+65,No,No,No,95,86,76,Crackle,223,189,35,Yes,Yes,No,Yes,No,No,No,Yes,Yes,No,Yes,No,No,Yes,Yes,Yes,Former,Yes,Yes,Coronary Artery Disease (CAD)
+62,No,No,Yes,136,62,83,Normal,269,172,42,Yes,Yes,No,Yes,No,No,No,No,No,No,No,No,No,No,Yes,Yes,Former,No,No,Cardiomyopathy
+42,Yes,No,Yes,106,99,83,Crackle,229,198,31,No,No,No,Yes,Yes,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,Never,No,Yes,Arrhythmia
+68,No,No,Yes,151,107,70,Rhonchi,150,146,78,No,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,No,No,Yes,No,Yes,No,Never,No,Yes,Cardiomyopathy
+56,Yes,No,Yes,129,64,70,Normal,172,164,54,Yes,No,Yes,No,Yes,Yes,No,Yes,No,Yes,Yes,Yes,No,No,Yes,Yes,Former,No,Yes,Valvular Heart Disease
+54,Yes,No,No,149,110,89,Normal,268,189,64,No,No,No,Yes,No,Yes,Yes,No,No,No,Yes,No,Yes,No,No,No,Former,No,No,Cardiomyopathy
+80,Yes,No,No,124,110,97,Wheeze,287,171,65,Yes,No,Yes,Yes,Yes,No,No,No,Yes,Yes,No,No,Yes,No,Yes,No,Former,No,Yes,Valvular Heart Disease
+57,No,Yes,No,171,111,99,Wheeze,155,113,59,Yes,Yes,No,Yes,No,No,Yes,Yes,No,No,Yes,Yes,No,Yes,Yes,No,Current,Yes,Yes,Coronary Artery Disease (CAD)
+59,Yes,No,Yes,128,69,99,Rhonchi,299,109,48,No,No,No,Yes,Yes,No,Yes,No,No,Yes,Yes,No,Yes,No,Yes,Yes,Never,No,Yes,Cardiomyopathy
+57,Yes,No,Yes,126,104,80,Rhonchi,163,79,71,No,No,No,Yes,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,No,No,Never,No,Yes,Arrhythmia
+79,No,Yes,No,145,108,76,Rhonchi,280,87,51,Yes,No,No,No,Yes,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,No,Former,Yes,Yes,Coronary Artery Disease (CAD)
+76,Yes,Yes,No,151,77,65,Rhonchi,167,152,38,No,Yes,No,No,No,Yes,No,Yes,No,Yes,No,No,Yes,Yes,No,Yes,Current,No,No,Arrhythmia
+34,Yes,No,No,100,102,99,Normal,251,123,43,No,Yes,No,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,No,Yes,Current,No,No,Arrhythmia
+54,Yes,Yes,Yes,175,118,80,Normal,263,144,57,No,Yes,No,Yes,No,No,No,Yes,No,Yes,No,Yes,No,No,Yes,Yes,Never,No,No,Cardiomyopathy
+63,No,No,Yes,178,63,60,Rhonchi,172,173,59,Yes,No,Yes,No,No,No,Yes,Yes,No,No,No,No,Yes,No,No,Yes,Former,No,No,Valvular Heart Disease
+50,No,No,Yes,125,115,88,Normal,300,125,34,No,Yes,No,No,Yes,No,Yes,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Never,Yes,Yes,Coronary Artery Disease (CAD)
+35,Yes,No,Yes,180,89,68,Wheeze,152,178,38,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,No,No,No,No,Yes,Yes,Yes,Never,Yes,Yes,Coronary Artery Disease (CAD)
+42,Yes,Yes,Yes,102,106,77,Crackle,294,141,78,No,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Yes,No,No,Never,No,Yes,Arrhythmia
+39,No,Yes,Yes,98,64,70,Wheeze,268,177,78,No,Yes,No,Yes,No,Yes,No,No,No,No,No,Yes,Yes,No,Yes,Yes,Current,No,Yes,Cardiomyopathy
+76,Yes,No,Yes,160,62,74,Normal,264,139,71,No,No,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,Never,No,Yes,Arrhythmia
+60,Yes,Yes,Yes,115,115,78,Wheeze,217,134,42,Yes,No,No,No,No,Yes,No,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Former,No,No,Arrhythmia
+31,Yes,Yes,Yes,180,66,78,Rhonchi,244,122,67,No,Yes,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,No,No,Yes,Yes,No,Former,Yes,No,Coronary Artery Disease (CAD)
+36,Yes,Yes,No,128,73,78,Normal,230,177,42,Yes,Yes,Yes,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,Yes,No,Never,No,Yes,Valvular Heart Disease
+68,No,Yes,No,108,71,87,Normal,213,89,37,Yes,No,No,Yes,Yes,No,Yes,No,Yes,No,Yes,Yes,Yes,No,Yes,No,Never,No,No,Cardiomyopathy
+78,No,Yes,No,131,60,85,Rhonchi,194,73,45,Yes,Yes,No,No,No,Yes,Yes,No,No,No,No,No,No,Yes,No,Yes,Current,No,No,Arrhythmia
+36,Yes,No,Yes,91,88,64,Rhonchi,169,198,46,No,No,No,Yes,Yes,No,No,No,No,No,Yes,No,Yes,Yes,No,No,Never,Yes,No,Heart Failure
+43,Yes,Yes,Yes,144,70,77,Rhonchi,296,85,56,Yes,No,No,Yes,No,No,No,No,No,No,Yes,No,No,Yes,No,Yes,Former,No,No,Arrhythmia
+66,Yes,Yes,Yes,124,64,76,Crackle,276,151,55,Yes,No,No,Yes,Yes,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,Yes,Never,No,Yes,Arrhythmia
+45,Yes,No,No,180,110,71,Crackle,183,182,45,Yes,No,Yes,No,No,No,No,No,Yes,Yes,No,Yes,Yes,No,Yes,Yes,Former,No,Yes,Valvular Heart Disease
+65,No,Yes,Yes,117,67,94,Crackle,154,70,67,No,Yes,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,Yes,No,No,Former,Yes,No,Coronary Artery Disease (CAD)
+79,Yes,No,No,92,120,87,Normal,187,189,45,Yes,Yes,No,No,No,Yes,No,No,No,No,No,No,No,Yes,Yes,No,Former,Yes,No,Coronary Artery Disease (CAD)
+40,Yes,Yes,Yes,112,91,69,Normal,203,118,67,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,No,Yes,Yes,Yes,Former,Yes,Yes,Coronary Artery Disease (CAD)
+39,No,Yes,Yes,127,78,94,Crackle,163,86,60,No,Yes,No,Yes,Yes,Yes,Yes,No,No,Yes,No,No,No,Yes,No,No,Current,No,Yes,Arrhythmia
+71,Yes,Yes,No,128,61,61,Crackle,299,200,79,Yes,Yes,No,Yes,Yes,Yes,No,Yes,No,Yes,No,No,No,Yes,No,Yes,Current,Yes,No,Heart Failure
+35,No,No,Yes,168,69,92,Wheeze,186,161,33,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Current,No,No,Valvular Heart Disease
+54,No,Yes,No,119,95,88,Rhonchi,217,82,73,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,No,Yes,Former,Yes,No,Heart Failure
+38,No,Yes,No,178,91,95,Wheeze,179,131,80,Yes,No,No,No,No,No,Yes,No,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Former,No,Yes,Arrhythmia
+45,No,Yes,No,127,89,73,Wheeze,203,165,62,Yes,No,No,No,No,No,No,No,Yes,No,No,No,Yes,Yes,Yes,No,Never,Yes,No,Coronary Artery Disease (CAD)
+78,Yes,No,Yes,94,62,71,Rhonchi,260,148,71,No,Yes,Yes,No,No,Yes,Yes,Yes,No,No,Yes,No,Yes,No,No,No,Current,No,No,Valvular Heart Disease
+41,No,No,No,166,63,89,Crackle,254,144,31,Yes,No,No,No,Yes,No,No,No,No,No,Yes,No,No,Yes,No,No,Never,Yes,No,Coronary Artery Disease (CAD)
+66,Yes,No,Yes,151,71,63,Normal,239,132,42,Yes,No,No,Yes,Yes,No,No,Yes,Yes,No,Yes,No,Yes,Yes,Yes,Yes,Current,Yes,Yes,Coronary Artery Disease (CAD)
+71,No,No,Yes,99,115,97,Wheeze,280,177,48,No,No,No,Yes,No,No,Yes,Yes,Yes,No,No,No,Yes,Yes,Yes,Yes,Current,Yes,No,Coronary Artery Disease (CAD)
+56,No,No,Yes,128,99,78,Wheeze,197,149,60,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Never,No,Yes,Valvular Heart Disease
+65,No,Yes,No,130,63,64,Wheeze,190,90,70,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,No,No,No,Yes,Former,No,No,Cardiomyopathy
+35,Yes,No,No,93,88,61,Wheeze,200,87,74,Yes,Yes,No,No,Yes,No,Yes,Yes,No,No,Yes,No,Yes,Yes,No,Yes,Never,Yes,Yes,Heart Failure
+72,Yes,No,Yes,122,64,100,Crackle,250,76,74,No,No,No,Yes,Yes,No,No,No,Yes,No,Yes,No,Yes,Yes,No,No,Former,Yes,Yes,Heart Failure
+74,Yes,No,No,125,94,79,Normal,250,191,77,Yes,Yes,No,No,No,Yes,No,Yes,Yes,No,No,No,Yes,No,Yes,No,Former,No,Yes,Cardiomyopathy
+49,Yes,Yes,Yes,147,69,61,Rhonchi,277,141,79,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,No,No,No,Yes,No,No,Never,No,No,Arrhythmia
+80,Yes,No,No,163,105,100,Crackle,158,88,69,No,Yes,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,Yes,Never,No,No,Cardiomyopathy
+79,No,No,No,109,115,91,Crackle,198,117,42,No,Yes,No,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,No,No,Yes,Current,No,No,Cardiomyopathy
+34,No,Yes,No,105,86,75,Rhonchi,182,93,47,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,No,No,No,Yes,No,No,Yes,Former,No,Yes,Valvular Heart Disease
+78,Yes,No,Yes,157,64,81,Crackle,181,199,73,No,Yes,Yes,Yes,Yes,No,Yes,No,No,No,No,Yes,No,No,No,Yes,Current,No,No,Valvular Heart Disease
+51,No,No,No,149,90,80,Rhonchi,297,110,50,No,No,No,No,Yes,Yes,No,Yes,No,No,Yes,Yes,No,Yes,Yes,No,Former,No,Yes,Arrhythmia
+30,Yes,No,Yes,124,94,63,Wheeze,189,173,30,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,No,Never,No,No,Arrhythmia
+41,No,Yes,No,149,60,92,Wheeze,280,130,70,Yes,Yes,Yes,No,Yes,Yes,No,No,No,Yes,No,No,Yes,No,Yes,No,Current,No,No,Valvular Heart Disease
+71,No,Yes,No,148,105,63,Wheeze,231,178,52,No,No,No,Yes,No,Yes,No,Yes,No,No,No,No,Yes,No,No,No,Current,No,Yes,Cardiomyopathy
+77,Yes,No,No,128,98,83,Crackle,273,97,45,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,No,Yes,Yes,Never,No,No,Valvular Heart Disease
+65,No,No,Yes,115,88,85,Wheeze,248,86,66,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,Yes,Yes,No,Yes,Yes,Yes,No,Former,No,Yes,Arrhythmia
+73,No,No,No,132,79,97,Rhonchi,290,185,72,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,Yes,Yes,No,Yes,No,No,Former,No,Yes,Arrhythmia
+42,Yes,Yes,Yes,164,61,64,Wheeze,267,76,51,No,Yes,No,Yes,Yes,No,No,Yes,No,Yes,Yes,No,Yes,Yes,No,Yes,Former,Yes,No,Coronary Artery Disease (CAD)
+37,Yes,No,Yes,150,102,83,Normal,192,190,67,Yes,Yes,No,Yes,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,No,No,Yes,Former,No,No,Cardiomyopathy
+75,Yes,Yes,Yes,101,99,62,Wheeze,192,101,77,Yes,Yes,No,Yes,No,No,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,No,No,Current,No,Yes,Arrhythmia
+63,Yes,No,No,94,91,97,Normal,163,129,66,Yes,No,No,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,No,Yes,No,Yes,Never,Yes,No,Coronary Artery Disease (CAD)
+63,No,No,No,174,95,92,Wheeze,253,108,63,Yes,No,No,Yes,Yes,Yes,No,No,No,No,Yes,No,No,Yes,Yes,Yes,Former,No,No,Arrhythmia
+77,No,Yes,No,113,81,79,Normal,293,83,61,Yes,Yes,No,No,Yes,Yes,No,Yes,No,No,No,No,Yes,Yes,Yes,Yes,Never,No,No,Arrhythmia
+53,No,No,No,121,109,93,Rhonchi,272,133,40,No,Yes,No,Yes,Yes,Yes,No,No,No,No,No,No,Yes,Yes,No,No,Current,Yes,Yes,Heart Failure
+70,Yes,No,No,140,86,83,Rhonchi,290,101,45,Yes,No,No,Yes,Yes,No,No,No,Yes,Yes,No,No,Yes,Yes,No,No,Former,Yes,Yes,Coronary Artery Disease (CAD)
+59,No,No,No,112,112,79,Crackle,300,89,69,No,No,No,Yes,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,No,Former,No,Yes,Arrhythmia
+76,Yes,No,No,154,84,89,Wheeze,164,122,38,No,Yes,No,No,Yes,No,No,Yes,Yes,No,No,No,Yes,Yes,Yes,Yes,Never,Yes,Yes,Coronary Artery Disease (CAD)
+79,No,No,Yes,93,60,64,Wheeze,225,91,34,No,Yes,No,Yes,No,No,Yes,Yes,Yes,No,Yes,No,No,Yes,Yes,No,Former,Yes,No,Coronary Artery Disease (CAD)
+71,Yes,Yes,No,136,105,74,Rhonchi,263,119,35,No,No,No,Yes,No,No,No,No,Yes,Yes,Yes,Yes,No,Yes,No,Yes,Never,Yes,No,Coronary Artery Disease (CAD)
+54,No,Yes,No,144,89,93,Rhonchi,249,178,35,Yes,No,Yes,No,No,Yes,Yes,No,No,No,Yes,Yes,No,No,No,Yes,Current,No,No,Valvular Heart Disease
+46,Yes,No,Yes,166,80,80,Crackle,181,119,39,Yes,No,No,No,No,Yes,Yes,Yes,Yes,No,Yes,No,No,Yes,Yes,No,Never,No,Yes,Arrhythmia
+80,No,No,No,95,64,89,Normal,239,179,65,No,No,Yes,Yes,Yes,No,Yes,Yes,No,No,No,Yes,No,No,Yes,Yes,Current,No,Yes,Valvular Heart Disease
+39,No,Yes,Yes,153,95,99,Crackle,217,82,57,Yes,Yes,No,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,No,Yes,Yes,Never,No,Yes,Cardiomyopathy
+56,Yes,No,Yes,180,95,84,Wheeze,265,130,70,Yes,Yes,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,No,Yes,No,Yes,Former,Yes,No,Heart Failure
+69,No,Yes,Yes,124,68,88,Crackle,270,146,57,Yes,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,Yes,No,No,Current,Yes,No,Coronary Artery Disease (CAD)
+74,Yes,No,No,158,94,60,Crackle,271,99,69,No,Yes,No,Yes,No,Yes,No,No,No,Yes,Yes,Yes,No,Yes,No,Yes,Never,No,No,Arrhythmia
+60,Yes,No,No,123,79,92,Crackle,242,180,42,No,Yes,Yes,No,No,Yes,No,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Never,No,No,Valvular Heart Disease
+36,No,Yes,No,117,66,63,Wheeze,248,88,37,Yes,Yes,No,No,Yes,No,No,Yes,Yes,Yes,No,No,No,Yes,No,No,Current,No,No,Arrhythmia
+56,Yes,No,Yes,143,79,62,Wheeze,252,165,80,No,No,No,No,No,No,Yes,No,No,Yes,Yes,Yes,Yes,Yes,No,Yes,Never,Yes,No,Coronary Artery Disease (CAD)
+69,Yes,Yes,Yes,127,120,69,Rhonchi,190,151,63,No,No,No,No,Yes,No,No,No,No,Yes,Yes,Yes,No,Yes,No,Yes,Former,No,Yes,Arrhythmia
+71,No,No,No,134,60,91,Crackle,229,96,31,Yes,No,Yes,Yes,No,Yes,Yes,Yes,No,Yes,Yes,No,Yes,No,Yes,Yes,Never,No,No,Valvular Heart Disease
+39,No,Yes,Yes,94,89,63,Wheeze,188,155,51,Yes,Yes,No,Yes,No,No,Yes,No,Yes,No,Yes,No,No,Yes,Yes,Yes,Current,No,Yes,Arrhythmia
+76,Yes,Yes,No,160,113,84,Wheeze,262,133,60,No,Yes,No,No,No,Yes,Yes,No,Yes,Yes,Yes,No,No,No,Yes,Yes,Never,No,Yes,Cardiomyopathy
+56,Yes,No,Yes,175,106,67,Normal,203,176,69,No,Yes,No,No,No,No,Yes,Yes,Yes,No,No,No,Yes,Yes,No,No,Former,Yes,Yes,Coronary Artery Disease (CAD)
+71,No,No,No,180,72,78,Normal,270,161,59,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,Yes,No,No,No,Never,No,No,Valvular Heart Disease
+47,No,Yes,No,94,60,64,Normal,213,141,74,Yes,No,No,No,No,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,Yes,Current,No,Yes,Arrhythmia
+54,Yes,No,Yes,96,114,78,Wheeze,294,194,53,Yes,Yes,No,Yes,Yes,No,Yes,No,No,No,Yes,Yes,No,No,No,Yes,Never,No,No,Cardiomyopathy
+66,No,Yes,No,96,75,75,Normal,259,114,70,Yes,Yes,No,Yes,Yes,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,Former,Yes,No,Heart Failure
+74,Yes,Yes,Yes,90,94,70,Rhonchi,203,181,51,Yes,Yes,No,Yes,Yes,No,No,No,Yes,No,Yes,Yes,No,Yes,Yes,Yes,Current,Yes,Yes,Coronary Artery Disease (CAD)
+59,Yes,No,No,129,112,81,Wheeze,195,164,56,Yes,No,No,Yes,No,No,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Never,No,No,Arrhythmia
+31,No,No,Yes,125,87,89,Crackle,161,180,47,Yes,Yes,No,No,No,Yes,Yes,No,Yes,Yes,Yes,Yes,No,Yes,No,Yes,Former,Yes,Yes,Coronary Artery Disease (CAD)
+57,No,No,Yes,129,68,91,Wheeze,185,155,61,No,No,No,Yes,No,Yes,No,No,Yes,No,No,No,No,Yes,Yes,No,Former,Yes,No,Coronary Artery Disease (CAD)
+31,Yes,No,No,110,117,70,Crackle,215,135,44,No,No,No,No,No,Yes,No,Yes,No,No,Yes,No,No,Yes,No,Yes,Former,No,No,Arrhythmia
+45,Yes,Yes,Yes,143,82,89,Wheeze,174,186,52,Yes,Yes,No,No,Yes,Yes,No,Yes,No,No,No,No,Yes,No,No,No,Current,No,Yes,Cardiomyopathy
+79,Yes,No,No,127,113,90,Rhonchi,197,135,60,Yes,No,Yes,Yes,Yes,No,No,Yes,No,Yes,No,No,Yes,No,Yes,No,Current,No,Yes,Valvular Heart Disease
+45,No,No,Yes,132,108,83,Normal,243,173,35,No,No,No,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Yes,No,Current,Yes,No,Coronary Artery Disease (CAD)
+47,Yes,No,Yes,175,65,98,Crackle,272,85,65,No,No,No,Yes,No,No,Yes,Yes,Yes,No,No,Yes,No,Yes,No,No,Former,Yes,Yes,Heart Failure
+78,Yes,No,No,109,83,84,Wheeze,251,143,45,No,Yes,No,Yes,No,Yes,No,Yes,No,No,No,Yes,Yes,Yes,No,Yes,Never,Yes,Yes,Coronary Artery Disease (CAD)
+58,Yes,No,Yes,164,88,60,Crackle,154,152,59,No,Yes,No,No,No,Yes,Yes,Yes,No,Yes,No,No,Yes,Yes,Yes,No,Former,No,No,Arrhythmia
+47,No,Yes,Yes,103,82,92,Crackle,290,169,54,Yes,No,No,Yes,No,Yes,No,Yes,No,Yes,No,No,No,Yes,No,No,Current,Yes,No,Coronary Artery Disease (CAD)
+63,Yes,No,Yes,159,115,90,Rhonchi,169,159,43,No,No,Yes,Yes,No,No,No,No,Yes,Yes,Yes,No,Yes,No,No,No,Former,No,No,Valvular Heart Disease
+67,No,Yes,Yes,107,114,63,Wheeze,190,199,33,No,Yes,No,No,No,Yes,Yes,Yes,No,Yes,No,Yes,No,No,No,No,Current,No,Yes,Cardiomyopathy
+53,Yes,Yes,Yes,149,82,85,Wheeze,214,128,48,Yes,No,No,No,Yes,No,Yes,Yes,No,No,Yes,No,No,Yes,Yes,Yes,Former,No,Yes,Arrhythmia
+55,Yes,Yes,No,125,104,67,Rhonchi,202,127,70,Yes,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,No,Former,Yes,No,Coronary Artery Disease (CAD)
+60,No,Yes,No,110,90,71,Normal,290,99,66,Yes,No,No,No,Yes,No,Yes,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Never,No,Yes,Cardiomyopathy
+70,Yes,Yes,Yes,178,88,100,Wheeze,159,187,39,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,No,No,No,Yes,Yes,Yes,Current,No,No,Arrhythmia
+58,No,No,No,170,91,87,Normal,173,108,50,Yes,No,No,Yes,Yes,No,No,Yes,Yes,Yes,No,No,No,Yes,No,Yes,Former,No,Yes,Arrhythmia
+62,No,Yes,No,153,110,97,Normal,159,126,46,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,Yes,No,Yes,No,Current,No,No,Valvular Heart Disease
+49,No,Yes,No,169,112,100,Wheeze,267,109,80,No,No,No,Yes,No,No,No,Yes,Yes,Yes,Yes,No,Yes,Yes,No,No,Former,No,Yes,Arrhythmia
+68,Yes,Yes,No,158,93,73,Crackle,241,171,58,Yes,No,No,No,No,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,No,Current,No,No,Arrhythmia
+76,Yes,No,Yes,150,75,76,Normal,209,129,33,Yes,No,No,No,No,Yes,Yes,No,No,No,No,No,Yes,Yes,No,No,Never,Yes,Yes,Coronary Artery Disease (CAD)
+65,No,Yes,No,141,65,61,Wheeze,176,88,62,No,No,No,Yes,Yes,No,Yes,Yes,No,Yes,No,Yes,No,No,No,Yes,Former,No,No,Cardiomyopathy
+57,Yes,Yes,No,121,95,98,Crackle,179,75,62,No,Yes,No,Yes,Yes,Yes,Yes,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,Never,No,No,Arrhythmia
+77,No,No,No,137,113,78,Normal,252,158,54,No,No,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,No,No,Yes,No,No,Yes,Former,No,No,Valvular Heart Disease
+62,Yes,Yes,No,130,63,91,Normal,246,191,54,Yes,No,Yes,Yes,No,Yes,No,Yes,No,Yes,No,Yes,Yes,No,No,No,Former,No,Yes,Valvular Heart Disease
+58,Yes,No,No,157,98,81,Rhonchi,159,108,38,No,No,No,No,No,Yes,Yes,No,No,No,No,Yes,No,No,No,Yes,Former,No,No,Cardiomyopathy
+80,Yes,Yes,Yes,161,103,71,Wheeze,259,199,61,Yes,Yes,No,No,Yes,Yes,No,No,No,No,Yes,No,Yes,Yes,No,Yes,Current,No,No,Arrhythmia
+52,No,No,No,142,96,64,Rhonchi,248,95,35,Yes,No,No,No,Yes,Yes,No,No,No,No,Yes,No,No,Yes,No,Yes,Former,Yes,Yes,Heart Failure
+66,No,No,Yes,158,91,66,Normal,184,116,77,Yes,No,No,Yes,No,Yes,No,No,No,No,No,No,No,Yes,Yes,Yes,Current,No,No,Arrhythmia
+48,No,Yes,No,176,94,63,Wheeze,241,93,60,Yes,No,No,Yes,Yes,No,Yes,Yes,No,No,No,No,No,No,Yes,No,Current,No,No,Cardiomyopathy
+31,Yes,Yes,No,140,113,60,Rhonchi,153,154,51,Yes,Yes,No,No,Yes,Yes,No,No,No,Yes,No,No,Yes,Yes,No,No,Never,No,No,Arrhythmia
+78,No,Yes,No,167,92,77,Crackle,221,184,39,No,Yes,No,Yes,Yes,No,Yes,No,No,No,Yes,No,Yes,Yes,No,No,Former,Yes,No,Heart Failure
+57,No,No,No,166,108,93,Crackle,151,139,56,Yes,No,No,Yes,Yes,No,Yes,No,Yes,No,No,No,No,Yes,Yes,No,Never,No,Yes,Arrhythmia
+55,No,Yes,No,173,105,79,Normal,186,80,42,Yes,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,Yes,Yes,No,Current,Yes,Yes,Coronary Artery Disease (CAD)
+63,Yes,Yes,Yes,113,119,90,Normal,163,76,35,No,Yes,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,Former,Yes,Yes,Heart Failure
+39,Yes,No,No,175,60,79,Wheeze,244,172,63,No,Yes,No,No,No,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Current,No,Yes,Arrhythmia
+75,No,Yes,Yes,169,79,85,Wheeze,283,148,40,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,Yes,Yes,Yes,Yes,Never,Yes,No,Coronary Artery Disease (CAD)
+80,No,No,Yes,103,81,99,Normal,190,113,76,Yes,No,No,No,No,No,No,No,Yes,Yes,No,No,No,Yes,Yes,Yes,Former,No,No,Arrhythmia
+55,No,Yes,No,97,83,100,Crackle,253,82,37,No,No,No,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,Former,Yes,No,Coronary Artery Disease (CAD)
+47,No,Yes,No,153,81,88,Rhonchi,171,96,67,Yes,Yes,Yes,Yes,Yes,No,Yes,No,No,Yes,No,Yes,Yes,No,Yes,Yes,Current,No,No,Valvular Heart Disease
+72,Yes,Yes,No,155,89,93,Rhonchi,185,116,38,Yes,No,No,No,No,No,Yes,No,Yes,No,Yes,Yes,Yes,Yes,No,Yes,Former,No,Yes,Arrhythmia
+36,No,No,Yes,140,94,87,Rhonchi,154,188,57,Yes,Yes,No,Yes,Yes,No,Yes,No,No,Yes,Yes,No,Yes,Yes,No,Yes,Current,Yes,Yes,Coronary Artery Disease (CAD)
+80,No,No,No,153,64,73,Rhonchi,170,102,45,No,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,No,Former,Yes,Yes,Heart Failure
+66,No,Yes,Yes,90,61,86,Crackle,213,91,50,No,Yes,No,No,No,Yes,No,Yes,No,Yes,No,Yes,No,Yes,Yes,No,Current,Yes,No,Heart Failure
+42,No,No,Yes,113,88,94,Crackle,276,143,31,No,Yes,No,Yes,No,Yes,Yes,No,No,Yes,No,No,No,Yes,Yes,No,Former,Yes,No,Heart Failure
+67,Yes,No,No,156,99,82,Normal,222,115,36,No,No,No,No,Yes,No,Yes,Yes,Yes,No,No,No,No,Yes,Yes,No,Former,Yes,No,Heart Failure
+78,Yes,Yes,No,159,109,70,Rhonchi,218,101,68,No,Yes,No,No,No,No,No,Yes,No,No,Yes,No,Yes,Yes,Yes,Yes,Former,Yes,No,Heart Failure
+65,Yes,No,Yes,175,81,62,Normal,290,98,56,No,Yes,No,Yes,No,No,No,Yes,No,No,No,Yes,No,Yes,Yes,No,Current,Yes,No,Heart Failure
+65,No,Yes,No,129,102,91,Rhonchi,193,158,65,Yes,Yes,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,No,No,No,No,Never,No,Yes,Cardiomyopathy
+48,No,No,Yes,180,114,63,Normal,205,159,51,No,Yes,No,Yes,Yes,No,No,No,Yes,No,Yes,Yes,Yes,Yes,No,No,Former,Yes,Yes,Heart Failure
+38,No,Yes,No,143,89,90,Normal,194,83,75,Yes,No,Yes,Yes,Yes,Yes,No,No,Yes,No,Yes,Yes,No,No,Yes,No,Former,No,Yes,Valvular Heart Disease
+51,Yes,Yes,Yes,113,106,81,Normal,204,194,75,Yes,No,Yes,No,Yes,Yes,No,No,No,Yes,No,Yes,Yes,No,No,No,Former,No,Yes,Valvular Heart Disease
+73,No,Yes,Yes,164,91,70,Rhonchi,236,200,65,No,No,Yes,No,Yes,Yes,No,Yes,No,No,Yes,Yes,Yes,No,No,Yes,Current,No,Yes,Valvular Heart Disease
+64,No,Yes,Yes,170,107,65,Rhonchi,194,182,59,Yes,Yes,No,No,Yes,Yes,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Yes,Never,No,No,Arrhythmia
+51,No,No,Yes,114,74,89,Crackle,244,188,37,No,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,No,Yes,No,Yes,Never,No,Yes,Arrhythmia
+66,Yes,No,Yes,133,97,73,Crackle,210,168,39,Yes,No,No,Yes,Yes,No,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Former,No,Yes,Arrhythmia
+34,Yes,No,Yes,123,119,72,Crackle,154,196,60,No,Yes,No,Yes,No,Yes,No,No,No,No,No,No,Yes,Yes,No,No,Current,Yes,No,Heart Failure
+61,Yes,No,No,155,104,95,Crackle,154,141,63,No,Yes,No,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,No,Yes,No,No,Current,Yes,Yes,Coronary Artery Disease (CAD)
+61,Yes,No,No,155,65,98,Wheeze,234,143,72,Yes,Yes,No,No,No,Yes,Yes,No,No,No,No,No,Yes,No,No,No,Never,No,Yes,Cardiomyopathy
+75,No,No,Yes,115,117,64,Crackle,198,97,54,Yes,No,No,No,Yes,Yes,No,No,Yes,No,Yes,No,Yes,Yes,No,Yes,Former,Yes,Yes,Heart Failure
+72,Yes,Yes,Yes,149,91,62,Wheeze,289,198,46,Yes,No,Yes,Yes,Yes,No,No,Yes,No,No,No,Yes,Yes,No,No,No,Current,No,Yes,Valvular Heart Disease
+32,No,Yes,No,104,93,85,Normal,169,166,74,No,No,No,Yes,No,Yes,No,No,Yes,No,Yes,Yes,No,No,Yes,No,Current,No,No,Cardiomyopathy
+68,No,Yes,No,133,118,87,Normal,247,174,72,No,Yes,No,No,No,Yes,No,Yes,Yes,Yes,No,Yes,Yes,Yes,No,No,Former,Yes,No,Heart Failure
+72,No,No,Yes,163,61,71,Normal,225,192,72,Yes,No,No,Yes,Yes,No,Yes,Yes,No,Yes,No,Yes,No,Yes,No,No,Current,Yes,Yes,Heart Failure
+50,No,Yes,No,165,97,75,Rhonchi,212,107,44,Yes,No,Yes,No,No,Yes,No,No,Yes,No,No,Yes,No,No,No,No,Never,No,Yes,Valvular Heart Disease
+59,No,No,Yes,128,103,96,Wheeze,260,144,38,Yes,No,No,Yes,Yes,No,No,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,Never,Yes,Yes,Heart Failure
+55,No,Yes,No,103,67,99,Normal,292,186,48,Yes,Yes,No,No,No,No,Yes,Yes,Yes,Yes,Yes,No,Yes,Yes,No,No,Former,Yes,Yes,Coronary Artery Disease (CAD)
+36,Yes,No,No,136,78,80,Wheeze,181,190,70,No,No,No,Yes,No,No,Yes,No,Yes,No,No,No,Yes,Yes,Yes,Yes,Former,No,No,Arrhythmia
+47,No,No,Yes,152,118,62,Rhonchi,292,102,41,Yes,Yes,No,Yes,No,No,Yes,No,No,No,Yes,No,No,No,Yes,Yes,Former,No,Yes,Cardiomyopathy
+69,No,No,Yes,92,80,64,Normal,297,131,57,No,No,Yes,No,Yes,Yes,Yes,No,Yes,No,No,Yes,No,No,No,Yes,Never,No,Yes,Valvular Heart Disease
+69,No,No,Yes,142,73,93,Normal,283,131,38,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,No,Yes,No,Yes,No,Current,No,Yes,Cardiomyopathy
+30,Yes,No,No,97,108,70,Wheeze,178,191,76,Yes,No,No,Yes,No,No,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,No,Yes,Never,No,Yes,Arrhythmia
+45,Yes,No,No,137,100,84,Crackle,189,103,56,No,Yes,No,Yes,No,No,Yes,No,No,No,Yes,No,No,Yes,No,Yes,Current,Yes,No,Coronary Artery Disease (CAD)
+32,Yes,No,No,107,96,93,Normal,168,140,36,No,Yes,Yes,No,Yes,No,No,Yes,No,No,Yes,Yes,Yes,No,No,No,Current,No,No,Valvular Heart Disease
+48,Yes,Yes,No,143,62,62,Crackle,160,143,72,Yes,Yes,No,Yes,No,Yes,No,No,No,No,Yes,No,No,Yes,Yes,Yes,Former,No,No,Arrhythmia
+44,Yes,Yes,No,148,114,61,Crackle,216,180,42,No,Yes,Yes,No,Yes,No,No,No,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Former,No,No,Valvular Heart Disease
+51,No,Yes,No,96,87,74,Normal,292,133,59,No,No,Yes,Yes,No,Yes,Yes,Yes,No,No,No,No,No,No,Yes,No,Never,No,No,Valvular Heart Disease
+30,No,No,No,145,65,81,Wheeze,220,145,40,No,Yes,No,Yes,Yes,No,No,No,Yes,Yes,No,Yes,No,Yes,Yes,Yes,Never,Yes,No,Coronary Artery Disease (CAD)
+76,Yes,No,Yes,92,83,72,Wheeze,167,101,59,No,Yes,No,Yes,No,No,Yes,No,Yes,No,No,No,Yes,No,No,Yes,Current,No,No,Cardiomyopathy
+64,No,Yes,Yes,145,108,60,Wheeze,289,184,32,Yes,No,No,No,No,Yes,Yes,Yes,No,Yes,No,No,No,Yes,Yes,No,Former,Yes,No,Heart Failure
+57,Yes,Yes,No,115,100,90,Crackle,294,80,57,No,No,No,No,Yes,Yes,Yes,No,No,Yes,No,No,Yes,Yes,Yes,No,Current,No,No,Arrhythmia
+51,Yes,No,No,90,92,78,Wheeze,235,155,36,Yes,No,No,Yes,No,No,No,No,No,No,No,Yes,No,Yes,No,No,Current,Yes,Yes,Coronary Artery Disease (CAD)
+41,Yes,Yes,Yes,139,80,82,Rhonchi,183,79,51,Yes,No,No,No,Yes,Yes,Yes,No,No,No,No,No,Yes,Yes,Yes,No,Never,No,Yes,Arrhythmia
+46,No,No,No,114,98,80,Normal,259,147,68,No,No,No,No,Yes,No,Yes,No,Yes,Yes,No,Yes,Yes,Yes,No,No,Never,No,No,Arrhythmia
+48,No,No,No,172,107,78,Rhonchi,263,103,37,No,Yes,Yes,No,No,No,Yes,No,No,No,Yes,Yes,No,No,No,Yes,Never,No,No,Valvular Heart Disease
+37,Yes,Yes,Yes,118,114,84,Crackle,219,83,75,No,No,No,Yes,Yes,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Never,Yes,Yes,Coronary Artery Disease (CAD)
+48,Yes,No,Yes,146,68,76,Rhonchi,242,137,52,No,No,No,Yes,No,Yes,No,No,Yes,Yes,No,Yes,No,No,No,No,Never,No,No,Cardiomyopathy
+61,No,Yes,Yes,143,114,62,Normal,197,77,67,No,Yes,Yes,No,Yes,Yes,No,Yes,Yes,No,Yes,No,No,No,Yes,No,Former,No,No,Valvular Heart Disease
+48,Yes,Yes,No,125,91,96,Rhonchi,207,95,64,No,Yes,No,No,No,Yes,Yes,Yes,No,Yes,Yes,Yes,No,Yes,No,Yes,Current,No,No,Arrhythmia
+44,No,No,No,177,63,70,Rhonchi,214,93,72,Yes,No,No,Yes,No,Yes,No,No,Yes,Yes,No,Yes,Yes,Yes,No,No,Current,Yes,No,Coronary Artery Disease (CAD)
+54,No,No,Yes,161,119,76,Normal,275,104,40,Yes,Yes,No,No,No,No,Yes,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Current,Yes,No,Coronary Artery Disease (CAD)
+47,No,Yes,No,95,85,83,Wheeze,175,110,70,Yes,No,No,No,Yes,No,No,No,Yes,No,No,Yes,Yes,Yes,No,No,Never,Yes,Yes,Coronary Artery Disease (CAD)
+73,Yes,Yes,Yes,170,79,76,Normal,275,71,59,Yes,Yes,No,Yes,Yes,Yes,No,No,No,No,No,Yes,No,No,No,No,Former,No,No,Cardiomyopathy
+62,No,No,Yes,160,118,66,Normal,228,166,65,Yes,No,No,No,Yes,No,No,Yes,Yes,Yes,No,Yes,No,Yes,No,Yes,Current,Yes,No,Coronary Artery Disease (CAD)
+52,No,Yes,Yes,166,67,84,Wheeze,160,182,63,Yes,Yes,No,Yes,Yes,Yes,Yes,No,No,Yes,Yes,No,Yes,Yes,Yes,No,Current,Yes,No,Coronary Artery Disease (CAD)
+60,Yes,Yes,No,131,89,92,Wheeze,209,200,47,Yes,No,No,No,No,Yes,Yes,No,Yes,No,Yes,No,No,Yes,Yes,Yes,Current,Yes,No,Heart Failure
+74,No,No,No,121,102,72,Rhonchi,288,184,33,Yes,Yes,No,No,Yes,Yes,No,Yes,Yes,Yes,No,No,Yes,Yes,No,No,Never,Yes,No,Coronary Artery Disease (CAD)
+73,No,No,No,102,87,96,Crackle,264,178,47,No,No,No,Yes,Yes,No,Yes,No,No,No,Yes,Yes,No,Yes,Yes,Yes,Never,Yes,Yes,Heart Failure
+38,No,No,Yes,152,118,80,Wheeze,201,92,37,No,No,No,No,No,Yes,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Yes,Former,No,No,Arrhythmia
+50,Yes,Yes,Yes,99,99,68,Rhonchi,228,85,76,Yes,Yes,No,Yes,Yes,No,Yes,Yes,No,Yes,No,Yes,No,Yes,Yes,Yes,Current,No,No,Arrhythmia
+33,Yes,Yes,Yes,175,86,71,Normal,215,171,79,No,No,No,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,No,Yes,No,No,Yes,Current,No,No,Cardiomyopathy
+32,No,Yes,No,108,114,91,Wheeze,251,108,80,Yes,No,Yes,No,No,Yes,No,Yes,No,Yes,Yes,Yes,No,No,No,No,Never,No,Yes,Valvular Heart Disease
+38,No,Yes,Yes,117,119,64,Wheeze,290,99,47,Yes,No,No,Yes,Yes,No,No,Yes,No,No,No,Yes,No,Yes,No,No,Former,Yes,No,Coronary Artery Disease (CAD)
+54,No,Yes,Yes,146,111,100,Normal,220,130,40,Yes,Yes,Yes,Yes,Yes,Yes,No,No,No,No,Yes,Yes,No,No,No,No,Never,No,Yes,Valvular Heart Disease
+73,Yes,Yes,No,141,80,66,Normal,245,162,56,No,Yes,No,Yes,Yes,Yes,Yes,Yes,No,No,Yes,Yes,No,Yes,No,Yes,Never,Yes,Yes,Heart Failure
+38,No,Yes,No,96,71,70,Rhonchi,185,138,46,Yes,Yes,No,Yes,No,Yes,Yes,No,No,Yes,No,Yes,No,No,No,No,Former,No,Yes,Cardiomyopathy
+36,No,Yes,Yes,120,64,93,Rhonchi,286,90,50,No,Yes,No,Yes,Yes,No,Yes,No,No,Yes,Yes,Yes,No,Yes,No,No,Former,No,Yes,Arrhythmia
+38,No,No,Yes,158,104,96,Normal,174,149,57,Yes,Yes,No,Yes,Yes,No,Yes,No,No,No,Yes,No,No,No,Yes,Yes,Current,No,No,Cardiomyopathy
+61,No,Yes,No,123,115,63,Wheeze,206,128,75,Yes,Yes,No,Yes,Yes,Yes,Yes,Yes,Yes,No,Yes,No,Yes,Yes,No,Yes,Former,Yes,No,Heart Failure
+77,No,No,Yes,92,63,97,Wheeze,181,107,79,No,No,No,No,Yes,Yes,No,No,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Current,Yes,Yes,Coronary Artery Disease (CAD)
+54,No,Yes,Yes,168,109,68,Wheeze,182,191,57,No,Yes,Yes,No,No,No,No,Yes,Yes,Yes,Yes,No,Yes,No,No,Yes,Former,No,No,Valvular Heart Disease
+38,Yes,No,No,163,68,61,Rhonchi,234,80,37,No,No,No,No,No,Yes,Yes,No,No,Yes,No,No,No,Yes,No,Yes,Never,Yes,Yes,Heart Failure
+49,No,No,Yes,104,105,98,Normal,232,132,70,Yes,No,Yes,Yes,Yes,No,No,No,Yes,No,No,No,Yes,No,No,No,Former,No,Yes,Valvular Heart Disease
+75,No,Yes,No,93,117,87,Normal,161,96,79,No,No,No,No,Yes,No,No,Yes,Yes,Yes,Yes,No,No,Yes,Yes,No,Never,No,Yes,Arrhythmia
+30,Yes,No,No,153,96,81,Crackle,210,179,78,No,No,Yes,Yes,Yes,No,No,Yes,Yes,Yes,No,No,Yes,No,Yes,Yes,Never,No,No,Valvular Heart Disease
+77,Yes,No,Yes,176,117,80,Normal,274,114,63,No,Yes,No,No,No,No,No,Yes,No,Yes,No,Yes,No,Yes,No,No,Former,No,No,Arrhythmia
+73,No,Yes,No,151,90,84,Crackle,210,112,38,No,No,No,No,No,No,Yes,No,Yes,No,Yes,No,Yes,Yes,No,No,Current,Yes,No,Coronary Artery Disease (CAD)
+78,Yes,No,Yes,165,74,86,Crackle,155,197,52,Yes,No,Yes,No,Yes,No,No,Yes,No,Yes,Yes,Yes,No,No,Yes,No,Former,No,No,Valvular Heart Disease
+58,Yes,Yes,Yes,168,72,89,Normal,204,151,46,No,Yes,No,Yes,Yes,No,Yes,No,Yes,No,Yes,No,No,Yes,No,No,Current,Yes,Yes,Coronary Artery Disease (CAD)
+44,No,Yes,No,117,75,81,Crackle,231,129,52,Yes,Yes,No,No,No,No,No,Yes,No,No,No,Yes,Yes,No,Yes,Yes,Former,No,No,Cardiomyopathy
+30,Yes,No,Yes,160,78,83,Normal,251,142,46,No,No,No,Yes,Yes,No,No,No,No,No,No,No,No,Yes,No,No,Never,Yes,Yes,Heart Failure
+77,Yes,Yes,Yes,124,111,66,Rhonchi,227,164,66,Yes,No,No,No,Yes,Yes,Yes,Yes,No,No,Yes,Yes,Yes,No,Yes,No,Never,No,No,Cardiomyopathy
+70,No,No,No,148,70,79,Normal,203,132,48,Yes,Yes,No,Yes,Yes,Yes,Yes,No,Yes,Yes,No,Yes,No,Yes,No,No,Never,Yes,Yes,Coronary Artery Disease (CAD)
+41,No,No,Yes,173,117,78,Rhonchi,282,86,38,Yes,Yes,No,Yes,No,No,Yes,Yes,Yes,Yes,No,No,No,Yes,Yes,No,Never,No,Yes,Arrhythmia
+36,Yes,No,Yes,95,65,78,Crackle,249,128,73,No,Yes,No,No,Yes,Yes,No,No,Yes,No,Yes,Yes,No,Yes,No,Yes,Former,Yes,No,Coronary Artery Disease (CAD)
+77,Yes,Yes,Yes,117,107,66,Wheeze,198,84,58,Yes,Yes,No,Yes,No,Yes,No,Yes,No,No,No,No,Yes,Yes,No,No,Former,No,No,Arrhythmia
+67,Yes,Yes,No,106,65,83,Normal,184,163,55,Yes,Yes,No,Yes,No,Yes,No,Yes,Yes,No,Yes,No,Yes,No,Yes,No,Former,No,No,Cardiomyopathy
