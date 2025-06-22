@@ -1,0 +1,1313 @@
+
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\all_code_snippets.txt -----
+
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\app.py -----
+import pickle
+import pandas as pd
+import streamlit as st
+
+# Set the title of the app
+st.title("❤️ Cardio-Vascular Disease Name Prediction ❤️")
+st.header("Input Patient's Details")
+
+# Function to load the trained model
+@st.cache_resource
+def load_model(model_path):
+    with open(model_path, 'rb') as file:
+        model = pickle.load(file)
+    return model
+
+# Function to predict from user input using the loaded model
+def predict_disease(model, user_input_df):
+    prediction = model.predict(user_input_df)[0]
+    return prediction
+
+# Path to the saved model
+model_path = 'heart_disease_rf_model.pkl'
+model = load_model(model_path)
+
+# Function to collect user inputs
+def get_user_input():
+    # Input fields for patient details
+    Age = st.number_input("Age", min_value=1, max_value=120, value=55)
+
+    col1, col2, col3 = st.columns(3)
+
+    chest_pain = col1.checkbox("Chest Pain?")
+    shortness_of_breath = col2.checkbox("Shortness of Breath?")
+    fatigue = col3.checkbox("Fatigue?")
+    
+    Systolic = st.number_input("Systolic Pressure", min_value=1, value=140)
+    Diastolic = st.number_input("Diastolic Pressure", min_value=1, value=90)
+    Heart_rate = st.number_input("Heart Rate (bpm)", min_value=1, value=100)
+    
+    lung_sounds = st.checkbox("Lung Sounds?")
+    
+    cholesterol_level = st.number_input("Cholesterol Level (mg/dL)", min_value=1, value=220)
+    ldl_level = st.number_input("LDL Level (mg/dL)", min_value=1, value=150)
+    hdl_level = st.number_input("HDL Level (mg/dL)", min_value=1, value=40)
+    
+    col4, col5, col6 = st.columns(3)
+    diabetes = col4.checkbox("Diabetes?")
+    atrial_fibrillation = col5.checkbox("Atrial Fibrillation?")
+    rheumatic_fever = col6.checkbox("Rheumatic Fever?")
+    
+    col7, col8, col9 = st.columns(3)
+    mitral_stenosis = col7.checkbox("Mitral Stenosis?")
+    aortic_stenosis = col8.checkbox("Aortic Stenosis?")
+    tricuspid_stenosis = col9.checkbox("Tricuspid Stenosis?")
+    
+    col10, col11, col12 = st.columns(3)
+    pulmonary_stenosis = col10.checkbox("Pulmonary Stenosis?")
+    dilated_cardiomyopathy = col11.checkbox("Dilated Cardiomyopathy?")
+    hypertrophic_cardiomyopathy = col12.checkbox("Hypertrophic Cardiomyopathy?")
+    
+    col13, col14, col15 = st.columns(3)
+    drug_use = col13.checkbox("Drug Use?")
+    fever = col14.checkbox("Fever?")
+    chills = col15.checkbox("Chills?")
+    
+    col16, col17, col18 = st.columns(3)
+    alcoholism = col16.checkbox("Alcoholism?")
+    hypertension = col17.checkbox("Hypertension?")
+    fainting = col18.checkbox("Fainting?")
+    
+    col19, col20, col21 = st.columns(3)
+    dizziness = col19.checkbox("Dizziness?")
+    smoking = col20.checkbox("Smoking?")
+    obesity = col21.checkbox("Obesity?")
+    
+    murmur = st.checkbox("Murmur?")
+
+    # Create a DataFrame from the input values
+    user_input = {
+        'Age': Age,
+        'Chest pain': int(chest_pain),
+        'Shortness of breath': int(shortness_of_breath),
+        'Fatigue': int(fatigue),
+        'Systolic': Systolic,
+        'Diastolic': Diastolic,
+        'Heart rate (bpm)': Heart_rate,
+        'Lung sounds': int(lung_sounds),
+        'Cholesterol level (mg/dL)': cholesterol_level,
+        'LDL level (mg/dL)': ldl_level,
+        'HDL level (mg/dL)': hdl_level,
+        'Diabetes': int(diabetes),
+        'Atrial fibrillation': int(atrial_fibrillation),
+        'Rheumatic fever': int(rheumatic_fever),
+        'Mitral stenosis': int(mitral_stenosis),
+        'Aortic stenosis': int(aortic_stenosis),
+        'Tricuspid stenosis': int(tricuspid_stenosis),
+        'Pulmonary stenosis': int(pulmonary_stenosis),
+        'Dilated cardiomyopathy': int(dilated_cardiomyopathy),
+        'Hypertrophic cardiomyopathy': int(hypertrophic_cardiomyopathy),
+        'Drug use': int(drug_use),
+        'Fever': int(fever),
+        'Chills': int(chills),
+        'Alcoholism': int(alcoholism),
+        'Hypertension': int(hypertension),
+        'Fainting': int(fainting),
+        'Dizziness': int(dizziness),
+        'Smoking': int(smoking),
+        'Obesity': int(obesity),
+        'Murmur': int(murmur)
+    }
+    
+    return pd.DataFrame(user_input, index=[0])
+
+# Collect user input
+user_input_df = get_user_input()
+
+# Predict the outcome
+if st.button('Predict'):
+    predicted_outcome = predict_disease(model, user_input_df)
+    st.subheader(f"Predicted Heart Disease: {predicted_outcome}")
+
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\config.py -----
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+class Config:
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard-to-guess-string'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    MODEL_PATH = os.environ.get('MODEL_PATH') or 'heart_disease_rf_model.pkl'
+
+class DevelopmentConfig(Config):
+    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
+        'sqlite:///heart_disease_app.db'
+
+class ProductionConfig(Config):
+    DEBUG = False
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+    # Azure SQL connection string format:
+    # 'mssql+pyodbc://username:password@server_name.database.windows.net/database_name?driver=ODBC+Driver+17+for+SQL+Server'
+
+config = {
+    'development': DevelopmentConfig,
+    'production': ProductionConfig,
+    'default': DevelopmentConfig
+}
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\coopy_utils.py -----
+import os
+
+# Root directory to start searching from
+ROOT_DIR = r"D:\ML Folders\ml_env\GitHub\Heart-Disease-Model"
+# D:\ML Folders\ml_env\GitHub\Green-Sathi-updated-docker\copy_utils.py
+# File extensions to include
+INCLUDE_EXTENSIONS = {'.py', '.js', '.css', '.html', '.txt','.yml','sql'}
+
+# Output file where combined code will be saved
+OUTPUT_FILE = os.path.join(ROOT_DIR, "all_code_snippets.txt")
+
+def should_include(file_name):
+    return os.path.splitext(file_name)[1] in INCLUDE_EXTENSIONS
+
+def copy_code_snippets():
+    with open(OUTPUT_FILE, 'w', encoding='utf-8') as outfile:
+        for dirpath, _, filenames in os.walk(ROOT_DIR):
+            for filename in filenames:
+                if should_include(filename):
+                    file_path = os.path.join(dirpath, filename)
+                    try:
+                        with open(file_path, 'r', encoding='utf-8') as f:
+                            content = f.read()
+                            outfile.write(f"\n\n----- File: {file_path} -----\n")
+                            outfile.write(content)
+                    except Exception as e:
+                        print(f"Could not read {file_path}: {e}")
+
+    print(f"\n✅ Code snippets copied to: {OUTPUT_FILE}")
+
+if __name__ == "__main__":
+    copy_code_snippets()
+
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\requirements.txt -----
+flask==2.3.3
+flask-login==0.6.3
+flask-sqlalchemy==3.1.1
+flask-wtf==1.2.1
+wtforms==3.1.1
+email-validator==2.1.0
+python-dotenv==1.0.1
+pandas==2.2.1
+numpy==1.26.4
+scikit-learn==1.4.2
+pyodbc==5.0.1
+werkzeug==2.3.7
+streamlit==1.34.0
+pandas==2.2.1
+numpy==1.26.4
+scikit-learn==1.4.2
+
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\run.py -----
+import os
+from app import create_app, db
+from app.models import User, Patient
+
+app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+
+@app.before_first_request
+def create_tables():
+    db.create_all()
+
+@app.shell_context_processor
+def make_shell_context():
+    return {'db': db, 'User': User, 'Patient': Patient}
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\app\auth.py -----
+from flask import Blueprint, render_template, redirect, url_for, flash, request
+from flask_login import login_user, current_user, logout_user, login_required
+from app import db
+from app.models import User
+from app.forms import LoginForm, ChangePasswordForm
+from app.utils import role_required
+
+auth = Blueprint('auth', __name__)
+
+@auth.route('/login', methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        if current_user.is_doctor():
+            return redirect(url_for('doctor.dashboard'))
+        elif current_user.is_dean():
+            return redirect(url_for('dean.dashboard'))
+        elif current_user.is_chairman():
+            return redirect(url_for('chairman.dashboard'))
+    
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user and user.check_password(form.password.data):
+            login_user(user, remember=form.remember.data)
+            next_page = request.args.get('next')
+            
+            if next_page:
+                return redirect(next_page)
+            elif user.is_doctor():
+                return redirect(url_for('doctor.dashboard'))
+            elif user.is_dean():
+                return redirect(url_for('dean.dashboard'))
+            elif user.is_chairman():
+                return redirect(url_for('chairman.dashboard'))
+        else:
+            flash('Login unsuccessful. Please check username and password', 'danger')
+    
+    return render_template('auth/login.html', title='Login', form=form)
+
+@auth.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('auth.login'))
+
+@auth.route('/change_password', methods=['GET', 'POST'])
+@login_required
+def change_password():
+    form = ChangePasswordForm()
+    if form.validate_on_submit():
+        if current_user.check_password(form.current_password.data):
+            current_user.set_password(form.new_password.data)
+            db.session.commit()
+            flash('Your password has been updated!', 'success')
+            return redirect(url_for('auth.login'))
+        else:
+            flash('Current password is incorrect', 'danger')
+    
+    return render_template('auth/change_password.html', title='Change Password', form=form)
+
+# Initialize the first chairman user if no users exist
+# Remove this decorator and function from the blueprint
+# @auth.before_app_first_request
+# def create_initial_chairman():
+#     if User.query.count() == 0:
+#         chairman = User(
+#             username='chairman',
+#             email='chairman@example.com',
+#             role='chairman'
+#         )
+#         chairman.set_password('password123')
+#         db.session.add(chairman)
+#         db.session.commit()
+#         flash('Initial chairman account created. Username: chairman, Password: password123', 'info')
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\app\chairman.py -----
+from flask import Blueprint, render_template, redirect, url_for, flash
+from flask_login import login_required
+from app import db
+from app.models import User
+from app.forms import RegistrationForm
+from app.utils import role_required
+
+chairman = Blueprint('chairman', __name__)
+
+@chairman.route('/dashboard')
+@login_required
+@role_required('chairman')
+def dashboard():
+    return render_template('chairman/dashboard.html', title='Chairman Dashboard')
+
+@chairman.route('/register_user', methods=['GET', 'POST'])
+@login_required
+@role_required('chairman')
+def register_user():
+    form = RegistrationForm()
+    
+    if form.validate_on_submit():
+        user = User(
+            username=form.username.data,
+            email=form.email.data,
+            role=form.role.data
+        )
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash(f'Account created for {form.username.data} with role {form.role.data}!', 'success')
+        return redirect(url_for('chairman.dashboard'))
+    
+    return render_template('chairman/register_user.html', title='Register User', form=form)
+
+@chairman.route('/manage_users')
+@login_required
+@role_required('chairman')
+def manage_users():
+    users = User.query.all()
+    return render_template('chairman/manage_users.html', title='Manage Users', users=users)
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\app\dean.py -----
+from flask import Blueprint, render_template, redirect, url_for, flash
+from flask_login import login_required
+from app import db
+from app.models import User, Patient
+from app.forms import RegistrationForm
+from app.utils import role_required
+
+dean = Blueprint('dean', __name__)
+
+@dean.route('/dashboard')
+@login_required
+@role_required('dean', 'chairman')
+def dashboard():
+    return render_template('dean/dashboard.html', title='Dean Dashboard')
+
+@dean.route('/view_patients')
+@login_required
+@role_required('dean', 'chairman')
+def view_patients():
+    # Get all patients across all doctors
+    patients = Patient.query.order_by(Patient.created_at.desc()).all()
+    return render_template('dean/view_patients.html', title='All Patients', patients=patients)
+
+@dean.route('/register_doctor', methods=['GET', 'POST'])
+@login_required
+@role_required('dean', 'chairman')
+def register_doctor():
+    form = RegistrationForm()
+    # Force role to be doctor when registered by a dean
+    form.role.data = 'doctor'
+    form.role.render_kw = {'disabled': 'disabled'}
+    
+    if form.validate_on_submit():
+        user = User(
+            username=form.username.data,
+            email=form.email.data,
+            role='doctor'
+        )
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash(f'Account created for {form.username.data}!', 'success')
+        return redirect(url_for('dean.dashboard'))
+    
+    return render_template('dean/register_doctor.html', title='Register Doctor', form=form)
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\app\doctor.py -----
+from flask import Blueprint, render_template, redirect, url_for, flash, current_app
+from flask_login import current_user, login_required
+from app import db
+from app.models import Patient
+from app.forms import PatientForm
+from app.utils import predict_disease, role_required
+import pandas as pd
+
+doctor = Blueprint('doctor', __name__)
+
+@doctor.route('/dashboard')
+@login_required
+@role_required('doctor')
+def dashboard():
+    return render_template('doctor/dashboard.html', title='Doctor Dashboard')
+
+@doctor.route('/add_patient', methods=['GET', 'POST'])
+@login_required
+@role_required('doctor')
+def add_patient():
+    form = PatientForm()
+    if form.validate_on_submit():
+        # Create new patient
+        patient = Patient(
+            name=form.name.data,
+            age=form.age.data,
+            chest_pain=form.chest_pain.data,
+            shortness_of_breath=form.shortness_of_breath.data,
+            fatigue=form.fatigue.data,
+            systolic=form.systolic.data,
+            diastolic=form.diastolic.data,
+            heart_rate=form.heart_rate.data,
+            lung_sounds=form.lung_sounds.data,
+            cholesterol_level=form.cholesterol_level.data,
+            ldl_level=form.ldl_level.data,
+            hdl_level=form.hdl_level.data,
+            diabetes=form.diabetes.data,
+            atrial_fibrillation=form.atrial_fibrillation.data,
+            rheumatic_fever=form.rheumatic_fever.data,
+            mitral_stenosis=form.mitral_stenosis.data,
+            aortic_stenosis=form.aortic_stenosis.data,
+            tricuspid_stenosis=form.tricuspid_stenosis.data,
+            pulmonary_stenosis=form.pulmonary_stenosis.data,
+            dilated_cardiomyopathy=form.dilated_cardiomyopathy.data,
+            hypertrophic_cardiomyopathy=form.hypertrophic_cardiomyopathy.data,
+            drug_use=form.drug_use.data,
+            fever=form.fever.data,
+            chills=form.chills.data,
+            alcoholism=form.alcoholism.data,
+            hypertension=form.hypertension.data,
+            fainting=form.fainting.data,
+            dizziness=form.dizziness.data,
+            smoking=form.smoking.data,
+            obesity=form.obesity.data,
+            murmur=form.murmur.data,
+            doctor_id=current_user.id
+        )
+        
+        # Predict disease
+        patient_data = patient.to_dict()
+        predicted_disease = predict_disease(current_app.model, patient_data)
+        patient.predicted_disease = predicted_disease
+        
+        # Save to database
+        db.session.add(patient)
+        db.session.commit()
+        
+        flash(f'Patient added successfully! Predicted disease: {predicted_disease}', 'success')
+        return redirect(url_for('doctor.view_patients'))
+    
+    return render_template('doctor/add_patient.html', title='Add Patient', form=form)
+
+@doctor.route('/view_patients')
+@login_required
+@role_required('doctor')
+def view_patients():
+    # Get only patients added by the current doctor
+    patients = Patient.query.filter_by(doctor_id=current_user.id).order_by(Patient.created_at.desc()).all()
+    return render_template('doctor/view_patients.html', title='My Patients', patients=patients)
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\app\forms.py -----
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, SelectField
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange
+from app.models import User
+
+class LoginForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    remember = BooleanField('Remember Me')
+    submit = SubmitField('Login')
+
+class ChangePasswordForm(FlaskForm):
+    current_password = PasswordField('Current Password', validators=[DataRequired()])
+    new_password = PasswordField('New Password', validators=[DataRequired(), Length(min=6)])
+    confirm_password = PasswordField('Confirm New Password', 
+                                    validators=[DataRequired(), EqualTo('new_password')])
+    submit = SubmitField('Change Password')
+
+class RegistrationForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    password = PasswordField('Password', validators=[DataRequired(), Length(min=6)])
+    confirm_password = PasswordField('Confirm Password', 
+                                    validators=[DataRequired(), EqualTo('password')])
+    role = SelectField('Role', choices=[('doctor', 'Doctor'), ('dean', 'Dean')])
+    submit = SubmitField('Register User')
+    
+    def validate_username(self, username):
+        user = User.query.filter_by(username=username.data).first()
+        if user:
+            raise ValidationError('Username is already taken. Please choose a different one.')
+    
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        if user:
+            raise ValidationError('Email is already registered. Please use a different one.')
+
+class PatientForm(FlaskForm):
+    name = StringField('Patient Name', validators=[DataRequired(), Length(min=2, max=100)])
+    age = IntegerField('Age', validators=[DataRequired(), NumberRange(min=1, max=120)])
+    
+    # Checkboxes for symptoms
+    chest_pain = BooleanField('Chest Pain?')
+    shortness_of_breath = BooleanField('Shortness of Breath?')
+    fatigue = BooleanField('Fatigue?')
+    
+    # Vital signs
+    systolic = IntegerField('Systolic Pressure', validators=[DataRequired(), NumberRange(min=1)])
+    diastolic = IntegerField('Diastolic Pressure', validators=[DataRequired(), NumberRange(min=1)])
+    heart_rate = IntegerField('Heart Rate (bpm)', validators=[DataRequired(), NumberRange(min=1)])
+    
+    # Other symptoms
+    lung_sounds = BooleanField('Lung Sounds?')
+    
+    # Lab values
+    cholesterol_level = IntegerField('Cholesterol Level (mg/dL)', 
+                                    validators=[DataRequired(), NumberRange(min=1)])
+    ldl_level = IntegerField('LDL Level (mg/dL)', 
+                            validators=[DataRequired(), NumberRange(min=1)])
+    hdl_level = IntegerField('HDL Level (mg/dL)', 
+                            validators=[DataRequired(), NumberRange(min=1)])
+    
+    # Medical conditions
+    diabetes = BooleanField('Diabetes?')
+    atrial_fibrillation = BooleanField('Atrial Fibrillation?')
+    rheumatic_fever = BooleanField('Rheumatic Fever?')
+    mitral_stenosis = BooleanField('Mitral Stenosis?')
+    aortic_stenosis = BooleanField('Aortic Stenosis?')
+    tricuspid_stenosis = BooleanField('Tricuspid Stenosis?')
+    pulmonary_stenosis = BooleanField('Pulmonary Stenosis?')
+    dilated_cardiomyopathy = BooleanField('Dilated Cardiomyopathy?')
+    hypertrophic_cardiomyopathy = BooleanField('Hypertrophic Cardiomyopathy?')
+    
+    # Lifestyle factors
+    drug_use = BooleanField('Drug Use?')
+    fever = BooleanField('Fever?')
+    chills = BooleanField('Chills?')
+    alcoholism = BooleanField('Alcoholism?')
+    hypertension = BooleanField('Hypertension?')
+    fainting = BooleanField('Fainting?')
+    dizziness = BooleanField('Dizziness?')
+    smoking = BooleanField('Smoking?')
+    obesity = BooleanField('Obesity?')
+    murmur = BooleanField('Murmur?')
+    
+    submit = SubmitField('Predict Disease')
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\app\models.py -----
+from app import db, login_manager
+from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
+from datetime import datetime
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(64), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password_hash = db.Column(db.String(128))
+    role = db.Column(db.String(20), nullable=False)  # 'doctor', 'dean', 'chairman'
+    patients = db.relationship('Patient', backref='doctor', lazy=True)
+    
+    def __init__(self, username, email, role, password=None):
+        self.username = username
+        self.email = email
+        self.role = role
+        if password:
+            self.set_password(password)
+    
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+    
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+    
+    def is_doctor(self):
+        return self.role == 'doctor'
+    
+    def is_dean(self):
+        return self.role == 'dean'
+    
+    def is_chairman(self):
+        return self.role == 'chairman'
+
+class Patient(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    doctor_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    
+    # Patient details
+    name = db.Column(db.String(100), nullable=False)
+    age = db.Column(db.Integer, nullable=False)
+    chest_pain = db.Column(db.Boolean, default=False)
+    shortness_of_breath = db.Column(db.Boolean, default=False)
+    fatigue = db.Column(db.Boolean, default=False)
+    systolic = db.Column(db.Integer, nullable=False)
+    diastolic = db.Column(db.Integer, nullable=False)
+    heart_rate = db.Column(db.Integer, nullable=False)
+    lung_sounds = db.Column(db.Boolean, default=False)
+    cholesterol_level = db.Column(db.Integer, nullable=False)
+    ldl_level = db.Column(db.Integer, nullable=False)
+    hdl_level = db.Column(db.Integer, nullable=False)
+    diabetes = db.Column(db.Boolean, default=False)
+    atrial_fibrillation = db.Column(db.Boolean, default=False)
+    rheumatic_fever = db.Column(db.Boolean, default=False)
+    mitral_stenosis = db.Column(db.Boolean, default=False)
+    aortic_stenosis = db.Column(db.Boolean, default=False)
+    tricuspid_stenosis = db.Column(db.Boolean, default=False)
+    pulmonary_stenosis = db.Column(db.Boolean, default=False)
+    dilated_cardiomyopathy = db.Column(db.Boolean, default=False)
+    hypertrophic_cardiomyopathy = db.Column(db.Boolean, default=False)
+    drug_use = db.Column(db.Boolean, default=False)
+    fever = db.Column(db.Boolean, default=False)
+    chills = db.Column(db.Boolean, default=False)
+    alcoholism = db.Column(db.Boolean, default=False)
+    hypertension = db.Column(db.Boolean, default=False)
+    fainting = db.Column(db.Boolean, default=False)
+    dizziness = db.Column(db.Boolean, default=False)
+    smoking = db.Column(db.Boolean, default=False)
+    obesity = db.Column(db.Boolean, default=False)
+    murmur = db.Column(db.Boolean, default=False)
+    
+    # Prediction result
+    predicted_disease = db.Column(db.String(100), nullable=True)
+    
+    def to_dict(self):
+        """Convert patient data to dictionary for model prediction"""
+        return {
+            'Age': self.age,
+            'Chest pain': int(self.chest_pain),
+            'Shortness of breath': int(self.shortness_of_breath),
+            'Fatigue': int(self.fatigue),
+            'Systolic': self.systolic,
+            'Diastolic': self.diastolic,
+            'Heart rate (bpm)': self.heart_rate,
+            'Lung sounds': int(self.lung_sounds),
+            'Cholesterol level (mg/dL)': self.cholesterol_level,
+            'LDL level (mg/dL)': self.ldl_level,
+            'HDL level (mg/dL)': self.hdl_level,
+            'Diabetes': int(self.diabetes),
+            'Atrial fibrillation': int(self.atrial_fibrillation),
+            'Rheumatic fever': int(self.rheumatic_fever),
+            'Mitral stenosis': int(self.mitral_stenosis),
+            'Aortic stenosis': int(self.aortic_stenosis),
+            'Tricuspid stenosis': int(self.tricuspid_stenosis),
+            'Pulmonary stenosis': int(self.pulmonary_stenosis),
+            'Dilated cardiomyopathy': int(self.dilated_cardiomyopathy),
+            'Hypertrophic cardiomyopathy': int(self.hypertrophic_cardiomyopathy),
+            'Drug use': int(self.drug_use),
+            'Fever': int(self.fever),
+            'Chills': int(self.chills),
+            'Alcoholism': int(self.alcoholism),
+            'Hypertension': int(self.hypertension),
+            'Fainting': int(self.fainting),
+            'Dizziness': int(self.dizziness),
+            'Smoking': int(self.smoking),
+            'Obesity': int(self.obesity),
+            'Murmur': int(self.murmur)
+        }
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\app\utils.py -----
+import pandas as pd
+from functools import wraps
+from flask import flash, redirect, url_for
+from flask_login import current_user
+
+def predict_disease(model, patient_data):
+    """Predict heart disease using the loaded model"""
+    # Convert patient data to DataFrame
+    df = pd.DataFrame([patient_data])
+    # Make prediction
+    prediction = model.predict(df)[0]
+    return prediction
+
+def role_required(*roles):
+    """Decorator to restrict access based on user role"""
+    def decorator(f):
+        @wraps(f)
+        def decorated_function(*args, **kwargs):
+            if not current_user.is_authenticated or current_user.role not in roles:
+                flash('You do not have permission to access this page.', 'danger')
+                if current_user.is_doctor():
+                    return redirect(url_for('doctor.dashboard'))
+                elif current_user.is_dean():
+                    return redirect(url_for('dean.dashboard'))
+                elif current_user.is_chairman():
+                    return redirect(url_for('chairman.dashboard'))
+                else:
+                    return redirect(url_for('auth.login'))
+            return f(*args, **kwargs)
+        return decorated_function
+    return decorator
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\app\__init__.py -----
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
+from config import config
+import pickle
+import pandas as pd
+
+db = SQLAlchemy()
+login_manager = LoginManager()
+login_manager.login_view = 'auth.login'
+login_manager.login_message_category = 'info'
+
+def load_model(model_path):
+    with open(model_path, 'rb') as file:
+        model = pickle.load(file)
+    return model
+
+def create_app(config_name='default'):
+    app = Flask(__name__)
+    app.config.from_object(config[config_name])
+    
+    db.init_app(app)
+    login_manager.init_app(app)
+    
+    # Load the model
+    app.model = load_model(app.config['MODEL_PATH'])
+    
+    # Register blueprints
+    from app.auth import auth as auth_blueprint
+    app.register_blueprint(auth_blueprint, url_prefix='/auth')
+    
+    from app.doctor import doctor as doctor_blueprint
+    app.register_blueprint(doctor_blueprint, url_prefix='/doctor')
+    
+    from app.dean import dean as dean_blueprint
+    app.register_blueprint(dean_blueprint, url_prefix='/dean')
+    
+    from app.chairman import chairman as chairman_blueprint
+    app.register_blueprint(chairman_blueprint, url_prefix='/chairman')
+    
+    # Main route
+    @app.route('/')
+    def index():
+        return 'Heart Disease Prediction App'
+    
+    # Add this function to create the initial chairman user
+    @app.before_first_request
+    def create_initial_chairman():
+        from app.models import User
+        if User.query.count() == 0:
+            chairman = User(
+                username='chairman',
+                email='chairman@example.com',
+                role='chairman'
+            )
+            chairman.set_password('password123')
+            db.session.add(chairman)
+            db.session.commit()
+            flash('Initial chairman account created. Username: chairman, Password: password123', 'info')
+    
+    return app
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\app\templates\base.html -----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Heart Disease Prediction{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">❤️ Heart Disease Prediction</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    {% if current_user.is_authenticated %}
+                        {% if current_user.is_doctor() %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('doctor.dashboard') }}">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('doctor.add_patient') }}">Add Patient</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('doctor.view_patients') }}">My Patients</a>
+                            </li>
+                        {% elif current_user.is_dean() %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('dean.dashboard') }}">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('dean.view_patients') }}">All Patients</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('dean.register_doctor') }}">Register Doctor</a>
+                            </li>
+                        {% elif current_user.is_chairman() %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('chairman.dashboard') }}">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('dean.view_patients') }}">All Patients</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('chairman.register_user') }}">Register User</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('chairman.manage_users') }}">Manage Users</a>
+                            </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('auth.change_password') }}">Change Password</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('auth.login') }}">Login</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mt-4">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\app\templates\auth\change_password.html -----
+{% extends "base.html" %}
+{% block title %}Change Password{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">Change Password</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    <div class="mb-3">
+                        {{ form.current_password.label(class="form-label") }}
+                        {{ form.current_password(class="form-control") }}
+                        {% if form.current_password.errors %}
+                            <div class="text-danger">
+                                {% for error in form.current_password.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.new_password.label(class="form-label") }}
+                        {{ form.new_password(class="form-control") }}
+                        {% if form.new_password.errors %}
+                            <div class="text-danger">
+                                {% for error in form.new_password.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.confirm_password.label(class="form-label") }}
+                        {{ form.confirm_password(class="form-control") }}
+                        {% if form.confirm_password.errors %}
+                            <div class="text-danger">
+                                {% for error in form.confirm_password.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="d-grid">
+                        {{ form.submit(class="btn btn-primary") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\app\templates\auth\login.html -----
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">Login</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="">
+                    {{ form.hidden_tag() }}
+                    <div class="mb-3">
+                        {{ form.username.label(class="form-label") }}
+                        {{ form.username(class="form-control") }}
+                        {% if form.username.errors %}
+                            <div class="text-danger">
+                                {% for error in form.username.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        {{ form.password.label(class="form-label") }}
+                        {{ form.password(class="form-control") }}
+                        {% if form.password.errors %}
+                            <div class="text-danger">
+                                {% for error in form.password.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3 form-check">
+                        {{ form.remember(class="form-check-input") }}
+                        {{ form.remember.label(class="form-check-label") }}
+                    </div>
+                    <div class="d-grid">
+                        {{ form.submit(class="btn btn-primary") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\app\templates\doctor\add_patient.html -----
+{% extends "base.html" %}
+{% block title %}Add Patient{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="mb-4">Add New Patient</h1>
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Patient Information</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            {{ form.name.label(class="form-label") }}
+                            {{ form.name(class="form-control") }}
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            {{ form.age.label(class="form-label") }}
+                            {{ form.age(class="form-control") }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Symptoms</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-3 form-check">
+                            {{ form.chest_pain(class="form-check-input") }}
+                            {{ form.chest_pain.label(class="form-check-label") }}
+                        </div>
+                        <div class="col-md-4 mb-3 form-check">
+                            {{ form.shortness_of_breath(class="form-check-input") }}
+                            {{ form.shortness_of_breath.label(class="form-check-label") }}
+                        </div>
+                        <div class="col-md-4 mb-3 form-check">
+                            {{ form.fatigue(class="form-check-input") }}
+                            {{ form.fatigue.label(class="form-check-label") }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Vital Signs</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            {{ form.systolic.label(class="form-label") }}
+                            {{ form.systolic(class="form-control") }}
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            {{ form.diastolic.label(class="form-label") }}
+                            {{ form.diastolic(class="form-control") }}
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            {{ form.heart_rate.label(class="form-label") }}
+                            {{ form.heart_rate(class="form-control") }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3 form-check">
+                            {{ form.lung_sounds(class="form-check-input") }}
+                            {{ form.lung_sounds.label(class="form-check-label") }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Lab Values</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            {{ form.cholesterol_level.label(class="form-label") }}
+                            {{ form.cholesterol_level(class="form-control") }}
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            {{ form.ldl_level.label(class="form-label") }}
+                            {{ form.ldl_level(class="form-control") }}
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            {{ form.hdl_level.label(class="form-label") }}
+                            {{ form.hdl_level(class="form-control") }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Medical Conditions</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-3 form-check">
+                            {{ form.diabetes(class="form-check-input") }}
+                            {{ form.diabetes.label(class="form-check-label") }}
+                        </div>
+                        <div class="col-md-4 mb-3 form-check">
+                            {{ form.atrial_fibrillation(class="form-check-input") }}
+                            {{ form.atrial_fibrillation.label(class="form-check-label") }}
+                        </div>
+                        <div class="col-md-4 mb-3 form-check">
+                            {{ form.rheumatic_fever(class="form-check-input") }}
+                            {{ form.rheumatic_fever.label(class="form-check-label") }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3 form-check">
+                            {{ form.mitral_stenosis(class="form-check-input") }}
+                            {{ form.mitral_stenosis.label(class="form-check-label") }}
+                        </div>
+                        <div class="col-md-4 mb-3 form-check">
+                            {{ form.aortic_stenosis(class="form-check-input") }}
+                            {{ form.aortic_stenosis.label(class="form-check-label") }}
+                        </div>
+                        <div class="col-md-4 mb-3 form-check">
+                            {{ form.tricuspid_stenosis(class="form-check-input") }}
+                            {{ form.tricuspid_stenosis.label(class="form-check-label") }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3 form-check">
+                            {{ form.pulmonary_stenosis(class="form-check-input") }}
+                            {{ form.pulmonary_stenosis.label(class="form-check-label") }}
+                        </div>
+                        <div class="col-md-4 mb-3 form-check">
+                            {{ form.dilated_cardiomyopathy(class="form-check-input") }}
+                            {{ form.dilated_cardiomyopathy.label(class="form-check-label") }}
+                        </div>
+                        <div class="col-md-4 mb-3 form-check">
+                            {{ form.hypertrophic_cardiomyopathy(class="form-check-input") }}
+                            {{ form.hypertrophic_cardiomyopathy.label(class="form-check-label") }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Lifestyle Factors</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-3 form-check">
+                            {{ form.drug_use(class="form-check-input") }}
+                            {{ form.drug_use.label(class="form-check-label") }}
+                        </div>
+                        <div class="col-md-4 mb-3 form-check">
+                            {{ form.fever(class="form-check-input") }}
+                            {{ form.fever.label(class="form-check-label") }}
+                        </div>
+                        <div class="col-md-4 mb-3 form-check">
+                            {{ form.chills(class="form-check-input") }}
+                            {{ form.chills.label(class="form-check-label") }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3 form-check">
+                            {{ form.alcoholism(class="form-check-input") }}
+                            {{ form.alcoholism.label(class="form-check-label") }}
+                        </div>
+                        <div class="col-md-4 mb-3 form-check">
+                            {{ form.hypertension(class="form-check-input") }}
+                            {{ form.hypertension.label(class="form-check-label") }}
+                        </div>
+                        <div class="col-md-4 mb-3 form-check">
+                            {{ form.fainting(class="form-check-input") }}
+                            {{ form.fainting.label(class="form-check-label") }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3 form-check">
+                            {{ form.dizziness(class="form-check-input") }}
+                            {{ form.dizziness.label(class="form-check-label") }}
+                        </div>
+                        <div class="col-md-4 mb-3 form-check">
+                            {{ form.smoking(class="form-check-input") }}
+                            {{ form.smoking.label(class="form-check-label") }}
+                        </div>
+                        <div class="col-md-4 mb-3 form-check">
+                            {{ form.obesity(class="form-check-input") }}
+                            {{ form.obesity.label(class="form-check-label") }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3 form-check">
+                            {{ form.murmur(class="form-check-input") }}
+                            {{ form.murmur.label(class="form-check-label") }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="d-grid gap-2">
+                {{ form.submit(class="btn btn-primary btn-lg") }}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\app\templates\doctor\dashboard.html -----
+{% extends "base.html" %}
+{% block title %}Doctor Dashboard{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="mb-4">Doctor Dashboard</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Add New Patient</h5>
+                        <p class="card-text">Add a new patient and predict their heart disease.</p>
+                        <a href="{{ url_for('doctor.add_patient') }}" class="btn btn-primary">Add Patient</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">View My Patients</h5>
+                        <p class="card-text">View all patients you have added to the system.</p>
+                        <a href="{{ url_for('doctor.view_patients') }}" class="btn btn-primary">View Patients</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\app\templates\doctor\view_patients.html -----
+{% extends "base.html" %}
+{% block title %}My Patients{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="mb-4">My Patients</h1>
+        
+        {% if patients %}
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Date Added</th>
+                            <th>Predicted Disease</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for patient in patients %}
+                            <tr>
+                                <td>{{ patient.name }}</td>
+                                <td>{{ patient.age }}</td>
+                                <td>{{ patient.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                                <td>{{ patient.predicted_disease }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#patientModal{{ patient.id }}">
+                                        View Details
+                                    </button>
+                                </td>
+                            </tr>
+                            
+                            <!-- Modal for patient details -->
+                            <div class="modal fade" id="patientModal{{ patient.id }}" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-primary text-white">
+                                            <h5 class="modal-title">Patient Details: {{ patient.name }}</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <h6>Basic Information</h6>
+                                                    <p><strong>Age:</strong> {{ patient.age }}</p>
+                                                    <p><strong>Date Added:</strong> {{ patient.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+                                                    <p><strong>Predicted Disease:</strong> {{ patient.predicted_disease }}</p>
+                                                    
+                                                    <h6 class="mt-3">Vital Signs</h6>
+                                                    <p><strong>Blood Pressure:</strong> {{ patient.systolic }}/{{ patient.diastolic }}</p>
+                                                    <p><strong>Heart Rate:</strong> {{ patient.heart_rate }} bpm</p>
+                                                    
+                                                    <h6 class="mt-3">Lab Values</h6>
+                                                    <p><strong>Cholesterol:</strong> {{ patient.cholesterol_level }} mg/dL</p>
+                                                    <p><strong>LDL:</strong> {{ patient.ldl_level }} mg/dL</p>
+                                                    <p><strong>HDL:</strong> {{ patient.hdl_level }} mg/dL</p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <h6>Symptoms</h6>
+                                                    <ul class="list-group">
+                                                        {% if patient.chest_pain %}<li class="list-group-item">Chest Pain</li>{% endif %}
+                                                        {% if patient.shortness_of_breath %}<li class="list-group-item">Shortness of Breath</li>{% endif %}
+                                                        {% if patient.fatigue %}<li class="list-group-item">Fatigue</li>{% endif %}
+                                                        {% if patient.lung_sounds %}<li class="list-group-item">Lung Sounds</li>{% endif %}
+                                                        {% if patient.fever %}<li class="list-group-item">Fever</li>{% endif %}
+                                                        {% if patient.chills %}<li class="list-group-item">Chills</li>{% endif %}
+                                                        {% if patient.fainting %}<li class="list-group-item">Fainting</li>{% endif %}
+                                                        {% if patient.dizziness %}<li class="list-group-item">Dizziness</li>{% endif %}
+                                                        {% if patient.murmur %}<li class="list-group-item">Murmur</li>{% endif %}
+                                                    </ul>
+                                                    
+                                                    <h6 class="mt-3">Medical Conditions</h6>
+                                                    <ul class="list-group">
+                                                        {% if patient.diabetes %}<li class="list-group-item">Diabetes</li>{% endif %}
+                                                        {% if patient.atrial_fibrillation %}<li class="list-group-item">Atrial Fibrillation</li>{% endif %}
+                                                        {% if patient.rheumatic_fever %}<li class="list-group-item">Rheumatic Fever</li>{% endif %}
+                                                        {% if patient.mitral_stenosis %}<li class="list-group-item">Mitral Stenosis</li>{% endif %}
+                                                        {% if patient.aortic_stenosis %}<li class="list-group-item">Aortic Stenosis</li>{% endif %}
+                                                        {% if patient.tricuspid_stenosis %}<li class="list-group-item">Tricuspid Stenosis</li>{% endif %}
+                                                        {% if patient.pulmonary_stenosis %}<li class="list-group-item">Pulmonary Stenosis</li>{% endif %}
+                                                        {% if patient.dilated_cardiomyopathy %}<li class="list-group-item">Dilated Cardiomyopathy</li>{% endif %}
+                                                        {% if patient.hypertrophic_cardiomyopathy %}<li class="list-group-item">Hypertrophic Cardiomyopathy</li>{% endif %}
+                                                        {% if patient.hypertension %}<li class="list-group-item">Hypertension</li>{% endif %}
+                                                    </ul>
+                                                    
+                                                    <h6 class="mt-3">Lifestyle Factors</h6>
+                                                    <ul class="list-group">
+                                                        {% if patient.drug_use %}<li class="list-group-item">Drug Use</li>{% endif %}
+                                                        {% if patient.alcoholism %}<li class="list-group-item">Alcoholism</li>{% endif %}

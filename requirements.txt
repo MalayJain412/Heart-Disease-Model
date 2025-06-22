@@ -1,4 +1,15 @@
-streamlit==1.34.0
+Flask==2.3.3
+Flask-SQLAlchemy==3.0.5
+Flask-Login==0.6.3
+Werkzeug==2.3.7
 pandas==2.2.1
 numpy==1.26.4
 scikit-learn==1.4.2
+openpyxl==3.1.2
+reportlab==4.0.4
+matplotlib==3.8.2
+seaborn==0.13.0
+python-dotenv==1.0.0
+streamlit==1.34.0
+mysqlclient==2.2.0
+PyMySQL==1.1.1

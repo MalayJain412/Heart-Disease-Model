@@ -1,0 +1,344 @@
+{% extends "base.html" %}
+
+{% block title %}Add Patient - Heart Disease Prediction System{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2">
+            <div class="sidebar">
+                <h5 class="mb-3">
+                    <i class="fas fa-user-md me-2"></i>Doctor Panel
+                </h5>
+                <nav class="nav flex-column">
+                    <a class="nav-link" href="{{ url_for('doctor_dashboard') }}">
+                        <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                    </a>
+                    <a class="nav-link active" href="{{ url_for('add_patient') }}">
+                        <i class="fas fa-plus me-2"></i>Add Patient
+                    </a>
+                    <a class="nav-link" href="{{ url_for('change_password') }}">
+                        <i class="fas fa-key me-2"></i>Change Password
+                    </a>
+                    <hr>
+                    <a class="nav-link text-danger" href="{{ url_for('logout') }}">
+                        <i class="fas fa-sign-out-alt me-2"></i>Logout
+                    </a>
+                </nav>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-md-9 col-lg-10">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="mb-3">
+                        <i class="fas fa-plus me-2"></i>Add New Patient
+                    </h2>
+                    <p class="text-muted">Enter patient details and symptoms for heart disease prediction</p>
+                </div>
+            </div>
+            
+            <form method="POST">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-user me-2"></i>Patient Information
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Patient Name *</label>
+                                    <input type="text" class="form-control" id="name" name="name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="age" class="form-label">Age *</label>
+                                    <input type="number" class="form-control" id="age" name="age" min="1" max="120" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="gender" class="form-label">Gender *</label>
+                                    <select class="form-select" id="gender" name="gender" required>
+                                        <option value="">Select Gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-heartbeat me-2"></i>Vital Signs
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="systolic" class="form-label">Systolic BP (mmHg) *</label>
+                                    <input type="number" class="form-control" id="systolic" name="systolic" min="70" max="300" value="140" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="diastolic" class="form-label">Diastolic BP (mmHg) *</label>
+                                    <input type="number" class="form-control" id="diastolic" name="diastolic" min="40" max="200" value="90" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="heart_rate" class="form-label">Heart Rate (bpm) *</label>
+                                    <input type="number" class="form-control" id="heart_rate" name="heart_rate" min="40" max="200" value="100" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-tint me-2"></i>Cholesterol Levels
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="cholesterol" class="form-label">Total Cholesterol (mg/dL) *</label>
+                                    <input type="number" class="form-control" id="cholesterol" name="cholesterol" min="100" max="600" value="220" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="ldl" class="form-label">LDL Level (mg/dL) *</label>
+                                    <input type="number" class="form-control" id="ldl" name="ldl" min="50" max="400" value="150" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="hdl" class="form-label">HDL Level (mg/dL) *</label>
+                                    <input type="number" class="form-control" id="hdl" name="hdl" min="20" max="100" value="40" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-exclamation-triangle me-2"></i>Primary Symptoms
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="chest_pain" name="chest_pain">
+                                    <label class="form-check-label" for="chest_pain">
+                                        Chest Pain
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="shortness_of_breath" name="shortness_of_breath">
+                                    <label class="form-check-label" for="shortness_of_breath">
+                                        Shortness of Breath
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="fatigue" name="fatigue">
+                                    <label class="form-check-label" for="fatigue">
+                                        Fatigue
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="lung_sounds" name="lung_sounds">
+                                    <label class="form-check-label" for="lung_sounds">
+                                        Abnormal Lung Sounds
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="murmur" name="murmur">
+                                    <label class="form-check-label" for="murmur">
+                                        Heart Murmur
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="fainting" name="fainting">
+                                    <label class="form-check-label" for="fainting">
+                                        Fainting
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="dizziness" name="dizziness">
+                                    <label class="form-check-label" for="dizziness">
+                                        Dizziness
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="fever" name="fever">
+                                    <label class="form-check-label" for="fever">
+                                        Fever
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="chills" name="chills">
+                                    <label class="form-check-label" for="chills">
+                                        Chills
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-disease me-2"></i>Medical Conditions
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="diabetes" name="diabetes">
+                                    <label class="form-check-label" for="diabetes">
+                                        Diabetes
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="hypertension" name="hypertension">
+                                    <label class="form-check-label" for="hypertension">
+                                        Hypertension
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="atrial_fibrillation" name="atrial_fibrillation">
+                                    <label class="form-check-label" for="atrial_fibrillation">
+                                        Atrial Fibrillation
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="rheumatic_fever" name="rheumatic_fever">
+                                    <label class="form-check-label" for="rheumatic_fever">
+                                        Rheumatic Fever
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="mitral_stenosis" name="mitral_stenosis">
+                                    <label class="form-check-label" for="mitral_stenosis">
+                                        Mitral Stenosis
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="aortic_stenosis" name="aortic_stenosis">
+                                    <label class="form-check-label" for="aortic_stenosis">
+                                        Aortic Stenosis
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="tricuspid_stenosis" name="tricuspid_stenosis">
+                                    <label class="form-check-label" for="tricuspid_stenosis">
+                                        Tricuspid Stenosis
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="pulmonary_stenosis" name="pulmonary_stenosis">
+                                    <label class="form-check-label" for="pulmonary_stenosis">
+                                        Pulmonary Stenosis
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="dilated_cardiomyopathy" name="dilated_cardiomyopathy">
+                                    <label class="form-check-label" for="dilated_cardiomyopathy">
+                                        Dilated Cardiomyopathy
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="hypertrophic_cardiomyopathy" name="hypertrophic_cardiomyopathy">
+                                    <label class="form-check-label" for="hypertrophic_cardiomyopathy">
+                                        Hypertrophic Cardiomyopathy
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="obesity" name="obesity">
+                                    <label class="form-check-label" for="obesity">
+                                        Obesity
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="smoking" name="smoking">
+                                    <label class="form-check-label" for="smoking">
+                                        Smoking
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-wine-bottle me-2"></i>Lifestyle Factors
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="alcoholism" name="alcoholism">
+                                    <label class="form-check-label" for="alcoholism">
+                                        Alcoholism
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="drug_use" name="drug_use">
+                                    <label class="form-check-label" for="drug_use">
+                                        Drug Use
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <!-- Empty for alignment -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                    <a href="{{ url_for('doctor_dashboard') }}" class="btn btn-outline-secondary me-md-2">
+                        <i class="fas fa-arrow-left me-2"></i>Cancel
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-stethoscope me-2"></i>Predict Disease
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %} 
