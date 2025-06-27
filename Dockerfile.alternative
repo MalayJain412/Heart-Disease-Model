@@ -1,6 +1,3 @@
-# Use Microsoft's official Python image with ODBC drivers pre-installed
-FROM mcr.microsoft.com/mssql-tools:latest as mssql
-
 # Use Python 3.11 slim image
 FROM python:3.11-slim
 
@@ -9,21 +6,36 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 ENV FLASK_APP=app.py
 ENV FLASK_ENV=production
+ENV PORT=5000
 
 # Set work directory
 WORKDIR /app
 
-# Copy ODBC drivers from Microsoft image
-COPY --from=mssql /opt/microsoft/ /opt/microsoft/
-COPY --from=mssql /opt/mssql-tools/ /opt/mssql-tools/
-
-# Install system dependencies
+# Install system dependencies for Azure SQL Database
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
         gcc \
         g++ \
-        unixodbc \
-        unixodbc-dev \
+        pkg-config \
+        curl \
+        gnupg2 \
+        apt-transport-https \
+        ca-certificates \
+        wget \
+        software-properties-common \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Microsoft ODBC Driver 18 using a different approach
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
+    && curl https://packages.microsoft.com/config/debian/11/prod.list > /etc/apt/sources.list.d/mssql-release.list \
+    && apt-get update \
+    && ACCEPT_EULA=Y apt-get install -y --no-install-recommends msodbcsql18 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install unixodbc-dev separately to avoid conflicts
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends unixodbc-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -31,14 +43,28 @@ RUN apt-get update \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy project
+# Copy project files
 COPY . .
 
-# Create uploads directory
+# Create necessary directories
 RUN mkdir -p uploads
+RUN mkdir -p app/static/css
+RUN mkdir -p app/static/js
 
-# Expose port
-EXPOSE 5000
+# Verify model file exists
+RUN ls -la heart_disease_rf_model.pkl
 
-# Run the application
-CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app"] 
+# Create a non-root user for security
+RUN adduser --disabled-password --gecos '' appuser
+RUN chown -R appuser:appuser /app
+USER appuser
+
+# Expose port (Render will override this)
+EXPOSE $PORT
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:$PORT/ || exit 1
+
+# Run the application with Gunicorn
+CMD gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 120 --access-logfile - --error-logfile - app:app 

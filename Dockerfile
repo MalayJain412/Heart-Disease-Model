@@ -17,17 +17,20 @@ RUN apt-get update \
         gcc \
         g++ \
         pkg-config \
-        unixodbc \
-        unixodbc-dev \
         curl \
         gnupg2 \
         apt-transport-https \
         ca-certificates \
         wget \
-    && curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
+        software-properties-common \
+    && rm -rf /var/lib/apt/lists/*
+
+# Add Microsoft repository and install ODBC Driver 18
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
     && curl https://packages.microsoft.com/config/debian/11/prod.list > /etc/apt/sources.list.d/mssql-release.list \
     && apt-get update \
     && ACCEPT_EULA=Y apt-get install -y msodbcsql18 \
+    && apt-get install -y unixodbc-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
