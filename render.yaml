@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: heart-disease-prediction
+    env: docker
+    plan: starter
+    region: oregon
+    healthCheckPath: /
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        sync: false
+      - key: MODEL_PATH
+        value: heart_disease_rf_model.pkl
+      - key: SESSION_COOKIE_SECURE
+        value: true
+      - key: LOG_LEVEL
+        value: INFO
+    buildCommand: docker build -t heart-disease-app .
+    startCommand: gunicorn --bind 0.0.0.0:$PORT app:app 

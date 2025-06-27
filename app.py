@@ -36,12 +36,21 @@ login_manager.login_view = 'login'
 
 # Load the pre-trained model
 def load_model():
-    model_path = app.config['MODEL_PATH']
-    with open(model_path, 'rb') as file:
-        model = pickle.load(file)
-    return model
+    try:
+        model_path = app.config['MODEL_PATH']
+        if not os.path.exists(model_path):
+            raise FileNotFoundError(f"Model file not found: {model_path}")
+        
+        with open(model_path, 'rb') as file:
+            model = pickle.load(file)
+        print(f"Model loaded successfully from {model_path}")
+        return model
+    except Exception as e:
+        print(f"Error loading model: {e}")
+        return None
 
-model = load_model()
+# Initialize model (will be loaded when app starts)
+model = None
 
 # Database Models
 class User(UserMixin, db.Model):
@@ -168,6 +177,10 @@ def add_patient():
         flash('Access denied', 'error')
         return redirect(url_for('index'))
     
+    if model is None:
+        flash('Model not loaded. Please contact administrator.', 'error')
+        return redirect(url_for('doctor_dashboard'))
+    
     if request.method == 'POST':
         # Collect form data
         patient_data = {
@@ -239,53 +252,57 @@ def add_patient():
             'Murmur': int(patient_data['murmur'])
         }
         
-        # Make prediction
-        prediction_df = pd.DataFrame([prediction_data])
-        prediction_result = model.predict(prediction_df)[0]
-        
-        # Create patient record
-        patient = Patient(
-            name=patient_data['name'],
-            gender=patient_data['gender'],
-            age=patient_data['age'],
-            chest_pain=patient_data['chest_pain'],
-            shortness_of_breath=patient_data['shortness_of_breath'],
-            fatigue=patient_data['fatigue'],
-            systolic=patient_data['systolic'],
-            diastolic=patient_data['diastolic'],
-            heart_rate=patient_data['heart_rate'],
-            lung_sounds=patient_data['lung_sounds'],
-            cholesterol=patient_data['cholesterol'],
-            ldl=patient_data['ldl'],
-            hdl=patient_data['hdl'],
-            diabetes=patient_data['diabetes'],
-            atrial_fibrillation=patient_data['atrial_fibrillation'],
-            rheumatic_fever=patient_data['rheumatic_fever'],
-            mitral_stenosis=patient_data['mitral_stenosis'],
-            aortic_stenosis=patient_data['aortic_stenosis'],
-            tricuspid_stenosis=patient_data['tricuspid_stenosis'],
-            pulmonary_stenosis=patient_data['pulmonary_stenosis'],
-            dilated_cardiomyopathy=patient_data['dilated_cardiomyopathy'],
-            hypertrophic_cardiomyopathy=patient_data['hypertrophic_cardiomyopathy'],
-            drug_use=patient_data['drug_use'],
-            fever=patient_data['fever'],
-            chills=patient_data['chills'],
-            alcoholism=patient_data['alcoholism'],
-            hypertension=patient_data['hypertension'],
-            fainting=patient_data['fainting'],
-            dizziness=patient_data['dizziness'],
-            smoking=patient_data['smoking'],
-            obesity=patient_data['obesity'],
-            murmur=patient_data['murmur'],
-            prediction_result=prediction_result,
-            doctor_id=current_user.id
-        )
-        
-        db.session.add(patient)
-        db.session.commit()
-        
-        flash(f'Patient added successfully! Prediction: {prediction_result}', 'success')
-        return redirect(url_for('doctor_dashboard'))
+        try:
+            # Make prediction
+            prediction_df = pd.DataFrame([prediction_data])
+            prediction_result = model.predict(prediction_df)[0]
+            
+            # Create patient record
+            patient = Patient(
+                name=patient_data['name'],
+                gender=patient_data['gender'],
+                age=patient_data['age'],
+                chest_pain=patient_data['chest_pain'],
+                shortness_of_breath=patient_data['shortness_of_breath'],
+                fatigue=patient_data['fatigue'],
+                systolic=patient_data['systolic'],
+                diastolic=patient_data['diastolic'],
+                heart_rate=patient_data['heart_rate'],
+                lung_sounds=patient_data['lung_sounds'],
+                cholesterol=patient_data['cholesterol'],
+                ldl=patient_data['ldl'],
+                hdl=patient_data['hdl'],
+                diabetes=patient_data['diabetes'],
+                atrial_fibrillation=patient_data['atrial_fibrillation'],
+                rheumatic_fever=patient_data['rheumatic_fever'],
+                mitral_stenosis=patient_data['mitral_stenosis'],
+                aortic_stenosis=patient_data['aortic_stenosis'],
+                tricuspid_stenosis=patient_data['tricuspid_stenosis'],
+                pulmonary_stenosis=patient_data['pulmonary_stenosis'],
+                dilated_cardiomyopathy=patient_data['dilated_cardiomyopathy'],
+                hypertrophic_cardiomyopathy=patient_data['hypertrophic_cardiomyopathy'],
+                drug_use=patient_data['drug_use'],
+                fever=patient_data['fever'],
+                chills=patient_data['chills'],
+                alcoholism=patient_data['alcoholism'],
+                hypertension=patient_data['hypertension'],
+                fainting=patient_data['fainting'],
+                dizziness=patient_data['dizziness'],
+                smoking=patient_data['smoking'],
+                obesity=patient_data['obesity'],
+                murmur=patient_data['murmur'],
+                prediction_result=prediction_result,
+                doctor_id=current_user.id
+            )
+            
+            db.session.add(patient)
+            db.session.commit()
+            
+            flash(f'Patient added successfully! Prediction: {prediction_result}', 'success')
+            return redirect(url_for('doctor_dashboard'))
+        except Exception as e:
+            flash(f'Error making prediction: {str(e)}', 'error')
+            return redirect(url_for('add_patient'))
     
     return render_template('doctor/add_patient.html')
 
@@ -555,6 +572,15 @@ def init_database():
                 return False
 
 if __name__ == '__main__':
+    # Load the model when app starts
+    print("Loading machine learning model...")
+    model = load_model()
+    if model is None:
+        print("WARNING: Model could not be loaded. Predictions will not work.")
+    else:
+        print("Model loaded successfully!")
+    
+    # Initialize database
     if init_database():
         app.run(debug=True)
     else:

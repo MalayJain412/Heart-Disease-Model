@@ -8,8 +8,8 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'your-secret-key-here'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
-    # Database configuration
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'mysql://root:@localhost/heart_disease_db'
+    # Database configuration - use DATABASE_URL from environment
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
     
     # Model path
     MODEL_PATH = os.environ.get('MODEL_PATH') or 'heart_disease_rf_model.pkl'
@@ -32,14 +32,16 @@ class Config:
 class DevelopmentConfig(Config):
     """Development configuration"""
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'mysql://root:@localhost/heart_disease_db'
     
-    # MySQL specific settings for development
+    # Azure SQL specific settings for development
     SQLALCHEMY_ENGINE_OPTIONS = {
         'pool_pre_ping': True,
         'pool_recycle': 300,
+        'pool_size': 5,
+        'max_overflow': 10,
         'connect_args': {
-            'charset': 'utf8mb4'
+            'timeout': 30,
+            'autocommit': True
         }
     }
 
@@ -48,15 +50,20 @@ class ProductionConfig(Config):
     DEBUG = False
     SESSION_COOKIE_SECURE = True
     
-    # For Azure SQL Database
-    if os.environ.get('DATABASE_URL'):
-        SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
-        # Add MSSQL dialect for Azure SQL
-        if SQLALCHEMY_DATABASE_URI.startswith('mssql+pyodbc://'):
-            SQLALCHEMY_ENGINE_OPTIONS = {
-                'pool_pre_ping': True,
-                'pool_recycle': 300,
-            }
+    # Azure SQL specific settings for production
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        'pool_pre_ping': True,
+        'pool_recycle': 300,
+        'pool_size': 10,
+        'max_overflow': 20,
+        'connect_args': {
+            'timeout': 30,
+            'autocommit': True
+        }
+    }
+    
+    # Azure App Service specific settings
+    WEBSITES_PORT = os.environ.get('WEBSITES_PORT', '5000')
 
 class TestingConfig(Config):
     """Testing configuration"""
