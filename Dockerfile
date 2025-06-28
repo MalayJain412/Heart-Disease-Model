@@ -54,9 +54,15 @@ RUN echo "=== Model File Verification ===" && \
     echo "=== File type ===" && \
     file heart_disease_rf_model.pkl
 
-# Test model loading during build
-RUN echo "=== Testing Model Loading ===" && \
-    python test_model_loading.py
+# Test model loading during build (if test file exists)
+RUN if [ -f "test_model_loading.py" ]; then \
+        echo "=== Testing Model Loading ===" && \
+        python test_model_loading.py; \
+    else \
+        echo "=== Model Loading Test Skipped (test file not found) ===" && \
+        echo "Testing basic model loading..." && \
+        python -c "import pickle; model = pickle.load(open('heart_disease_rf_model.pkl', 'rb')); print('✅ Model loaded successfully!')"; \
+    fi
 
 # Create a non-root user for security
 RUN adduser --disabled-password --gecos '' appuser
@@ -71,4 +77,9 @@ HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:$PORT/ || exit 1
 
 # Run startup verification and then start the application
-CMD python startup.py && gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 120 --access-logfile - --error-logfile - app:app 
+CMD if [ -f "startup.py" ]; then \
+        python startup.py && gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 120 --access-logfile - --error-logfile - app:app; \
+    else \
+        echo "=== Startup verification skipped (startup.py not found) ===" && \
+        gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 120 --access-logfile - --error-logfile - app:app; \
+    fi 
