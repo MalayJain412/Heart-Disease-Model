@@ -52,6 +52,14 @@ def load_model():
 # Initialize model (will be loaded when app starts)
 model = None
 
+# Load model immediately after app configuration
+print("Loading machine learning model...")
+model = load_model()
+if model is None:
+    print("WARNING: Model could not be loaded. Predictions will not work.")
+else:
+    print("Model loaded successfully!")
+
 # Database Models
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -572,14 +580,6 @@ def init_database():
                 return False
 
 if __name__ == '__main__':
-    # Load the model when app starts
-    print("Loading machine learning model...")
-    model = load_model()
-    if model is None:
-        print("WARNING: Model could not be loaded. Predictions will not work.")
-    else:
-        print("Model loaded successfully!")
-    
     # Initialize database
     if init_database():
         app.run(debug=True)

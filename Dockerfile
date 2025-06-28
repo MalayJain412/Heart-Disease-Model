@@ -46,8 +46,17 @@ RUN mkdir -p uploads
 RUN mkdir -p app/static/css
 RUN mkdir -p app/static/js
 
-# Verify model file exists
-RUN ls -la heart_disease_rf_model.pkl
+# Verify model file exists and show details
+RUN echo "=== Model File Verification ===" && \
+    ls -la heart_disease_rf_model.pkl && \
+    echo "=== File size ===" && \
+    du -h heart_disease_rf_model.pkl && \
+    echo "=== File type ===" && \
+    file heart_disease_rf_model.pkl
+
+# Test model loading during build
+RUN echo "=== Testing Model Loading ===" && \
+    python test_model_loading.py
 
 # Create a non-root user for security
 RUN adduser --disabled-password --gecos '' appuser
@@ -61,5 +70,5 @@ EXPOSE $PORT
 HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:$PORT/ || exit 1
 
-# Run the application with Gunicorn
-CMD gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 120 --access-logfile - --error-logfile - app:app 
+# Run startup verification and then start the application
+CMD python startup.py && gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 120 --access-logfile - --error-logfile - app:app 
