@@ -51,8 +51,6 @@ Heart-Disease-Model/
 │   ├── env.production                  # Production environment config
 │   ├── .dockerignore                   # Docker ignore patterns
 │   ├── Dockerfile                      # Production Docker configuration
-│   ├── Dockerfile.alternative          # Alternative Docker setup
-│   ├── Dockerfile.dev                  # Development Docker setup
 │   ├── docker-compose.yml              # Docker Compose configuration
 │   ├── render.yaml                     # Render deployment config
 │   └── README.md                       # Main project documentation

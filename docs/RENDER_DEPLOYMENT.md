@@ -235,6 +235,8 @@ Heart-Disease-Model/
 │   ├── docker-compose.yml              # Local development
 │   ├── render.yaml                     # Render deployment
 │   ├── startup.py                      # Startup verification
+│   ├── env.example                     # Development template
+│   ├── env.production                  # Production template
 │   └── README.md                       # Main documentation
 ├── 📁 docs/                            # Documentation
 ├── 📁 scripts/                         # Setup scripts
@@ -248,6 +250,8 @@ Heart-Disease-Model/
 - **Dockerfile**: Updated to reference `data/heart_disease_rf_model.pkl`
 - **config.py**: Updated MODEL_PATH to data directory
 - **startup.py**: Production startup verification
+- **env.example**: Development environment template
+- **env.production**: Production environment template
 - **scripts/**: Database setup and utility scripts
 - **tests/**: Comprehensive testing suite
 

@@ -13,8 +13,6 @@ Heart-Disease-Model/
 │   ├── env.production                  # Production environment config (784B, 28 lines)
 │   ├── .dockerignore                   # Docker ignore patterns (798B, 79 lines)
 │   ├── Dockerfile                      # Production Docker configuration (2.8KB, 85 lines)
-│   ├── Dockerfile.alternative          # Alternative Docker setup (2.0KB, 70 lines)
-│   ├── Dockerfile.dev                  # Development Docker setup (783B, 37 lines)
 │   ├── docker-compose.yml              # Docker Compose configuration (673B, 32 lines)
 │   ├── render.yaml                     # Render deployment config (590B, 22 lines)
 │   └── README.md                       # Main project documentation (8.7KB, 345 lines)
@@ -73,14 +71,9 @@ Heart-Disease-Model/
 ├── 📁 instance/                        # Database Instance
 │   └── heart_disease_app.db            # Local SQLite database
 │
-├── 📁 mount/                           # Docker Mount Directory
-│   └── src/
-│       └── heart_disease_rf_model.pkl  # Model for Docker mounting
-│
-└── 📁 Miscellaneous
-    ├── -p/                             # Temporary directory
-    ├── .devcontainer/                  # VS Code dev container config
-    └── __pycache__/                    # Python cache files
+└── 📁 mount/                           # Docker Mount Directory
+    └── src/
+        └── heart_disease_rf_model.pkl  # Model for Docker mounting
 ```
 
 ## Directory Organization Philosophy
@@ -169,6 +162,36 @@ The project is organized with a **production-first** approach, keeping only depl
   - Production server (gunicorn)
 - **Size**: 479B, 20 lines
 - **Critical**: Yes - Dependency management
+
+#### `env.example` (Environment Template)
+- **Purpose**: Template for environment variables
+- **Key Contents**:
+  - Database connection strings
+  - Security keys
+  - Configuration flags
+  - **Updated**: Model path now points to `data/heart_disease_rf_model.pkl`
+- **Size**: 707B, 25 lines
+- **Critical**: Yes - Setup reference
+
+#### `env.production` (Production Config)
+- **Purpose**: Production environment configuration
+- **Key Contents**:
+  - Production database settings
+  - Security configurations
+  - Performance settings
+  - **Updated**: Model path now points to `data/heart_disease_rf_model.pkl`
+- **Size**: 784B, 28 lines
+- **Critical**: Yes - Production deployment
+
+#### `.dockerignore` (Docker Ignore)
+- **Purpose**: Files to exclude from Docker builds
+- **Key Contents**:
+  - Development files
+  - Cache directories
+  - Documentation files
+  - **Updated**: Excludes new organized directories
+- **Size**: 798B, 79 lines
+- **Critical**: Yes - Docker optimization
 
 ### 📚 Documentation Files (docs/)
 

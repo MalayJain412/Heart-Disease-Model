@@ -6,7 +6,19 @@ A comprehensive Flask-based web application for heart disease prediction using m
 
 ```
 Heart-Disease-Model/
-├── docs/                           # Documentation files
+├── 📁 Production Files (Root Directory)
+│   ├── app.py                          # Main Flask application
+│   ├── config.py                       # Configuration settings
+│   ├── requirements.txt                # Python dependencies
+│   ├── startup.py                      # Application startup script
+│   ├── Dockerfile                      # Production Docker configuration
+│   ├── docker-compose.yml              # Docker Compose configuration
+│   ├── render.yaml                     # Render deployment configuration
+│   ├── env.example                     # Environment variables template
+│   ├── env.production                  # Production environment variables
+│   ├── .dockerignore                   # Docker ignore file
+│   └── README.md                       # This file
+├── 📁 docs/                            # Documentation files
 │   ├── DEVELOPER_DOCUMENTATION.md
 │   ├── DEPLOYMENT.md
 │   ├── USER_DOCUMENTATION.md
@@ -14,7 +26,7 @@ Heart-Disease-Model/
 │   ├── MODEL_LOADING_TROUBLESHOOTING.md
 │   ├── RENDER_DEPLOYMENT.md
 │   └── PROJECT_DOCUMENTATION.md
-├── scripts/                        # Setup and utility scripts
+├── 📁 scripts/                         # Setup and utility scripts
 │   ├── add_admin_user.py
 │   ├── setup_azure_database.py
 │   ├── debug_env.py
@@ -23,32 +35,21 @@ Heart-Disease-Model/
 │   ├── streamlit_app.py
 │   ├── coopy_utils.py
 │   └── all_code_snippets.txt
-├── tests/                          # Testing files
+├── 📁 tests/                           # Testing files
 │   ├── test_model_loading.py
 │   ├── test_azure_connection.py
 │   ├── test_admin_credentials.py
 │   ├── test_database_comprehensive.py
 │   ├── test_docker.py
 │   └── test_azure_db.py
-├── data/                           # Data files
+├── 📁 data/                            # Data files
 │   ├── heart_disease_rf_model.pkl
 │   └── Heart D Dataset.csv
-├── app/                            # Flask application
+├── 📁 app/                             # Flask application
 │   ├── templates/
 │   └── static/
-├── instance/                       # Database instance
-├── mount/                          # Mount directory
-├── app.py                          # Main Flask application
-├── config.py                       # Configuration settings
-├── requirements.txt                # Python dependencies
-├── Dockerfile                      # Production Docker configuration
-├── docker-compose.yml              # Docker Compose configuration
-├── render.yaml                     # Render deployment configuration
-├── startup.py                      # Application startup script
-├── env.example                     # Environment variables template
-├── env.production                  # Production environment variables
-├── .dockerignore                   # Docker ignore file
-└── README.md                       # This file
+├── 📁 instance/                        # Database instance
+└── 📁 mount/                           # Mount directory
 ```
 
 ## 🚀 Quick Start

@@ -223,6 +223,30 @@ python app.py
 
 ## Project Structure
 
+### 📋 **Current Clean Project Structure:**
+
+```
+Heart-Disease-Model/
+├── 📁 Production Files (Root)
+│   ├── app.py                          # Main Flask application
+│   ├── config.py                       # Configuration
+│   ├── requirements.txt                # Dependencies
+│   ├── Dockerfile                      # Production Docker ✅
+│   ├── docker-compose.yml              # Local development
+│   ├── env.example                     # Development template ✅
+│   ├── env.production                  # Production template ✅
+│   ├── startup.py                      # Startup verification
+│   ├── render.yaml                     # Render deployment
+│   └── README.md                       # Main documentation
+├── 📁 docs/                            # Documentation
+├── 📁 scripts/                         # Setup scripts
+├── 📁 tests/                           # Testing files
+├── 📁 data/                            # ML model and data
+└── 📁 app/                             # Flask templates and static files
+```
+
+**Result:** Your project is now cleaner, more focused, and easier to maintain! 🎉
+
 ### Complete Directory Organization
 
 The project is organized with a **production-first** approach, keeping only deployment-essential files in the root directory while organizing supporting files into logical directories:
@@ -238,8 +262,6 @@ Heart-Disease-Model/
 │   ├── env.production                  # Production environment config (784B, 28 lines)
 │   ├── .dockerignore                   # Docker ignore patterns (798B, 79 lines)
 │   ├── Dockerfile                      # Production Docker configuration (2.8KB, 85 lines)
-│   ├── Dockerfile.alternative          # Alternative Docker setup (2.0KB, 70 lines)
-│   ├── Dockerfile.dev                  # Development Docker setup (783B, 37 lines)
 │   ├── docker-compose.yml              # Docker Compose configuration (673B, 32 lines)
 │   ├── render.yaml                     # Render deployment config (590B, 22 lines)
 │   └── README.md                       # Main project documentation (8.7KB, 345 lines)
