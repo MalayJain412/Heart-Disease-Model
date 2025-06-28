@@ -11,8 +11,8 @@ class Config:
     # Database configuration - use DATABASE_URL from environment
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
     
-    # Model path
-    MODEL_PATH = os.environ.get('MODEL_PATH') or 'heart_disease_rf_model.pkl'
+    # Model path - updated to data directory
+    MODEL_PATH = os.environ.get('MODEL_PATH') or 'data/heart_disease_rf_model.pkl'
     
     # Flask configuration
     DEBUG = os.environ.get('FLASK_DEBUG', 'True').lower() == 'true'

@@ -6,15 +6,23 @@ This script ensures proper initialization before starting the Flask app.
 
 import os
 import sys
+import time
 import pickle
 from pathlib import Path
+from sqlalchemy import create_engine, text
+from sqlalchemy.exc import SQLAlchemyError
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 def verify_model():
     """Verify that the model file exists and can be loaded"""
     print("🔍 Verifying model file...")
     
     # Check environment variable
-    model_path = os.environ.get('MODEL_PATH', 'heart_disease_rf_model.pkl')
+    model_path = os.environ.get('MODEL_PATH', 'data/heart_disease_rf_model.pkl')
     print(f"Model path from environment: {model_path}")
     
     # Check if file exists
@@ -124,6 +132,50 @@ def verify_environment():
     
     print("✅ Environment variables verified")
     return True
+
+def check_database_connection():
+    """Check database connection"""
+    try:
+        database_url = os.environ.get('DATABASE_URL')
+        if not database_url:
+            logger.error("DATABASE_URL environment variable not set")
+            return False
+        
+        logger.info("Testing database connection...")
+        engine = create_engine(database_url)
+        
+        with engine.connect() as connection:
+            result = connection.execute(text("SELECT 1"))
+            logger.info("✅ Database connection successful")
+            return True
+            
+    except SQLAlchemyError as e:
+        logger.error(f"❌ Database connection failed: {e}")
+        return False
+    except Exception as e:
+        logger.error(f"❌ Unexpected error during database connection: {e}")
+        return False
+
+def check_model_file():
+    """Check if model file exists and can be loaded"""
+    try:
+        # Updated model path to data directory
+        model_path = os.environ.get('MODEL_PATH', 'data/heart_disease_rf_model.pkl')
+        
+        if not os.path.exists(model_path):
+            logger.error(f"❌ Model file not found: {model_path}")
+            return False
+        
+        logger.info(f"Testing model loading from {model_path}...")
+        with open(model_path, 'rb') as file:
+            model = pickle.load(file)
+        
+        logger.info("✅ Model loaded successfully")
+        return True
+        
+    except Exception as e:
+        logger.error(f"❌ Model loading failed: {e}")
+        return False
 
 def main():
     """Main startup verification"""

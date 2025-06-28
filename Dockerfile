@@ -48,20 +48,20 @@ RUN mkdir -p app/static/js
 
 # Verify model file exists and show details
 RUN echo "=== Model File Verification ===" && \
-    ls -la heart_disease_rf_model.pkl && \
+    ls -la data/heart_disease_rf_model.pkl && \
     echo "=== File size ===" && \
-    du -h heart_disease_rf_model.pkl && \
+    du -h data/heart_disease_rf_model.pkl && \
     echo "=== File type ===" && \
-    file heart_disease_rf_model.pkl
+    file data/heart_disease_rf_model.pkl
 
 # Test model loading during build (if test file exists)
-RUN if [ -f "test_model_loading.py" ]; then \
+RUN if [ -f "tests/test_model_loading.py" ]; then \
         echo "=== Testing Model Loading ===" && \
-        python test_model_loading.py; \
+        python tests/test_model_loading.py; \
     else \
         echo "=== Model Loading Test Skipped (test file not found) ===" && \
         echo "Testing basic model loading..." && \
-        python -c "import pickle; model = pickle.load(open('heart_disease_rf_model.pkl', 'rb')); print('✅ Model loaded successfully!')"; \
+        python -c "import pickle; model = pickle.load(open('data/heart_disease_rf_model.pkl', 'rb')); print('✅ Model loaded successfully!')"; \
     fi
 
 # Create a non-root user for security

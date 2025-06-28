@@ -40,7 +40,7 @@ Create a `.env` file for production:
 FLASK_ENV=production
 SECRET_KEY=your-super-secret-production-key
 DATABASE_URL=mssql+pyodbc://username:password@server.database.windows.net:1433/heart_disease_db?driver=ODBC+Driver+18+for+SQL+Server
-MODEL_PATH=heart_disease_rf_model.pkl
+MODEL_PATH=data/heart_disease_rf_model.pkl
 SESSION_COOKIE_SECURE=true
 LOG_LEVEL=INFO
 ```
@@ -75,7 +75,7 @@ In Render dashboard, add these environment variables:
 - `FLASK_ENV`: `production`
 - `SECRET_KEY`: Generate a secure random key
 - `DATABASE_URL`: Your Azure SQL connection string
-- `MODEL_PATH`: `heart_disease_rf_model.pkl`
+- `MODEL_PATH`: `data/heart_disease_rf_model.pkl`
 - `SESSION_COOKIE_SECURE`: `true`
 - `LOG_LEVEL`: `INFO`
 
@@ -103,6 +103,45 @@ In Render dashboard, add these environment variables:
 2. Set up alerts for errors
 3. Scale up if needed (upgrade plan)
 
+## Pre-Deployment Testing
+
+### 4.1 Test Database Setup
+```bash
+# Test Azure database connection
+python scripts/setup_azure_database.py
+
+# Test database functionality
+python tests/test_database_comprehensive.py
+```
+
+### 4.2 Test Model Loading
+```bash
+# Test model loading
+python tests/test_model_loading.py
+
+# Test Azure connection
+python tests/test_azure_connection.py
+```
+
+### 4.3 Test Docker Build
+```bash
+# Test Docker build process
+python tests/test_docker.py
+
+# Build and test locally
+docker build -t heart-disease-app .
+docker run -p 5000:5000 heart-disease-app
+```
+
+### 4.4 Test Admin User Creation
+```bash
+# Create admin user
+python scripts/add_admin_user.py
+
+# Test admin credentials
+python tests/test_admin_credentials.py
+```
+
 ## Troubleshooting
 
 ### Common Issues
@@ -111,16 +150,24 @@ In Render dashboard, add these environment variables:
    - Check Azure SQL firewall settings
    - Verify connection string format
    - Ensure ODBC driver is installed in Docker
+   - Run: `python scripts/debug_env.py`
 
 2. **Build Failures**
    - Check Dockerfile syntax
    - Verify all dependencies in requirements.txt
    - Check build logs in Render
+   - Test locally: `docker build -t heart-disease-app .`
 
 3. **Runtime Errors**
    - Check application logs in Render
    - Verify environment variables
    - Test locally with Docker
+   - Run startup verification: `python startup.py`
+
+4. **Model Loading Issues**
+   - Verify model file exists in `data/` directory
+   - Check MODEL_PATH environment variable
+   - Run model test: `python tests/test_model_loading.py`
 
 ### Useful Commands
 
@@ -136,6 +183,15 @@ docker logs <container-id>
 
 # Test database connection
 python -c "from app import db; db.create_all()"
+
+# Debug environment variables
+python scripts/debug_env.py
+
+# Fix environment file issues
+python scripts/fix_env.py
+
+# Update environment file
+python scripts/update_env.py
 ```
 
 ## Security Considerations
@@ -157,4 +213,34 @@ python -c "from app import db; db.create_all()"
 
 1. **Database**: Azure SQL provides automatic backups
 2. **Application**: Use Git for version control
-3. **Data**: Export patient data regularly via the app's export features 
+3. **Data**: Export patient data regularly via the app's export features
+
+## Project Structure for Deployment
+
+The project is organized with a production-first approach:
+
+```
+Heart-Disease-Model/
+├── 📁 Production Files (Root)
+│   ├── app.py                          # Main Flask application
+│   ├── config.py                       # Configuration
+│   ├── requirements.txt                # Dependencies
+│   ├── Dockerfile                      # Production container
+│   ├── docker-compose.yml              # Local development
+│   ├── render.yaml                     # Render deployment
+│   ├── startup.py                      # Startup verification
+│   └── README.md                       # Main documentation
+├── 📁 docs/                            # Documentation
+├── 📁 scripts/                         # Setup scripts
+├── 📁 tests/                           # Testing files
+├── 📁 data/                            # ML model and data
+└── 📁 app/                             # Flask templates and static files
+```
+
+### Key Deployment Files:
+- **Root Directory**: Contains only production-essential files
+- **Dockerfile**: Updated to reference `data/heart_disease_rf_model.pkl`
+- **config.py**: Updated MODEL_PATH to data directory
+- **startup.py**: Production startup verification
+- **scripts/**: Database setup and utility scripts
+- **tests/**: Comprehensive testing suite 

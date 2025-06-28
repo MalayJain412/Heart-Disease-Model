@@ -1,10 +1,22 @@
 import os
+import sys
+import logging
+from datetime import datetime
 from dotenv import load_dotenv
 from werkzeug.security import generate_password_hash
 from sqlalchemy import create_engine, text
 
+# Add parent directory to path to import app modules
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from app import app, db, User
+
 # Load environment variables
 load_dotenv()
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 def add_admin_user():
     """Add the default admin user to the database"""

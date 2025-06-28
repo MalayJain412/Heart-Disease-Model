@@ -64,11 +64,12 @@ README.md
 docs/
 
 # Test files
+tests/
 test_*.py
 *_test.py
-tests/
 
 # Development files
+scripts/
 debug_*.py
 fix_*.py
 update_*.py
