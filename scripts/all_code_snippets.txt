@@ -4,6 +4,2588 @@
 
 
 ----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\app.py -----
+import os
+import pickle
+import pandas as pd
+from datetime import datetime
+from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, send_file
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
+import io
+import json
+from openpyxl import Workbook
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle
+from reportlab.lib import colors
+import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use('Agg')
+import seaborn as sns
+from collections import Counter
+import base64
+from config import config
+import time
+
+# Create Flask app
+app = Flask(__name__, template_folder='app/templates')
+
+# Load configuration
+config_name = os.environ.get('FLASK_ENV', 'development')
+app.config.from_object(config[config_name])
+
+db = SQLAlchemy(app)
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'
+
+# Load the pre-trained model
+def load_model():
+    try:
+        model_path = app.config['MODEL_PATH']
+        if not os.path.exists(model_path):
+            raise FileNotFoundError(f"Model file not found: {model_path}")
+        
+        with open(model_path, 'rb') as file:
+            model = pickle.load(file)
+        print(f"Model loaded successfully from {model_path}")
+        return model
+    except Exception as e:
+        print(f"Error loading model: {e}")
+        return None
+
+# Initialize model (will be loaded when app starts)
+model = None
+
+# Load model immediately after app configuration
+print("Loading machine learning model...")
+model = load_model()
+if model is None:
+    print("WARNING: Model could not be loaded. Predictions will not work.")
+else:
+    print("Model loaded successfully!")
+
+# Database Models
+class User(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(80), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password_hash = db.Column(db.String(120), nullable=False)
+    role = db.Column(db.String(20), nullable=False)  # 'doctor', 'dean', 'chairman'
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    patients = db.relationship('Patient', backref='doctor', lazy=True)
+
+class Patient(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    gender = db.Column(db.String(10), nullable=False)
+    age = db.Column(db.Integer, nullable=False)
+    chest_pain = db.Column(db.Boolean, default=False)
+    shortness_of_breath = db.Column(db.Boolean, default=False)
+    fatigue = db.Column(db.Boolean, default=False)
+    systolic = db.Column(db.Integer, nullable=False)
+    diastolic = db.Column(db.Integer, nullable=False)
+    heart_rate = db.Column(db.Integer, nullable=False)
+    lung_sounds = db.Column(db.Boolean, default=False)
+    cholesterol = db.Column(db.Integer, nullable=False)
+    ldl = db.Column(db.Integer, nullable=False)
+    hdl = db.Column(db.Integer, nullable=False)
+    diabetes = db.Column(db.Boolean, default=False)
+    atrial_fibrillation = db.Column(db.Boolean, default=False)
+    rheumatic_fever = db.Column(db.Boolean, default=False)
+    mitral_stenosis = db.Column(db.Boolean, default=False)
+    aortic_stenosis = db.Column(db.Boolean, default=False)
+    tricuspid_stenosis = db.Column(db.Boolean, default=False)
+    pulmonary_stenosis = db.Column(db.Boolean, default=False)
+    dilated_cardiomyopathy = db.Column(db.Boolean, default=False)
+    hypertrophic_cardiomyopathy = db.Column(db.Boolean, default=False)
+    drug_use = db.Column(db.Boolean, default=False)
+    fever = db.Column(db.Boolean, default=False)
+    chills = db.Column(db.Boolean, default=False)
+    alcoholism = db.Column(db.Boolean, default=False)
+    hypertension = db.Column(db.Boolean, default=False)
+    fainting = db.Column(db.Boolean, default=False)
+    dizziness = db.Column(db.Boolean, default=False)
+    smoking = db.Column(db.Boolean, default=False)
+    obesity = db.Column(db.Boolean, default=False)
+    murmur = db.Column(db.Boolean, default=False)
+    prediction_result = db.Column(db.String(100), nullable=False)
+    doctor_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return db.session.get(User, int(user_id))
+
+# Routes
+@app.route('/')
+def index():
+    if current_user.is_authenticated:
+        if current_user.role == 'doctor':
+            return redirect(url_for('doctor_dashboard'))
+        elif current_user.role == 'dean':
+            return redirect(url_for('dean_dashboard'))
+        elif current_user.role == 'chairman':
+            return redirect(url_for('chairman_dashboard'))
+    return redirect(url_for('login'))
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        user = User.query.filter_by(username=username).first()
+        
+        if user and check_password_hash(user.password_hash, password):
+            login_user(user)
+            flash('Login successful!', 'success')
+            return redirect(url_for('index'))
+        else:
+            flash('Invalid username or password', 'error')
+    
+    return render_template('auth/login.html')
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash('You have been logged out.', 'info')
+    return redirect(url_for('login'))
+
+@app.route('/change_password', methods=['GET', 'POST'])
+@login_required
+def change_password():
+    if request.method == 'POST':
+        current_password = request.form.get('current_password')
+        new_password = request.form.get('new_password')
+        confirm_password = request.form.get('confirm_password')
+        
+        if not check_password_hash(current_user.password_hash, current_password):
+            flash('Current password is incorrect', 'error')
+        elif new_password != confirm_password:
+            flash('New passwords do not match', 'error')
+        else:
+            current_user.password_hash = generate_password_hash(new_password)
+            db.session.commit()
+            flash('Password changed successfully!', 'success')
+            return redirect(url_for('index'))
+    
+    return render_template('auth/change_password.html')
+
+# Doctor Routes
+@app.route('/doctor/dashboard')
+@login_required
+def doctor_dashboard():
+    if current_user.role != 'doctor':
+        flash('Access denied', 'error')
+        return redirect(url_for('index'))
+    
+    patients = Patient.query.filter_by(doctor_id=current_user.id).order_by(Patient.timestamp.desc()).all()
+    return render_template('doctor/dashboard.html', patients=patients)
+
+@app.route('/doctor/add_patient', methods=['GET', 'POST'])
+@login_required
+def add_patient():
+    if current_user.role != 'doctor':
+        flash('Access denied', 'error')
+        return redirect(url_for('index'))
+    
+    if model is None:
+        flash('Model not loaded. Please contact administrator.', 'error')
+        return redirect(url_for('doctor_dashboard'))
+    
+    if request.method == 'POST':
+        # Collect form data
+        patient_data = {
+            'name': request.form.get('name'),
+            'gender': request.form.get('gender'),
+            'age': int(request.form.get('age')),
+            'chest_pain': bool(request.form.get('chest_pain')),
+            'shortness_of_breath': bool(request.form.get('shortness_of_breath')),
+            'fatigue': bool(request.form.get('fatigue')),
+            'systolic': int(request.form.get('systolic')),
+            'diastolic': int(request.form.get('diastolic')),
+            'heart_rate': int(request.form.get('heart_rate')),
+            'lung_sounds': bool(request.form.get('lung_sounds')),
+            'cholesterol': int(request.form.get('cholesterol')),
+            'ldl': int(request.form.get('ldl')),
+            'hdl': int(request.form.get('hdl')),
+            'diabetes': bool(request.form.get('diabetes')),
+            'atrial_fibrillation': bool(request.form.get('atrial_fibrillation')),
+            'rheumatic_fever': bool(request.form.get('rheumatic_fever')),
+            'mitral_stenosis': bool(request.form.get('mitral_stenosis')),
+            'aortic_stenosis': bool(request.form.get('aortic_stenosis')),
+            'tricuspid_stenosis': bool(request.form.get('tricuspid_stenosis')),
+            'pulmonary_stenosis': bool(request.form.get('pulmonary_stenosis')),
+            'dilated_cardiomyopathy': bool(request.form.get('dilated_cardiomyopathy')),
+            'hypertrophic_cardiomyopathy': bool(request.form.get('hypertrophic_cardiomyopathy')),
+            'drug_use': bool(request.form.get('drug_use')),
+            'fever': bool(request.form.get('fever')),
+            'chills': bool(request.form.get('chills')),
+            'alcoholism': bool(request.form.get('alcoholism')),
+            'hypertension': bool(request.form.get('hypertension')),
+            'fainting': bool(request.form.get('fainting')),
+            'dizziness': bool(request.form.get('dizziness')),
+            'smoking': bool(request.form.get('smoking')),
+            'obesity': bool(request.form.get('obesity')),
+            'murmur': bool(request.form.get('murmur'))
+        }
+        
+        # Prepare data for prediction
+        prediction_data = {
+            'Age': patient_data['age'],
+            'Chest pain': int(patient_data['chest_pain']),
+            'Shortness of breath': int(patient_data['shortness_of_breath']),
+            'Fatigue': int(patient_data['fatigue']),
+            'Systolic': patient_data['systolic'],
+            'Diastolic': patient_data['diastolic'],
+            'Heart rate (bpm)': patient_data['heart_rate'],
+            'Lung sounds': int(patient_data['lung_sounds']),
+            'Cholesterol level (mg/dL)': patient_data['cholesterol'],
+            'LDL level (mg/dL)': patient_data['ldl'],
+            'HDL level (mg/dL)': patient_data['hdl'],
+            'Diabetes': int(patient_data['diabetes']),
+            'Atrial fibrillation': int(patient_data['atrial_fibrillation']),
+            'Rheumatic fever': int(patient_data['rheumatic_fever']),
+            'Mitral stenosis': int(patient_data['mitral_stenosis']),
+            'Aortic stenosis': int(patient_data['aortic_stenosis']),
+            'Tricuspid stenosis': int(patient_data['tricuspid_stenosis']),
+            'Pulmonary stenosis': int(patient_data['pulmonary_stenosis']),
+            'Dilated cardiomyopathy': int(patient_data['dilated_cardiomyopathy']),
+            'Hypertrophic cardiomyopathy': int(patient_data['hypertrophic_cardiomyopathy']),
+            'Drug use': int(patient_data['drug_use']),
+            'Fever': int(patient_data['fever']),
+            'Chills': int(patient_data['chills']),
+            'Alcoholism': int(patient_data['alcoholism']),
+            'Hypertension': int(patient_data['hypertension']),
+            'Fainting': int(patient_data['fainting']),
+            'Dizziness': int(patient_data['dizziness']),
+            'Smoking': int(patient_data['smoking']),
+            'Obesity': int(patient_data['obesity']),
+            'Murmur': int(patient_data['murmur'])
+        }
+        
+        try:
+            # Make prediction
+            prediction_df = pd.DataFrame([prediction_data])
+            prediction_result = model.predict(prediction_df)[0]
+            
+            # Create patient record
+            patient = Patient(
+                name=patient_data['name'],
+                gender=patient_data['gender'],
+                age=patient_data['age'],
+                chest_pain=patient_data['chest_pain'],
+                shortness_of_breath=patient_data['shortness_of_breath'],
+                fatigue=patient_data['fatigue'],
+                systolic=patient_data['systolic'],
+                diastolic=patient_data['diastolic'],
+                heart_rate=patient_data['heart_rate'],
+                lung_sounds=patient_data['lung_sounds'],
+                cholesterol=patient_data['cholesterol'],
+                ldl=patient_data['ldl'],
+                hdl=patient_data['hdl'],
+                diabetes=patient_data['diabetes'],
+                atrial_fibrillation=patient_data['atrial_fibrillation'],
+                rheumatic_fever=patient_data['rheumatic_fever'],
+                mitral_stenosis=patient_data['mitral_stenosis'],
+                aortic_stenosis=patient_data['aortic_stenosis'],
+                tricuspid_stenosis=patient_data['tricuspid_stenosis'],
+                pulmonary_stenosis=patient_data['pulmonary_stenosis'],
+                dilated_cardiomyopathy=patient_data['dilated_cardiomyopathy'],
+                hypertrophic_cardiomyopathy=patient_data['hypertrophic_cardiomyopathy'],
+                drug_use=patient_data['drug_use'],
+                fever=patient_data['fever'],
+                chills=patient_data['chills'],
+                alcoholism=patient_data['alcoholism'],
+                hypertension=patient_data['hypertension'],
+                fainting=patient_data['fainting'],
+                dizziness=patient_data['dizziness'],
+                smoking=patient_data['smoking'],
+                obesity=patient_data['obesity'],
+                murmur=patient_data['murmur'],
+                prediction_result=prediction_result,
+                doctor_id=current_user.id
+            )
+            
+            db.session.add(patient)
+            db.session.commit()
+            
+            flash(f'Patient added successfully! Prediction: {prediction_result}', 'success')
+            return redirect(url_for('doctor_dashboard'))
+        except Exception as e:
+            flash(f'Error making prediction: {str(e)}', 'error')
+            return redirect(url_for('add_patient'))
+    
+    return render_template('doctor/add_patient.html')
+
+# Dean Routes
+@app.route('/dean/dashboard')
+@login_required
+def dean_dashboard():
+    if current_user.role != 'dean':
+        flash('Access denied', 'error')
+        return redirect(url_for('index'))
+    
+    patients = Patient.query.order_by(Patient.timestamp.desc()).all()
+    doctors = User.query.filter_by(role='doctor').all()
+    
+    return render_template('dean/dashboard.html', patients=patients, doctors=doctors)
+
+@app.route('/dean/register_doctor', methods=['GET', 'POST'])
+@login_required
+def register_doctor():
+    if current_user.role != 'dean':
+        flash('Access denied', 'error')
+        return redirect(url_for('index'))
+    
+    if request.method == 'POST':
+        username = request.form.get('username')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        
+        if User.query.filter_by(username=username).first():
+            flash('Username already exists', 'error')
+        elif User.query.filter_by(email=email).first():
+            flash('Email already exists', 'error')
+        else:
+            user = User(
+                username=username,
+                email=email,
+                password_hash=generate_password_hash(password),
+                role='doctor'
+            )
+            db.session.add(user)
+            db.session.commit()
+            flash('Doctor registered successfully!', 'success')
+            return redirect(url_for('dean_dashboard'))
+    
+    return render_template('dean/register_doctor.html')
+
+@app.route('/dean/analytics')
+@login_required
+def dean_analytics():
+    if current_user.role != 'dean':
+        flash('Access denied', 'error')
+        return redirect(url_for('index'))
+    
+    patients = Patient.query.all()
+    
+    # Analytics data
+    total_patients = len(patients)
+    predictions = [p.prediction_result for p in patients]
+    prediction_counts = Counter(predictions)
+    
+    # Doctor-wise patient counts
+    doctor_counts = {}
+    for patient in patients:
+        doctor_name = patient.doctor.username
+        doctor_counts[doctor_name] = doctor_counts.get(doctor_name, 0) + 1
+    
+    return render_template('dean/analytics.html', 
+                         total_patients=total_patients,
+                         prediction_counts=prediction_counts,
+                         doctor_counts=doctor_counts)
+
+# Chairman Routes
+@app.route('/chairman/dashboard')
+@login_required
+def chairman_dashboard():
+    if current_user.role != 'chairman':
+        flash('Access denied', 'error')
+        return redirect(url_for('index'))
+    
+    patients = Patient.query.order_by(Patient.timestamp.desc()).all()
+    users = User.query.all()
+    
+    return render_template('chairman/dashboard.html', patients=patients, users=users)
+
+@app.route('/chairman/register_user', methods=['GET', 'POST'])
+@login_required
+def register_user():
+    if current_user.role != 'chairman':
+        flash('Access denied', 'error')
+        return redirect(url_for('index'))
+    
+    if request.method == 'POST':
+        username = request.form.get('username')
+        email = request.form.get('email')
+        password = request.form.get('password')
+        role = request.form.get('role')
+        
+        if User.query.filter_by(username=username).first():
+            flash('Username already exists', 'error')
+        elif User.query.filter_by(email=email).first():
+            flash('Email already exists', 'error')
+        else:
+            user = User(
+                username=username,
+                email=email,
+                password_hash=generate_password_hash(password),
+                role=role
+            )
+            db.session.add(user)
+            db.session.commit()
+            flash(f'{role.title()} registered successfully!', 'success')
+            return redirect(url_for('chairman_dashboard'))
+    
+    return render_template('chairman/register_user.html')
+
+# Export Routes
+@app.route('/export/excel')
+@login_required
+def export_excel():
+    if current_user.role not in ['dean', 'chairman']:
+        flash('Access denied', 'error')
+        return redirect(url_for('index'))
+    
+    patients = Patient.query.all()
+    
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Patient Records"
+    
+    # Headers
+    headers = ['ID', 'Name', 'Gender', 'Age', 'Prediction', 'Doctor', 'Date']
+    for col, header in enumerate(headers, 1):
+        ws.cell(row=1, column=col, value=header)
+    
+    # Data
+    for row, patient in enumerate(patients, 2):
+        ws.cell(row=row, column=1, value=patient.id)
+        ws.cell(row=row, column=2, value=patient.name)
+        ws.cell(row=row, column=3, value=patient.gender)
+        ws.cell(row=row, column=4, value=patient.age)
+        ws.cell(row=row, column=5, value=patient.prediction_result)
+        ws.cell(row=row, column=6, value=patient.doctor.username)
+        ws.cell(row=row, column=7, value=patient.timestamp.strftime('%Y-%m-%d %H:%M'))
+    
+    # Save to bytes
+    output = io.BytesIO()
+    wb.save(output)
+    output.seek(0)
+    
+    return send_file(
+        output,
+        mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        as_attachment=True,
+        download_name='patient_records.xlsx'
+    )
+
+@app.route('/export/pdf')
+@login_required
+def export_pdf():
+    if current_user.role not in ['dean', 'chairman']:
+        flash('Access denied', 'error')
+        return redirect(url_for('index'))
+    
+    patients = Patient.query.all()
+    
+    # Create PDF
+    output = io.BytesIO()
+    doc = SimpleDocTemplate(output, pagesize=letter)
+    elements = []
+    
+    # Table data
+    data = [['ID', 'Name', 'Gender', 'Age', 'Prediction', 'Doctor', 'Date']]
+    for patient in patients:
+        data.append([
+            str(patient.id),
+            patient.name,
+            patient.gender,
+            str(patient.age),
+            patient.prediction_result,
+            patient.doctor.username,
+            patient.timestamp.strftime('%Y-%m-%d %H:%M')
+        ])
+    
+    table = Table(data)
+    table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('FONTSIZE', (0, 0), (-1, 0), 14),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
+        ('TEXTCOLOR', (0, 1), (-1, -1), colors.black),
+        ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
+        ('FONTSIZE', (0, 1), (-1, -1), 12),
+        ('GRID', (0, 0), (-1, -1), 1, colors.black)
+    ]))
+    
+    elements.append(table)
+    doc.build(elements)
+    output.seek(0)
+    
+    return send_file(
+        output,
+        mimetype='application/pdf',
+        as_attachment=True,
+        download_name='patient_records.pdf'
+    )
+
+# API Routes for Analytics
+@app.route('/api/analytics')
+@login_required
+def api_analytics():
+    if current_user.role not in ['dean', 'chairman']:
+        return jsonify({'error': 'Access denied'}), 403
+    
+    patients = Patient.query.all()
+    
+    # Prediction distribution
+    predictions = [p.prediction_result for p in patients]
+    prediction_counts = Counter(predictions)
+    
+    # Doctor-wise counts
+    doctor_counts = {}
+    for patient in patients:
+        doctor_name = patient.doctor.username
+        doctor_counts[doctor_name] = doctor_counts.get(doctor_name, 0) + 1
+    
+    return jsonify({
+        'total_patients': len(patients),
+        'prediction_counts': dict(prediction_counts),
+        'doctor_counts': doctor_counts
+    })
+
+def init_database():
+    """Initialize database with retry logic"""
+    max_retries = 3
+    retry_delay = 2
+    
+    for attempt in range(max_retries):
+        try:
+            with app.app_context():
+                db.create_all()
+                
+                # Create default chairman if none exists
+                if not User.query.filter_by(role='chairman').first():
+                    chairman = User(
+                        username='admin',
+                        email='admin@hospital.com',
+                        password_hash=generate_password_hash('admin123'),
+                        role='chairman'
+                    )
+                    db.session.add(chairman)
+                    db.session.commit()
+                    print("Default chairman created: username='admin', password='admin123'")
+                else:
+                    print("Database already initialized")
+                return True
+        except Exception as e:
+            print(f"Database initialization attempt {attempt + 1} failed: {e}")
+            if attempt < max_retries - 1:
+                print(f"Retrying in {retry_delay} seconds...")
+                time.sleep(retry_delay)
+                retry_delay *= 2
+            else:
+                print("Failed to initialize database after all retries")
+                return False
+
+if __name__ == '__main__':
+    # Initialize database
+    if init_database():
+        app.run(debug=True)
+    else:
+        print("Please restart MySQL service in XAMPP and try again")
+
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\config.py -----
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+class Config:
+    """Base configuration class"""
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'your-secret-key-here'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    
+    # Database configuration - use DATABASE_URL from environment
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+    
+    # Model path - updated to data directory
+    MODEL_PATH = os.environ.get('MODEL_PATH') or 'data/heart_disease_rf_model.pkl'
+    
+    # Flask configuration
+    DEBUG = os.environ.get('FLASK_DEBUG', 'True').lower() == 'true'
+    
+    # Security settings
+    SESSION_COOKIE_SECURE = os.environ.get('SESSION_COOKIE_SECURE', 'False').lower() == 'true'
+    SESSION_COOKIE_HTTPONLY = True
+    SESSION_COOKIE_SAMESITE = 'Lax'
+    
+    # File upload settings
+    MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB max file size
+    UPLOAD_FOLDER = 'uploads'
+    
+    # Logging configuration
+    LOG_LEVEL = os.environ.get('LOG_LEVEL', 'INFO')
+
+class DevelopmentConfig(Config):
+    """Development configuration"""
+    DEBUG = True
+    
+    # Azure SQL specific settings for development
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        'pool_pre_ping': True,
+        'pool_recycle': 300,
+        'pool_size': 5,
+        'max_overflow': 10,
+        'connect_args': {
+            'timeout': 30,
+            'autocommit': True
+        }
+    }
+
+class ProductionConfig(Config):
+    """Production configuration"""
+    DEBUG = False
+    SESSION_COOKIE_SECURE = True
+    
+    # Azure SQL specific settings for production
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        'pool_pre_ping': True,
+        'pool_recycle': 300,
+        'pool_size': 10,
+        'max_overflow': 20,
+        'connect_args': {
+            'timeout': 30,
+            'autocommit': True
+        }
+    }
+    
+    # Azure App Service specific settings
+    WEBSITES_PORT = os.environ.get('WEBSITES_PORT', '5000')
+
+class TestingConfig(Config):
+    """Testing configuration"""
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
+    WTF_CSRF_ENABLED = False
+
+# Configuration dictionary
+config = {
+    'development': DevelopmentConfig,
+    'production': ProductionConfig,
+    'testing': TestingConfig,
+    'default': DevelopmentConfig
+} 
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\docker-compose.yml -----
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+      - DATABASE_URL=mysql://root:password@db/heart_disease_db
+      - SECRET_KEY=your-secret-key-here
+    depends_on:
+      - db
+    volumes:
+      - ./uploads:/app/uploads
+    restart: unless-stopped
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: heart_disease_db
+      MYSQL_USER: flask_user
+      MYSQL_PASSWORD: flask_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: unless-stopped
+
+volumes:
+  mysql_data: 
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\requirements.txt -----
+Flask==2.3.3
+Flask-SQLAlchemy==3.0.5
+Flask-Login==0.6.3
+Werkzeug==2.3.7
+pandas==2.2.1
+numpy==1.26.4
+scikit-learn==1.4.2
+openpyxl==3.1.2
+reportlab==4.0.4
+matplotlib==3.8.2
+seaborn==0.13.0
+python-dotenv==1.0.0
+streamlit==1.34.0
+# Azure SQL Database dependencies
+pyodbc==5.0.1
+# If you need SQLAlchemy with Microsoft SQL Server, use sqlalchemy directly
+sqlalchemy==2.0.0  # Check this version against your requirements.
+# Production dependencies
+gunicorn==21.2.0
+
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\startup.py -----
+#!/usr/bin/env python3
+"""
+Startup Script for Heart Disease Prediction System
+This script ensures proper initialization before starting the Flask app.
+"""
+
+import os
+import sys
+import time
+import pickle
+from pathlib import Path
+from sqlalchemy import create_engine, text
+from sqlalchemy.exc import SQLAlchemyError
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+def verify_model():
+    """Verify that the model file exists and can be loaded"""
+    print("🔍 Verifying model file...")
+    
+    # Check environment variable
+    model_path = os.environ.get('MODEL_PATH', 'data/heart_disease_rf_model.pkl')
+    print(f"Model path from environment: {model_path}")
+    
+    # Check if file exists
+    if not os.path.exists(model_path):
+        print(f"❌ Model file not found at: {model_path}")
+        
+        # Try alternative paths
+        alternative_paths = [
+            'heart_disease_rf_model.pkl',
+            './heart_disease_rf_model.pkl',
+            '/app/heart_disease_rf_model.pkl',
+            'mount/src/heart_disease_rf_model.pkl'
+        ]
+        
+        for alt_path in alternative_paths:
+            if os.path.exists(alt_path):
+                print(f"✅ Found model at alternative path: {alt_path}")
+                # Update environment variable
+                os.environ['MODEL_PATH'] = alt_path
+                model_path = alt_path
+                break
+        else:
+            print("❌ Model file not found in any location")
+            return False
+    
+    # Try to load the model
+    try:
+        print(f"🧠 Loading model from: {model_path}")
+        with open(model_path, 'rb') as file:
+            model = pickle.load(file)
+        print(f"✅ Model loaded successfully! Type: {type(model)}")
+        return True
+    except Exception as e:
+        print(f"❌ Failed to load model: {e}")
+        return False
+
+def verify_dependencies():
+    """Verify that all required dependencies are available"""
+    print("🔬 Verifying dependencies...")
+    
+    required_packages = [
+        'flask',
+        'flask_sqlalchemy', 
+        'flask_login',
+        'werkzeug',
+        'pandas',
+        'numpy',
+        'sklearn',
+        'openpyxl',
+        'reportlab',
+        'matplotlib',
+        'seaborn',
+        'dotenv',
+        'pyodbc',
+        'gunicorn'
+    ]
+    
+    missing_packages = []
+    
+    for package in required_packages:
+        try:
+            __import__(package.replace('-', '_'))
+            print(f"  ✅ {package}")
+        except ImportError:
+            print(f"  ❌ {package}")
+            missing_packages.append(package)
+    
+    if missing_packages:
+        print(f"❌ Missing packages: {missing_packages}")
+        return False
+    
+    print("✅ All dependencies verified")
+    return True
+
+def verify_environment():
+    """Verify environment variables"""
+    print("🌍 Verifying environment variables...")
+    
+    required_vars = [
+        'SECRET_KEY',
+        'DATABASE_URL',
+        'FLASK_ENV'
+    ]
+    
+    missing_vars = []
+    
+    for var in required_vars:
+        value = os.environ.get(var)
+        if value:
+            print(f"  ✅ {var}: {'*' * len(value)} (hidden)")
+        else:
+            print(f"  ❌ {var}: NOT SET")
+            missing_vars.append(var)
+    
+    # Check optional variables
+    optional_vars = ['MODEL_PATH', 'SESSION_COOKIE_SECURE', 'LOG_LEVEL']
+    for var in optional_vars:
+        value = os.environ.get(var)
+        if value:
+            print(f"  ✅ {var}: {value}")
+        else:
+            print(f"  ⚠️  {var}: NOT SET (optional)")
+    
+    if missing_vars:
+        print(f"❌ Missing required environment variables: {missing_vars}")
+        return False
+    
+    print("✅ Environment variables verified")
+    return True
+
+def check_database_connection():
+    """Check database connection"""
+    try:
+        database_url = os.environ.get('DATABASE_URL')
+        if not database_url:
+            logger.error("DATABASE_URL environment variable not set")
+            return False
+        
+        logger.info("Testing database connection...")
+        engine = create_engine(database_url)
+        
+        with engine.connect() as connection:
+            result = connection.execute(text("SELECT 1"))
+            logger.info("✅ Database connection successful")
+            return True
+            
+    except SQLAlchemyError as e:
+        logger.error(f"❌ Database connection failed: {e}")
+        return False
+    except Exception as e:
+        logger.error(f"❌ Unexpected error during database connection: {e}")
+        return False
+
+def check_model_file():
+    """Check if model file exists and can be loaded"""
+    try:
+        # Updated model path to data directory
+        model_path = os.environ.get('MODEL_PATH', 'data/heart_disease_rf_model.pkl')
+        
+        if not os.path.exists(model_path):
+            logger.error(f"❌ Model file not found: {model_path}")
+            return False
+        
+        logger.info(f"Testing model loading from {model_path}...")
+        with open(model_path, 'rb') as file:
+            model = pickle.load(file)
+        
+        logger.info("✅ Model loaded successfully")
+        return True
+        
+    except Exception as e:
+        logger.error(f"❌ Model loading failed: {e}")
+        return False
+
+def main():
+    """Main startup verification"""
+    print("🚀 Heart Disease Prediction System - Startup Verification")
+    print("=" * 60)
+    
+    # Run all verifications
+    deps_ok = verify_dependencies()
+    env_ok = verify_environment()
+    model_ok = verify_model()
+    
+    print("\n📊 Verification Summary:")
+    print("=" * 30)
+    print(f"  Dependencies: {'✅ OK' if deps_ok else '⚠️  WARNING'}")
+    print(f"  Environment: {'✅ OK' if env_ok else '❌ FAILED'}")
+    print(f"  Model: {'✅ OK' if model_ok else '❌ FAILED'}")
+    
+    # Only fail if critical components are missing
+    if env_ok and model_ok:
+        print("\n🎉 Critical verifications passed! Starting application...")
+        return True
+    else:
+        print("\n❌ Critical verifications failed. Cannot start application.")
+        return False
+
+if __name__ == "__main__":
+    success = main()
+    if not success:
+        sys.exit(1) 
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\app\templates\base.html -----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Heart Disease Prediction System{% endblock %}</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #F8F9FA;
+            --accent-color: #E3F2FD;
+            --text-color: #2C3E50;
+            --success-color: #28A745;
+            --danger-color: #DC3545;
+            --warning-color: #FFC107;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text-color);
+            background-color: #F8F9FA;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color), #357ABD);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .navbar-brand {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            color: white !important;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.2s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), #357ABD);
+            border: none;
+            border-radius: 10px;
+            padding: 10px 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+        }
+        
+        .form-control {
+            border-radius: 10px;
+            border: 2px solid #E9ECEF;
+            padding: 12px 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+        }
+        
+        .table {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .table thead th {
+            background: linear-gradient(135deg, var(--primary-color), #357ABD);
+            color: white;
+            border: none;
+            font-weight: 600;
+        }
+        
+        .alert {
+            border-radius: 10px;
+            border: none;
+        }
+        
+        .sidebar {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            padding: 20px;
+        }
+        
+        .sidebar .nav-link {
+            color: var(--text-color);
+            border-radius: 10px;
+            margin-bottom: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+        }
+        
+        .stats-card {
+            background: linear-gradient(135deg, var(--primary-color), #357ABD);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .stats-card h3 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .prediction-result {
+            background: linear-gradient(135deg, #28A745, #20C997);
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .prediction-result h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+    </style>
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    {% if current_user.is_authenticated %}
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('index') }}">
+                <i class="fas fa-heartbeat me-2"></i>
+                Heart Disease Prediction System
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user me-1"></i>
+                            {{ current_user.username }} ({{ current_user.role.title() }})
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ url_for('change_password') }}">
+                                <i class="fas fa-key me-2"></i>Change Password
+                            </a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ url_for('logout') }}">
+                                <i class="fas fa-sign-out-alt me-2"></i>Logout
+                            </a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% endif %}
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="container mt-3">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+                        <i class="fas fa-{{ 'exclamation-triangle' if category == 'error' else 'check-circle' if category == 'success' else 'info-circle' }} me-2"></i>
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Main Content -->
+    <main class="container-fluid py-4">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html> 
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\app\templates\auth\change_password.html -----
+{% extends "base.html" %}
+
+{% block title %}Change Password - Heart Disease Prediction System{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-key me-2"></i>Change Password
+                    </h4>
+                </div>
+                <div class="card-body p-4">
+                    <form method="POST">
+                        <div class="mb-3">
+                            <label for="current_password" class="form-label">
+                                <i class="fas fa-lock me-2"></i>Current Password
+                            </label>
+                            <input type="password" class="form-control" id="current_password" name="current_password" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="new_password" class="form-label">
+                                <i class="fas fa-key me-2"></i>New Password
+                            </label>
+                            <input type="password" class="form-control" id="new_password" name="new_password" required>
+                            <div class="form-text">
+                                <i class="fas fa-info-circle me-1"></i>
+                                Password must be at least 8 characters long
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="confirm_password" class="form-label">
+                                <i class="fas fa-check me-2"></i>Confirm New Password
+                            </label>
+                            <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-2"></i>Update Password
+                            </button>
+                            <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\app\templates\auth\login.html -----
+{% extends "base.html" %}
+
+{% block title %}Login - Heart Disease Prediction System{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center align-items-center min-vh-100">
+        <div class="col-md-6 col-lg-4">
+            <div class="card">
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-heartbeat text-primary" style="font-size: 3rem;"></i>
+                        <h2 class="mt-3 mb-2">Welcome Back</h2>
+                        <p class="text-muted">Sign in to access the Heart Disease Prediction System</p>
+                    </div>
+                    
+                    <form method="POST">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">
+                                <i class="fas fa-user me-2"></i>Username
+                            </label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="password" class="form-label">
+                                <i class="fas fa-lock me-2"></i>Password
+                            </label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fas fa-sign-in-alt me-2"></i>Sign In
+                        </button>
+                    </form>
+                    
+                    <div class="text-center mt-4">
+                        <small class="text-muted">
+                            <i class="fas fa-shield-alt me-1"></i>
+                            Secure login for authorized medical personnel only
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\app\templates\chairman\dashboard.html -----
+{% extends "base.html" %}
+
+{% block title %}Chairman Dashboard - Heart Disease Prediction System{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2">
+            <div class="sidebar">
+                <h5 class="mb-3">
+                    <i class="fas fa-user-shield me-2"></i>Chairman Panel
+                </h5>
+                <nav class="nav flex-column">
+                    <a class="nav-link active" href="{{ url_for('chairman_dashboard') }}">
+                        <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                    </a>
+                    <a class="nav-link" href="{{ url_for('register_user') }}">
+                        <i class="fas fa-user-plus me-2"></i>Add Doctor/Dean
+                    </a>
+                    <a class="nav-link" href="{{ url_for('change_password') }}">
+                        <i class="fas fa-key me-2"></i>Change Password
+                    </a>
+                    <hr>
+                    <a class="nav-link text-danger" href="{{ url_for('logout') }}">
+                        <i class="fas fa-sign-out-alt me-2"></i>Logout
+                    </a>
+                </nav>
+            </div>
+        </div>
+        <!-- Main Content -->
+        <div class="col-md-9 col-lg-10">
+            <div class="row mb-4">
+                <div class="col-12 d-flex justify-content-between align-items-center">
+                    <div>
+                        <h2 class="mb-1">
+                            <i class="fas fa-tachometer-alt me-2"></i>Chairman Dashboard
+                        </h2>
+                        <p class="text-muted">Welcome, Chairman {{ current_user.username }}!</p>
+                    </div>
+                </div>
+            </div>
+            <!-- User Management -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-users-cog me-2"></i>User Management
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>Doctors</h6>
+                            <ul class="list-group mb-3">
+                                {% for user in users if user.role == 'doctor' %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span><i class="fas fa-user-md me-2"></i>{{ user.username }}</span>
+                                    <span class="badge bg-primary">Doctor</span>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>Deans</h6>
+                            <ul class="list-group mb-3">
+                                {% for user in users if user.role == 'dean' %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span><i class="fas fa-user-tie me-2"></i>{{ user.username }}</span>
+                                    <span class="badge bg-info">Dean</span>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <a href="{{ url_for('register_user') }}" class="btn btn-primary">
+                            <i class="fas fa-user-plus me-2"></i>Add Doctor/Dean
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Patient Table -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-users me-2"></i>All Patients
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Gender</th>
+                                    <th>Age</th>
+                                    <th>Prediction</th>
+                                    <th>Doctor</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for patient in patients %}
+                                <tr>
+                                    <td>{{ patient.name }}</td>
+                                    <td>{{ patient.gender }}</td>
+                                    <td>{{ patient.age }}</td>
+                                    <td>
+                                        <span class="badge bg-{{ 'success' if patient.prediction_result == 'Normal' else 'danger' }}">
+                                            {{ patient.prediction_result }}
+                                        </span>
+                                    </td>
+                                    <td>{{ patient.doctor.username }}</td>
+                                    <td>{{ patient.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Analytics Section -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-chart-bar me-2"></i>Analytics
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="stats-card">
+                                <i class="fas fa-users fa-2x mb-3"></i>
+                                <h3>{{ patients|length }}</h3>
+                                <p class="mb-0">Total Patients</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="stats-card" style="background: linear-gradient(135deg, #28A745, #20C997);">
+                                <i class="fas fa-heartbeat fa-2x mb-3"></i>
+                                <h3>{{ patients|selectattr('prediction_result', 'equalto', 'Normal')|list|length }}</h3>
+                                <p class="mb-0">Normal Cases</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="stats-card" style="background: linear-gradient(135deg, #DC3545, #E74C3C);">
+                                <i class="fas fa-exclamation-triangle fa-2x mb-3"></i>
+                                <h3>{{ patients|selectattr('prediction_result', 'ne', 'Normal')|list|length }}</h3>
+                                <p class="mb-0">Disease Cases</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end mt-3">
+                        <a href="{{ url_for('export_excel') }}" class="btn btn-outline-success me-2">
+                            <i class="fas fa-file-excel me-1"></i>Export Excel
+                        </a>
+                        <a href="{{ url_for('export_pdf') }}" class="btn btn-outline-danger">
+                            <i class="fas fa-file-pdf me-1"></i>Export PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\app\templates\chairman\register_user.html -----
+{% extends "base.html" %}
+
+{% block title %}Register User - Heart Disease Prediction System{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2">
+            <div class="sidebar">
+                <h5 class="mb-3">
+                    <i class="fas fa-user-shield me-2"></i>Chairman Panel
+                </h5>
+                <nav class="nav flex-column">
+                    <a class="nav-link" href="{{ url_for('chairman_dashboard') }}">
+                        <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                    </a>
+                    <a class="nav-link active" href="{{ url_for('register_user') }}">
+                        <i class="fas fa-user-plus me-2"></i>Add Doctor/Dean
+                    </a>
+                    <a class="nav-link" href="{{ url_for('change_password') }}">
+                        <i class="fas fa-key me-2"></i>Change Password
+                    </a>
+                    <hr>
+                    <a class="nav-link text-danger" href="{{ url_for('logout') }}">
+                        <i class="fas fa-sign-out-alt me-2"></i>Logout
+                    </a>
+                </nav>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-md-9 col-lg-10">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="mb-3">
+                        <i class="fas fa-user-plus me-2"></i>Register New User
+                    </h2>
+                    <p class="text-muted">Add a new doctor or dean to the heart disease prediction system</p>
+                </div>
+            </div>
+            
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="fas fa-user me-2"></i>User Information
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <form method="POST">
+                                <div class="mb-3">
+                                    <label for="username" class="form-label">
+                                        <i class="fas fa-user me-2"></i>Username *
+                                    </label>
+                                    <input type="text" class="form-control" id="username" name="username" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">
+                                        <i class="fas fa-envelope me-2"></i>Email *
+                                    </label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="role" class="form-label">
+                                        <i class="fas fa-user-tag me-2"></i>Role *
+                                    </label>
+                                    <select class="form-select" id="role" name="role" required>
+                                        <option value="">Select Role</option>
+                                        <option value="doctor">Doctor</option>
+                                        <option value="dean">Dean</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label for="password" class="form-label">
+                                        <i class="fas fa-lock me-2"></i>Password *
+                                    </label>
+                                    <input type="password" class="form-control" id="password" name="password" required>
+                                    <div class="form-text">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        Password must be at least 8 characters long
+                                    </div>
+                                </div>
+                                
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-user-plus me-2"></i>Register User
+                                    </button>
+                                    <a href="{{ url_for('chairman_dashboard') }}" class="btn btn-outline-secondary">
+                                        <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\app\templates\dean\analytics.html -----
+{% extends "base.html" %}
+
+{% block title %}Analytics - Heart Disease Prediction System{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2">
+            <div class="sidebar">
+                <h5 class="mb-3">
+                    <i class="fas fa-user-tie me-2"></i>Dean Panel
+                </h5>
+                <nav class="nav flex-column">
+                    <a class="nav-link" href="{{ url_for('dean_dashboard') }}">
+                        <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                    </a>
+                    <a class="nav-link" href="{{ url_for('register_doctor') }}">
+                        <i class="fas fa-user-plus me-2"></i>Add Doctor
+                    </a>
+                    <a class="nav-link active" href="{{ url_for('dean_analytics') }}">
+                        <i class="fas fa-chart-bar me-2"></i>Analytics
+                    </a>
+                    <a class="nav-link" href="{{ url_for('change_password') }}">
+                        <i class="fas fa-key me-2"></i>Change Password
+                    </a>
+                    <hr>
+                    <a class="nav-link text-danger" href="{{ url_for('logout') }}">
+                        <i class="fas fa-sign-out-alt me-2"></i>Logout
+                    </a>
+                </nav>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-md-9 col-lg-10">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="mb-3">
+                        <i class="fas fa-chart-bar me-2"></i>Analytics Dashboard
+                    </h2>
+                    <p class="text-muted">Comprehensive analytics and insights for heart disease predictions</p>
+                </div>
+            </div>
+            
+            <!-- Stats Cards -->
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="stats-card">
+                        <i class="fas fa-users fa-2x mb-3"></i>
+                        <h3>{{ total_patients }}</h3>
+                        <p class="mb-0">Total Patients</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stats-card" style="background: linear-gradient(135deg, #28A745, #20C997);">
+                        <i class="fas fa-heartbeat fa-2x mb-3"></i>
+                        <h3>{{ prediction_counts.get('Normal', 0) }}</h3>
+                        <p class="mb-0">Normal Cases</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stats-card" style="background: linear-gradient(135deg, #DC3545, #E74C3C);">
+                        <i class="fas fa-exclamation-triangle fa-2x mb-3"></i>
+                        <h3>{{ total_patients - prediction_counts.get('Normal', 0) }}</h3>
+                        <p class="mb-0">Disease Cases</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Charts -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="fas fa-chart-pie me-2"></i>Prediction Distribution
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="predictionChart" width="400" height="300"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="fas fa-chart-bar me-2"></i>Patients by Doctor
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="doctorChart" width="400" height="300"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Export Buttons -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="fas fa-download me-2"></i>Export Data
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex gap-2">
+                                <a href="{{ url_for('export_excel') }}" class="btn btn-outline-success">
+                                    <i class="fas fa-file-excel me-2"></i>Export to Excel
+                                </a>
+                                <a href="{{ url_for('export_pdf') }}" class="btn btn-outline-danger">
+                                    <i class="fas fa-file-pdf me-2"></i>Export to PDF
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Prediction Distribution Chart
+const predictionCtx = document.getElementById('predictionChart').getContext('2d');
+const predictionChart = new Chart(predictionCtx, {
+    type: 'pie',
+    data: {
+        labels: {{ prediction_counts.keys() | list | tojson }},
+        datasets: [{
+            data: {{ prediction_counts.values() | list | tojson }},
+            backgroundColor: [
+                '#28A745',
+                '#DC3545',
+                '#FFC107',
+                '#17A2B8',
+                '#6F42C1',
+                '#FD7E14'
+            ],
+            borderWidth: 2,
+            borderColor: '#fff'
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'bottom'
+            },
+            title: {
+                display: true,
+                text: 'Disease Prediction Distribution'
+            }
+        }
+    }
+});
+
+// Doctor-wise Patient Count Chart
+const doctorCtx = document.getElementById('doctorChart').getContext('2d');
+const doctorChart = new Chart(doctorCtx, {
+    type: 'bar',
+    data: {
+        labels: {{ doctor_counts.keys() | list | tojson }},
+        datasets: [{
+            label: 'Number of Patients',
+            data: {{ doctor_counts.values() | list | tojson }},
+            backgroundColor: 'rgba(74, 144, 226, 0.8)',
+            borderColor: 'rgba(74, 144, 226, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    stepSize: 1
+                }
+            }
+        },
+        plugins: {
+            legend: {
+                display: false
+            },
+            title: {
+                display: true,
+                text: 'Patients per Doctor'
+            }
+        }
+    }
+});
+</script>
+{% endblock %} 
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\app\templates\dean\dashboard.html -----
+{% extends "base.html" %}
+
+{% block title %}Dean Dashboard - Heart Disease Prediction System{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2">
+            <div class="sidebar">
+                <h5 class="mb-3">
+                    <i class="fas fa-user-tie me-2"></i>Dean Panel
+                </h5>
+                <nav class="nav flex-column">
+                    <a class="nav-link active" href="{{ url_for('dean_dashboard') }}">
+                        <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                    </a>
+                    <a class="nav-link" href="{{ url_for('register_doctor') }}">
+                        <i class="fas fa-user-plus me-2"></i>Add Doctor
+                    </a>
+                    <a class="nav-link" href="{{ url_for('dean_analytics') }}">
+                        <i class="fas fa-chart-bar me-2"></i>Analytics
+                    </a>
+                    <a class="nav-link" href="{{ url_for('change_password') }}">
+                        <i class="fas fa-key me-2"></i>Change Password
+                    </a>
+                    <hr>
+                    <a class="nav-link text-danger" href="{{ url_for('logout') }}">
+                        <i class="fas fa-sign-out-alt me-2"></i>Logout
+                    </a>
+                </nav>
+            </div>
+        </div>
+        <!-- Main Content -->
+        <div class="col-md-9 col-lg-10">
+            <div class="row mb-4">
+                <div class="col-12 d-flex justify-content-between align-items-center">
+                    <div>
+                        <h2 class="mb-1">
+                            <i class="fas fa-tachometer-alt me-2"></i>Dean Dashboard
+                        </h2>
+                        <p class="text-muted">Welcome, Dean {{ current_user.username }}!</p>
+                    </div>
+                    <div>
+                        <a href="{{ url_for('export_excel') }}" class="btn btn-outline-success me-2">
+                            <i class="fas fa-file-excel me-1"></i>Export Excel
+                        </a>
+                        <a href="{{ url_for('export_pdf') }}" class="btn btn-outline-danger">
+                            <i class="fas fa-file-pdf me-1"></i>Export PDF
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Filters -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <form class="row g-3">
+                        <div class="col-md-3">
+                            <label for="filter_doctor" class="form-label">Doctor</label>
+                            <select class="form-select" id="filter_doctor" name="doctor">
+                                <option value="">All</option>
+                                {% for doctor in doctors %}
+                                <option value="{{ doctor.username }}">{{ doctor.username }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="filter_disease" class="form-label">Disease</label>
+                            <input type="text" class="form-control" id="filter_disease" name="disease" placeholder="e.g. CAD, Normal">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="filter_date_from" class="form-label">From</label>
+                            <input type="date" class="form-control" id="filter_date_from" name="date_from">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="filter_date_to" class="form-label">To</label>
+                            <input type="date" class="form-control" id="filter_date_to" name="date_to">
+                        </div>
+                        <div class="col-12 d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-filter me-2"></i>Apply Filters
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- Patient Table -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-users me-2"></i>All Patients
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Gender</th>
+                                    <th>Age</th>
+                                    <th>Prediction</th>
+                                    <th>Doctor</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for patient in patients %}
+                                <tr>
+                                    <td>{{ patient.name }}</td>
+                                    <td>{{ patient.gender }}</td>
+                                    <td>{{ patient.age }}</td>
+                                    <td>
+                                        <span class="badge bg-{{ 'success' if patient.prediction_result == 'Normal' else 'danger' }}">
+                                            {{ patient.prediction_result }}
+                                        </span>
+                                    </td>
+                                    <td>{{ patient.doctor.username }}</td>
+                                    <td>{{ patient.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- Analytics Button -->
+            <div class="d-flex justify-content-end">
+                <a href="{{ url_for('dean_analytics') }}" class="btn btn-primary">
+                    <i class="fas fa-chart-bar me-2"></i>View Analytics
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\app\templates\dean\register_doctor.html -----
+{% extends "base.html" %}
+
+{% block title %}Register Doctor - Heart Disease Prediction System{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2">
+            <div class="sidebar">
+                <h5 class="mb-3">
+                    <i class="fas fa-user-tie me-2"></i>Dean Panel
+                </h5>
+                <nav class="nav flex-column">
+                    <a class="nav-link" href="{{ url_for('dean_dashboard') }}">
+                        <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                    </a>
+                    <a class="nav-link active" href="{{ url_for('register_doctor') }}">
+                        <i class="fas fa-user-plus me-2"></i>Add Doctor
+                    </a>
+                    <a class="nav-link" href="{{ url_for('dean_analytics') }}">
+                        <i class="fas fa-chart-bar me-2"></i>Analytics
+                    </a>
+                    <a class="nav-link" href="{{ url_for('change_password') }}">
+                        <i class="fas fa-key me-2"></i>Change Password
+                    </a>
+                    <hr>
+                    <a class="nav-link text-danger" href="{{ url_for('logout') }}">
+                        <i class="fas fa-sign-out-alt me-2"></i>Logout
+                    </a>
+                </nav>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-md-9 col-lg-10">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="mb-3">
+                        <i class="fas fa-user-plus me-2"></i>Register New Doctor
+                    </h2>
+                    <p class="text-muted">Add a new doctor to the heart disease prediction system</p>
+                </div>
+            </div>
+            
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="fas fa-user-md me-2"></i>Doctor Information
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <form method="POST">
+                                <div class="mb-3">
+                                    <label for="username" class="form-label">
+                                        <i class="fas fa-user me-2"></i>Username *
+                                    </label>
+                                    <input type="text" class="form-control" id="username" name="username" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">
+                                        <i class="fas fa-envelope me-2"></i>Email *
+                                    </label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                </div>
+                                
+                                <div class="mb-4">
+                                    <label for="password" class="form-label">
+                                        <i class="fas fa-lock me-2"></i>Password *
+                                    </label>
+                                    <input type="password" class="form-control" id="password" name="password" required>
+                                    <div class="form-text">
+                                        <i class="fas fa-info-circle me-1"></i>
+                                        Password must be at least 8 characters long
+                                    </div>
+                                </div>
+                                
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-user-plus me-2"></i>Register Doctor
+                                    </button>
+                                    <a href="{{ url_for('dean_dashboard') }}" class="btn btn-outline-secondary">
+                                        <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\app\templates\doctor\add_patient.html -----
+{% extends "base.html" %}
+
+{% block title %}Add Patient - Heart Disease Prediction System{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2">
+            <div class="sidebar">
+                <h5 class="mb-3">
+                    <i class="fas fa-user-md me-2"></i>Doctor Panel
+                </h5>
+                <nav class="nav flex-column">
+                    <a class="nav-link" href="{{ url_for('doctor_dashboard') }}">
+                        <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                    </a>
+                    <a class="nav-link active" href="{{ url_for('add_patient') }}">
+                        <i class="fas fa-plus me-2"></i>Add Patient
+                    </a>
+                    <a class="nav-link" href="{{ url_for('change_password') }}">
+                        <i class="fas fa-key me-2"></i>Change Password
+                    </a>
+                    <hr>
+                    <a class="nav-link text-danger" href="{{ url_for('logout') }}">
+                        <i class="fas fa-sign-out-alt me-2"></i>Logout
+                    </a>
+                </nav>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-md-9 col-lg-10">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="mb-3">
+                        <i class="fas fa-plus me-2"></i>Add New Patient
+                    </h2>
+                    <p class="text-muted">Enter patient details and symptoms for heart disease prediction</p>
+                </div>
+            </div>
+            
+            <form method="POST">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-user me-2"></i>Patient Information
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Patient Name *</label>
+                                    <input type="text" class="form-control" id="name" name="name" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="age" class="form-label">Age *</label>
+                                    <input type="number" class="form-control" id="age" name="age" min="1" max="120" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="gender" class="form-label">Gender *</label>
+                                    <select class="form-select" id="gender" name="gender" required>
+                                        <option value="">Select Gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-heartbeat me-2"></i>Vital Signs
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="systolic" class="form-label">Systolic BP (mmHg) *</label>
+                                    <input type="number" class="form-control" id="systolic" name="systolic" min="70" max="300" value="140" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="diastolic" class="form-label">Diastolic BP (mmHg) *</label>
+                                    <input type="number" class="form-control" id="diastolic" name="diastolic" min="40" max="200" value="90" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="heart_rate" class="form-label">Heart Rate (bpm) *</label>
+                                    <input type="number" class="form-control" id="heart_rate" name="heart_rate" min="40" max="200" value="100" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-tint me-2"></i>Cholesterol Levels
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="cholesterol" class="form-label">Total Cholesterol (mg/dL) *</label>
+                                    <input type="number" class="form-control" id="cholesterol" name="cholesterol" min="100" max="600" value="220" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="ldl" class="form-label">LDL Level (mg/dL) *</label>
+                                    <input type="number" class="form-control" id="ldl" name="ldl" min="50" max="400" value="150" required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label for="hdl" class="form-label">HDL Level (mg/dL) *</label>
+                                    <input type="number" class="form-control" id="hdl" name="hdl" min="20" max="100" value="40" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-exclamation-triangle me-2"></i>Primary Symptoms
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="chest_pain" name="chest_pain">
+                                    <label class="form-check-label" for="chest_pain">
+                                        Chest Pain
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="shortness_of_breath" name="shortness_of_breath">
+                                    <label class="form-check-label" for="shortness_of_breath">
+                                        Shortness of Breath
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="fatigue" name="fatigue">
+                                    <label class="form-check-label" for="fatigue">
+                                        Fatigue
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="lung_sounds" name="lung_sounds">
+                                    <label class="form-check-label" for="lung_sounds">
+                                        Abnormal Lung Sounds
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="murmur" name="murmur">
+                                    <label class="form-check-label" for="murmur">
+                                        Heart Murmur
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="fainting" name="fainting">
+                                    <label class="form-check-label" for="fainting">
+                                        Fainting
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="dizziness" name="dizziness">
+                                    <label class="form-check-label" for="dizziness">
+                                        Dizziness
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="fever" name="fever">
+                                    <label class="form-check-label" for="fever">
+                                        Fever
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="chills" name="chills">
+                                    <label class="form-check-label" for="chills">
+                                        Chills
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-disease me-2"></i>Medical Conditions
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="diabetes" name="diabetes">
+                                    <label class="form-check-label" for="diabetes">
+                                        Diabetes
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="hypertension" name="hypertension">
+                                    <label class="form-check-label" for="hypertension">
+                                        Hypertension
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="atrial_fibrillation" name="atrial_fibrillation">
+                                    <label class="form-check-label" for="atrial_fibrillation">
+                                        Atrial Fibrillation
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="rheumatic_fever" name="rheumatic_fever">
+                                    <label class="form-check-label" for="rheumatic_fever">
+                                        Rheumatic Fever
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="mitral_stenosis" name="mitral_stenosis">
+                                    <label class="form-check-label" for="mitral_stenosis">
+                                        Mitral Stenosis
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="aortic_stenosis" name="aortic_stenosis">
+                                    <label class="form-check-label" for="aortic_stenosis">
+                                        Aortic Stenosis
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="tricuspid_stenosis" name="tricuspid_stenosis">
+                                    <label class="form-check-label" for="tricuspid_stenosis">
+                                        Tricuspid Stenosis
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="pulmonary_stenosis" name="pulmonary_stenosis">
+                                    <label class="form-check-label" for="pulmonary_stenosis">
+                                        Pulmonary Stenosis
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="dilated_cardiomyopathy" name="dilated_cardiomyopathy">
+                                    <label class="form-check-label" for="dilated_cardiomyopathy">
+                                        Dilated Cardiomyopathy
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="hypertrophic_cardiomyopathy" name="hypertrophic_cardiomyopathy">
+                                    <label class="form-check-label" for="hypertrophic_cardiomyopathy">
+                                        Hypertrophic Cardiomyopathy
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="obesity" name="obesity">
+                                    <label class="form-check-label" for="obesity">
+                                        Obesity
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="smoking" name="smoking">
+                                    <label class="form-check-label" for="smoking">
+                                        Smoking
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-wine-bottle me-2"></i>Lifestyle Factors
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="alcoholism" name="alcoholism">
+                                    <label class="form-check-label" for="alcoholism">
+                                        Alcoholism
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="drug_use" name="drug_use">
+                                    <label class="form-check-label" for="drug_use">
+                                        Drug Use
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <!-- Empty for alignment -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                    <a href="{{ url_for('doctor_dashboard') }}" class="btn btn-outline-secondary me-md-2">
+                        <i class="fas fa-arrow-left me-2"></i>Cancel
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-stethoscope me-2"></i>Predict Disease
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %} 
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\app\templates\doctor\dashboard.html -----
+{% extends "base.html" %}
+
+{% block title %}Doctor Dashboard - Heart Disease Prediction System{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2">
+            <div class="sidebar">
+                <h5 class="mb-3">
+                    <i class="fas fa-user-md me-2"></i>Doctor Panel
+                </h5>
+                <nav class="nav flex-column">
+                    <a class="nav-link active" href="{{ url_for('doctor_dashboard') }}">
+                        <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                    </a>
+                    <a class="nav-link" href="{{ url_for('add_patient') }}">
+                        <i class="fas fa-plus me-2"></i>Add Patient
+                    </a>
+                    <a class="nav-link" href="{{ url_for('change_password') }}">
+                        <i class="fas fa-key me-2"></i>Change Password
+                    </a>
+                    <hr>
+                    <a class="nav-link text-danger" href="{{ url_for('logout') }}">
+                        <i class="fas fa-sign-out-alt me-2"></i>Logout
+                    </a>
+                </nav>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-md-9 col-lg-10">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="mb-3">
+                        <i class="fas fa-tachometer-alt me-2"></i>Doctor Dashboard
+                    </h2>
+                    <p class="text-muted">Welcome back, Dr. {{ current_user.username }}!</p>
+                </div>
+            </div>
+            
+            <!-- Stats Cards -->
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="stats-card">
+                        <i class="fas fa-users fa-2x mb-3"></i>
+                        <h3>{{ patients|length }}</h3>
+                        <p class="mb-0">Total Patients</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stats-card" style="background: linear-gradient(135deg, #28A745, #20C997);">
+                        <i class="fas fa-heartbeat fa-2x mb-3"></i>
+                        <h3>{{ patients|selectattr('prediction_result', 'equalto', 'Normal')|list|length }}</h3>
+                        <p class="mb-0">Normal Cases</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stats-card" style="background: linear-gradient(135deg, #DC3545, #E74C3C);">
+                        <i class="fas fa-exclamation-triangle fa-2x mb-3"></i>
+                        <h3>{{ patients|selectattr('prediction_result', 'ne', 'Normal')|list|length }}</h3>
+                        <p class="mb-0">Disease Cases</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Patients -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-list me-2"></i>Recent Patients
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if patients %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Patient Name</th>
+                                    <th>Age</th>
+                                    <th>Gender</th>
+                                    <th>Prediction</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for patient in patients[:10] %}
+                                <tr>
+                                    <td>
+                                        <i class="fas fa-user me-2"></i>
+                                        {{ patient.name }}
+                                    </td>
+                                    <td>{{ patient.age }}</td>
+                                    <td>
+                                        <span class="badge bg-{{ 'primary' if patient.gender == 'Male' else 'secondary' }}">
+                                            {{ patient.gender }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-{{ 'success' if patient.prediction_result == 'Normal' else 'danger' }}">
+                                            {{ patient.prediction_result }}
+                                        </span>
+                                    </td>
+                                    <td>{{ patient.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">No patients yet</h5>
+                        <p class="text-muted">Start by adding your first patient</p>
+                        <a href="{{ url_for('add_patient') }}" class="btn btn-primary">
+                            <i class="fas fa-plus me-2"></i>Add Patient
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\scripts\add_admin_user.py -----
+import os
+import sys
+import logging
+from datetime import datetime
+from dotenv import load_dotenv
+from werkzeug.security import generate_password_hash
+from sqlalchemy import create_engine, text
+
+# Add parent directory to path to import app modules
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from app import app, db, User
+
+# Load environment variables
+load_dotenv()
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+def add_admin_user():
+    """Add the default admin user to the database"""
+    print("🔧 Adding admin user to database...")
+    
+    try:
+        # Get database URL from environment
+        database_url = os.environ.get('DATABASE_URL')
+        if not database_url:
+            print("❌ DATABASE_URL not found in environment variables")
+            return False
+        
+        print(f"Connecting to database...")
+        
+        # Create engine
+        engine = create_engine(database_url)
+        
+        with engine.connect() as connection:
+            # Check if admin user already exists
+            result = connection.execute(text("SELECT id FROM [user] WHERE username = 'admin'"))
+            existing_user = result.fetchone()
+            
+            if existing_user:
+                print("✅ Admin user already exists in database")
+                return True
+            
+            # Create admin user
+            admin_password_hash = generate_password_hash('admin123')
+            
+            insert_query = """
+            INSERT INTO [user] (username, email, password_hash, role, created_at)
+            VALUES ('admin', 'admin@hospital.com', :password_hash, 'chairman', GETDATE())
+            """
+            
+            connection.execute(text(insert_query), {"password_hash": admin_password_hash})
+            connection.commit()
+            
+            print("✅ Admin user created successfully!")
+            print("   Username: admin")
+            print("   Password: admin123")
+            print("   Role: chairman")
+            print("   Email: admin@hospital.com")
+            
+            return True
+            
+    except Exception as e:
+        print(f"❌ Error adding admin user: {e}")
+        return False
+
+def verify_admin_user():
+    """Verify that the admin user was created successfully"""
+    print("\n🔍 Verifying admin user...")
+    
+    try:
+        database_url = os.environ.get('DATABASE_URL')
+        engine = create_engine(database_url)
+        
+        with engine.connect() as connection:
+            # Check admin user
+            result = connection.execute(text("SELECT username, email, role, created_at FROM [user] WHERE username = 'admin'"))
+            admin_user = result.fetchone()
+            
+            if admin_user:
+                print("✅ Admin user verified:")
+                print(f"   Username: {admin_user[0]}")
+                print(f"   Email: {admin_user[1]}")
+                print(f"   Role: {admin_user[2]}")
+                print(f"   Created: {admin_user[3]}")
+                
+                # Count total users
+                result = connection.execute(text("SELECT COUNT(*) FROM [user]"))
+                total_users = result.fetchone()[0]
+                print(f"\n📊 Total users in database: {total_users}")
+                
+                return True
+            else:
+                print("❌ Admin user not found")
+                return False
+                
+    except Exception as e:
+        print(f"❌ Error verifying admin user: {e}")
+        return False
+
+if __name__ == "__main__":
+    print("🚀 Adding Default Admin User")
+    print("=" * 40)
+    
+    # Add admin user
+    if add_admin_user():
+        # Verify the user was created
+        verify_admin_user()
+        print("\n🎉 Admin user setup completed!")
+        print("You can now login to your Flask app with:")
+        print("   Username: admin")
+        print("   Password: admin123")
+    else:
+        print("\n❌ Failed to add admin user") 
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\scripts\all_code_snippets.txt -----
+
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\all_code_snippets.txt -----
+
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\app.py -----
 import pickle
 import pandas as pd
 import streamlit as st
@@ -1311,3 +3893,1561 @@ def create_app(config_name='default'):
                                                     <ul class="list-group">
                                                         {% if patient.drug_use %}<li class="list-group-item">Drug Use</li>{% endif %}
                                                         {% if patient.alcoholism %}<li class="list-group-item">Alcoholism</li>{% endif %}
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\scripts\coopy_utils.py -----
+import os
+
+# Root directory to start searching from
+ROOT_DIR = r"D:\ML Folders\ml_env\GitHub\Heart-Disease-Model"
+# D:\ML Folders\ml_env\GitHub\Green-Sathi-updated-docker\copy_utils.py
+# File extensions to include
+INCLUDE_EXTENSIONS = {'.py', '.js', '.css', '.html', '.txt','.yml','sql'}
+
+# Output file where combined code will be saved
+OUTPUT_FILE = os.path.join(ROOT_DIR, "all_code_snippets.txt")
+
+def should_include(file_name):
+    return os.path.splitext(file_name)[1] in INCLUDE_EXTENSIONS
+
+def copy_code_snippets():
+    with open(OUTPUT_FILE, 'w', encoding='utf-8') as outfile:
+        for dirpath, _, filenames in os.walk(ROOT_DIR):
+            for filename in filenames:
+                if should_include(filename):
+                    file_path = os.path.join(dirpath, filename)
+                    try:
+                        with open(file_path, 'r', encoding='utf-8') as f:
+                            content = f.read()
+                            outfile.write(f"\n\n----- File: {file_path} -----\n")
+                            outfile.write(content)
+                    except Exception as e:
+                        print(f"Could not read {file_path}: {e}")
+
+    print(f"\n✅ Code snippets copied to: {OUTPUT_FILE}")
+
+if __name__ == "__main__":
+    copy_code_snippets()
+
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\scripts\debug_env.py -----
+import os
+from dotenv import load_dotenv
+
+print("🔍 Debugging Environment Variables")
+print("=" * 40)
+
+# Check if .env file exists
+env_file_path = '.env'
+if os.path.exists(env_file_path):
+    print(f"✅ .env file found at: {os.path.abspath(env_file_path)}")
+else:
+    print(f"❌ .env file not found at: {os.path.abspath(env_file_path)}")
+
+# Load environment variables
+load_dotenv()
+
+# Check DATABASE_URL
+database_url = os.environ.get('DATABASE_URL')
+print(f"\nDATABASE_URL: {database_url}")
+
+if database_url:
+    if 'mssql' in database_url:
+        print("✅ DATABASE_URL contains 'mssql' - should use Azure SQL")
+    elif 'mysql' in database_url:
+        print("❌ DATABASE_URL contains 'mysql' - this is the problem!")
+    else:
+        print(f"⚠️ DATABASE_URL contains neither 'mssql' nor 'mysql': {database_url}")
+else:
+    print("❌ DATABASE_URL is not set")
+
+# Check other environment variables
+print(f"\nFLASK_ENV: {os.environ.get('FLASK_ENV')}")
+print(f"FLASK_DEBUG: {os.environ.get('FLASK_DEBUG')}")
+print(f"SECRET_KEY: {os.environ.get('SECRET_KEY', 'Not set')}")
+
+# Test configuration loading
+print("\n🔍 Testing Configuration Loading")
+print("=" * 40)
+
+try:
+    from config import config
+    
+    config_name = os.environ.get('FLASK_ENV', 'development')
+    print(f"Config name: {config_name}")
+    
+    config_class = config[config_name]
+    config_instance = config_class()
+    
+    print(f"SQLALCHEMY_DATABASE_URI: {config_instance.SQLALCHEMY_DATABASE_URI}")
+    
+    if config_instance.SQLALCHEMY_DATABASE_URI:
+        if 'mssql' in config_instance.SQLALCHEMY_DATABASE_URI:
+            print("✅ Configuration has mssql connection string")
+        else:
+            print(f"❌ Configuration has wrong connection string: {config_instance.SQLALCHEMY_DATABASE_URI}")
+    else:
+        print("❌ SQLALCHEMY_DATABASE_URI is None")
+        
+except Exception as e:
+    print(f"❌ Error loading configuration: {e}")
+
+print("\n📋 Instructions:")
+print("1. Make sure you have created a .env file in the project root")
+print("2. The .env file should contain:")
+print("   DATABASE_URL=mssql+pyodbc://Malay:Greenscan%4012@greenscanserver.database.windows.net:1433/heart_disease_db?driver={ODBC Driver 18 for SQL Server}&Encrypt=yes&TrustServerCertificate=no&Connection Timeout=30")
+print("3. The file should be named exactly '.env' (with the dot)")
+print("4. Make sure there are no spaces around the = sign in the .env file") 
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\scripts\fix_env.py -----
+import os
+
+# Correct .env content with proper driver syntax
+correct_env_content = """# Flask Configuration
+SECRET_KEY=your-super-secret-key-change-this-in-production
+FLASK_DEBUG=True
+FLASK_ENV=development
+
+# Azure SQL Database Configuration
+DATABASE_URL=mssql+pyodbc://Malay:Greenscan%4012@greenscanserver.database.windows.net:1433/heart_disease_db?driver=ODBC+Driver+18+for+SQL+Server&Encrypt=yes&TrustServerCertificate=no&Connection+Timeout=30
+
+# Model Configuration
+MODEL_PATH=heart_disease_rf_model.pkl
+
+# Security Settings
+SESSION_COOKIE_SECURE=False
+SESSION_COOKIE_HTTPONLY=True
+SESSION_COOKIE_SAMESITE=Lax
+
+# File Upload Settings
+MAX_CONTENT_LENGTH=16777216
+UPLOAD_FOLDER=uploads
+
+# Logging
+LOG_LEVEL=INFO
+
+# Azure App Service Configuration
+WEBSITES_PORT=5000
+"""
+
+def fix_env_file():
+    """Fix the .env file by removing curly braces from driver name"""
+    env_file_path = '.env'
+    
+    # Backup the current .env file
+    if os.path.exists(env_file_path):
+        backup_path = '.env.backup2'
+        with open(env_file_path, 'r') as f:
+            current_content = f.read()
+        
+        with open(backup_path, 'w') as f:
+            f.write(current_content)
+        print(f"✅ Backed up current .env to {backup_path}")
+    
+    # Write the corrected .env content
+    with open(env_file_path, 'w') as f:
+        f.write(correct_env_content)
+    
+    print("✅ Fixed .env file - removed curly braces from driver name")
+    print("\nKey changes:")
+    print("- Removed {} from around 'ODBC Driver 18 for SQL Server'")
+    print("- Changed spaces to + in driver name")
+    print("- Changed 'Connection Timeout' to 'Connection+Timeout'")
+    
+    print("\nNew DATABASE_URL:")
+    print("mssql+pyodbc://Malay:Greenscan%4012@greenscanserver.database.windows.net:1433/heart_disease_db?driver=ODBC+Driver+18+for+SQL+Server&Encrypt=yes&TrustServerCertificate=no&Connection+Timeout=30")
+
+if __name__ == "__main__":
+    print("🔧 Fixing .env file...")
+    fix_env_file()
+    print("\n🎉 .env file fixed successfully!")
+    print("You can now run: python app.py") 
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\scripts\setup_azure_database.py -----
+import os
+import sys
+from urllib.parse import quote_plus
+
+# Azure SQL Database Configuration
+AZURE_DB_SERVER = "greenscanserver.database.windows.net"
+AZURE_DB_NAME = "heart_disease_db"
+AZURE_DB_USERNAME = "admin"
+AZURE_DB_PASSWORD = "Greenscan@12"
+
+def test_master_connection():
+    """Test connection to master database to create user"""
+    print("🔍 Testing connection to master database...")
+    
+    try:
+        from sqlalchemy import create_engine, text
+        import pyodbc
+        
+        # Try to connect to master database with server admin credentials
+        # You'll need to provide the server admin credentials here
+        print("To create a user in your Azure SQL Database, you need the server admin credentials.")
+        print("These are the credentials you used when creating the Azure SQL Server.")
+        print("\nPlease provide:")
+        
+        server_admin = input("Server Admin Username (usually like 'admin@greenscanserver'): ").strip()
+        server_password = input("Server Admin Password: ").strip()
+        
+        if not server_admin or not server_password:
+            print("❌ Server admin credentials are required")
+            return None
+        
+        # URL-encode the password
+        password_encoded = quote_plus(server_password)
+        
+        # Connect to master database
+        conn_str = f"mssql+pyodbc://{server_admin}:{password_encoded}@{AZURE_DB_SERVER}:1433/master?driver=ODBC+Driver+18+for+SQL+Server&Encrypt=yes&TrustServerCertificate=no&Connection+Timeout=30"
+        
+        engine = create_engine(conn_str)
+        with engine.connect() as connection:
+            print("✅ Connected to master database successfully!")
+            
+            # Check if heart_disease_db exists
+            result = connection.execute(text("SELECT name FROM sys.databases WHERE name = 'heart_disease_db'"))
+            db_exists = result.fetchone()
+            
+            if not db_exists:
+                print("❌ Database 'heart_disease_db' does not exist")
+                print("Creating database...")
+                connection.execute(text("CREATE DATABASE heart_disease_db"))
+                connection.commit()
+                print("✅ Database 'heart_disease_db' created successfully!")
+            else:
+                print("✅ Database 'heart_disease_db' exists")
+            
+            # Create user in the database
+            print(f"Creating user '{AZURE_DB_USERNAME}' in database...")
+            
+            # Switch to heart_disease_db
+            connection.execute(text(f"USE heart_disease_db"))
+            
+            # Create login if it doesn't exist
+            connection.execute(text(f"IF NOT EXISTS (SELECT * FROM sys.server_principals WHERE name = '{AZURE_DB_USERNAME}') CREATE LOGIN [{AZURE_DB_USERNAME}] WITH PASSWORD = '{AZURE_DB_PASSWORD}'"))
+            
+            # Create user in the database
+            connection.execute(text(f"IF NOT EXISTS (SELECT * FROM sys.database_principals WHERE name = '{AZURE_DB_USERNAME}') CREATE USER [{AZURE_DB_USERNAME}] FOR LOGIN [{AZURE_DB_USERNAME}]"))
+            
+            # Grant permissions
+            connection.execute(text(f"ALTER ROLE db_owner ADD MEMBER [{AZURE_DB_USERNAME}]"))
+            
+            connection.commit()
+            print(f"✅ User '{AZURE_DB_USERNAME}' created successfully with db_owner permissions!")
+            
+            return engine
+            
+    except Exception as e:
+        print(f"❌ Failed to set up database: {e}")
+        return None
+
+def test_new_user_connection():
+    """Test connection with the newly created user"""
+    print("\n🔍 Testing connection with new user...")
+    
+    try:
+        from sqlalchemy import create_engine, text
+        
+        password_encoded = quote_plus(AZURE_DB_PASSWORD)
+        conn_str = f"mssql+pyodbc://{AZURE_DB_USERNAME}:{password_encoded}@{AZURE_DB_SERVER}:1433/{AZURE_DB_NAME}?driver=ODBC+Driver+18+for+SQL+Server&Encrypt=yes&TrustServerCertificate=no&Connection+Timeout=30"
+        
+        engine = create_engine(conn_str)
+        with engine.connect() as connection:
+            print("✅ Connection successful with new user!")
+            
+            # Test basic query
+            result = connection.execute(text("SELECT @@VERSION"))
+            version = result.fetchone()[0]
+            print(f"SQL Server Version: {version}")
+            
+            # Test if tables exist
+            result = connection.execute(text("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'"))
+            tables = [row[0] for row in result.fetchall()]
+            print(f"✅ Found tables: {tables}")
+            
+            return True
+            
+    except Exception as e:
+        print(f"❌ Connection failed: {e}")
+        return False
+
+def main():
+    """Main setup function"""
+    print("🚀 Azure SQL Database Setup")
+    print("=" * 40)
+    
+    print("This script will help you set up your Azure SQL Database with proper user authentication.")
+    print("You'll need your Azure SQL Server admin credentials to create a new user.")
+    
+    choice = input("\nDo you want to proceed with database setup? (y/n): ").strip().lower()
+    
+    if choice != 'y':
+        print("Setup cancelled.")
+        return
+    
+    # Test master connection and create user
+    engine = test_master_connection()
+    
+    if engine:
+        # Test the new user connection
+        if test_new_user_connection():
+            print("\n🎉 Database setup completed successfully!")
+            print(f"You can now use these credentials in your Flask app:")
+            print(f"  - Username: {AZURE_DB_USERNAME}")
+            print(f"  - Password: {AZURE_DB_PASSWORD}")
+            print(f"  - Database: {AZURE_DB_NAME}")
+        else:
+            print("\n❌ New user connection failed. Please check the credentials.")
+    else:
+        print("\n❌ Database setup failed.")
+
+if __name__ == "__main__":
+    main() 
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\scripts\streamlit_app.py -----
+import pickle
+import pandas as pd
+import streamlit as st
+
+# Set the title of the app
+st.title("❤️ Cardio-Vascular Disease Name Prediction ❤️")
+st.header("Input Patient's Details")
+
+# Function to load the trained model
+@st.cache_resource
+def load_model(model_path):
+    with open(model_path, 'rb') as file:
+        model = pickle.load(file)
+    return model
+
+# Function to predict from user input using the loaded model
+def predict_disease(model, user_input_df):
+    prediction = model.predict(user_input_df)[0]
+    return prediction
+
+# Path to the saved model
+model_path = 'heart_disease_rf_model.pkl'
+model = load_model(model_path)
+
+# Function to collect user inputs
+def get_user_input():
+    # Input fields for patient details
+    Age = st.number_input("Age", min_value=1, max_value=120, value=55)
+
+    col1, col2, col3 = st.columns(3)
+
+    chest_pain = col1.checkbox("Chest Pain?")
+    shortness_of_breath = col2.checkbox("Shortness of Breath?")
+    fatigue = col3.checkbox("Fatigue?")
+    
+    Systolic = st.number_input("Systolic Pressure", min_value=1, value=140)
+    Diastolic = st.number_input("Diastolic Pressure", min_value=1, value=90)
+    Heart_rate = st.number_input("Heart Rate (bpm)", min_value=1, value=100)
+    
+    lung_sounds = st.checkbox("Lung Sounds?")
+    
+    cholesterol_level = st.number_input("Cholesterol Level (mg/dL)", min_value=1, value=220)
+    ldl_level = st.number_input("LDL Level (mg/dL)", min_value=1, value=150)
+    hdl_level = st.number_input("HDL Level (mg/dL)", min_value=1, value=40)
+    
+    col4, col5, col6 = st.columns(3)
+    diabetes = col4.checkbox("Diabetes?")
+    atrial_fibrillation = col5.checkbox("Atrial Fibrillation?")
+    rheumatic_fever = col6.checkbox("Rheumatic Fever?")
+    
+    col7, col8, col9 = st.columns(3)
+    mitral_stenosis = col7.checkbox("Mitral Stenosis?")
+    aortic_stenosis = col8.checkbox("Aortic Stenosis?")
+    tricuspid_stenosis = col9.checkbox("Tricuspid Stenosis?")
+    
+    col10, col11, col12 = st.columns(3)
+    pulmonary_stenosis = col10.checkbox("Pulmonary Stenosis?")
+    dilated_cardiomyopathy = col11.checkbox("Dilated Cardiomyopathy?")
+    hypertrophic_cardiomyopathy = col12.checkbox("Hypertrophic Cardiomyopathy?")
+    
+    col13, col14, col15 = st.columns(3)
+    drug_use = col13.checkbox("Drug Use?")
+    fever = col14.checkbox("Fever?")
+    chills = col15.checkbox("Chills?")
+    
+    col16, col17, col18 = st.columns(3)
+    alcoholism = col16.checkbox("Alcoholism?")
+    hypertension = col17.checkbox("Hypertension?")
+    fainting = col18.checkbox("Fainting?")
+    
+    col19, col20, col21 = st.columns(3)
+    dizziness = col19.checkbox("Dizziness?")
+    smoking = col20.checkbox("Smoking?")
+    obesity = col21.checkbox("Obesity?")
+    
+    murmur = st.checkbox("Murmur?")
+
+    # Create a DataFrame from the input values
+    user_input = {
+        'Age': Age,
+        'Chest pain': int(chest_pain),
+        'Shortness of breath': int(shortness_of_breath),
+        'Fatigue': int(fatigue),
+        'Systolic': Systolic,
+        'Diastolic': Diastolic,
+        'Heart rate (bpm)': Heart_rate,
+        'Lung sounds': int(lung_sounds),
+        'Cholesterol level (mg/dL)': cholesterol_level,
+        'LDL level (mg/dL)': ldl_level,
+        'HDL level (mg/dL)': hdl_level,
+        'Diabetes': int(diabetes),
+        'Atrial fibrillation': int(atrial_fibrillation),
+        'Rheumatic fever': int(rheumatic_fever),
+        'Mitral stenosis': int(mitral_stenosis),
+        'Aortic stenosis': int(aortic_stenosis),
+        'Tricuspid stenosis': int(tricuspid_stenosis),
+        'Pulmonary stenosis': int(pulmonary_stenosis),
+        'Dilated cardiomyopathy': int(dilated_cardiomyopathy),
+        'Hypertrophic cardiomyopathy': int(hypertrophic_cardiomyopathy),
+        'Drug use': int(drug_use),
+        'Fever': int(fever),
+        'Chills': int(chills),
+        'Alcoholism': int(alcoholism),
+        'Hypertension': int(hypertension),
+        'Fainting': int(fainting),
+        'Dizziness': int(dizziness),
+        'Smoking': int(smoking),
+        'Obesity': int(obesity),
+        'Murmur': int(murmur)
+    }
+    
+    return pd.DataFrame(user_input, index=[0])
+
+# Collect user input
+user_input_df = get_user_input()
+
+# Predict the outcome
+if st.button('Predict'):
+    predicted_outcome = predict_disease(model, user_input_df)
+    st.subheader(f"Predicted Heart Disease: {predicted_outcome}")
+
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\scripts\update_env.py -----
+import os
+
+# New .env content with Azure SQL Database configuration
+new_env_content = """# Flask Configuration
+SECRET_KEY=your-super-secret-key-change-this-in-production
+FLASK_DEBUG=True
+FLASK_ENV=development
+
+# Azure SQL Database Configuration
+DATABASE_URL=mssql+pyodbc://Malay:Greenscan%4012@greenscanserver.database.windows.net:1433/heart_disease_db?driver={ODBC Driver 18 for SQL Server}&Encrypt=yes&TrustServerCertificate=no&Connection Timeout=30
+
+# Model Configuration
+MODEL_PATH=heart_disease_rf_model.pkl
+
+# Security Settings
+SESSION_COOKIE_SECURE=False
+SESSION_COOKIE_HTTPONLY=True
+SESSION_COOKIE_SAMESITE=Lax
+
+# File Upload Settings
+MAX_CONTENT_LENGTH=16777216
+UPLOAD_FOLDER=uploads
+
+# Logging
+LOG_LEVEL=INFO
+
+# Azure App Service Configuration
+WEBSITES_PORT=5000
+"""
+
+def update_env_file():
+    """Update the .env file with Azure SQL Database configuration"""
+    env_file_path = '.env'
+    
+    # Backup the current .env file
+    if os.path.exists(env_file_path):
+        backup_path = '.env.backup'
+        with open(env_file_path, 'r') as f:
+            current_content = f.read()
+        
+        with open(backup_path, 'w') as f:
+            f.write(current_content)
+        print(f"✅ Backed up current .env to {backup_path}")
+    
+    # Write the new .env content
+    with open(env_file_path, 'w') as f:
+        f.write(new_env_content)
+    
+    print("✅ Updated .env file with Azure SQL Database configuration")
+    print("\nNew .env content:")
+    print("=" * 50)
+    print(new_env_content)
+    print("=" * 50)
+
+if __name__ == "__main__":
+    print("🔄 Updating .env file...")
+    update_env_file()
+    print("\n🎉 .env file updated successfully!")
+    print("You can now run: python app.py") 
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\tests\test_admin_credentials.py -----
+import os
+import sys
+from urllib.parse import quote_plus
+
+# Azure SQL Database Configuration
+AZURE_DB_SERVER = "greenscanserver.database.windows.net"
+AZURE_DB_NAME = "master"  # Connect to master database
+
+def test_admin_credentials():
+    """Test common Azure SQL Server admin credential formats"""
+    print("🔍 Testing common Azure SQL Server admin credential formats...")
+    
+    try:
+        from sqlalchemy import create_engine, text
+        import pyodbc
+        
+        # Common admin username patterns
+        test_credentials = [
+            {"username": "admin", "password": "admin123"},
+            {"username": "admin@greenscanserver", "password": "admin123"},
+            {"username": "admin@greenscanserver.database.windows.net", "password": "admin123"},
+            {"username": "admin", "password": "Greenscan@12"},
+            {"username": "admin@greenscanserver", "password": "Greenscan@12"},
+            {"username": "admin@greenscanserver.database.windows.net", "password": "Greenscan@12"},
+            {"username": "sa", "password": "admin123"},
+            {"username": "sa", "password": "Greenscan@12"},
+            {"username": "sqladmin", "password": "admin123"},
+            {"username": "sqladmin", "password": "Greenscan@12"},
+            {"username": "greenscanserver", "password": "admin123"},
+            {"username": "greenscanserver", "password": "Greenscan@12"},
+        ]
+        
+        for i, cred in enumerate(test_credentials, 1):
+            print(f"\n--- Test {i}: {cred['username']} ---")
+            
+            try:
+                password_encoded = quote_plus(cred['password'])
+                conn_str = f"mssql+pyodbc://{cred['username']}:{password_encoded}@{AZURE_DB_SERVER}:1433/{AZURE_DB_NAME}?driver=ODBC+Driver+18+for+SQL+Server&Encrypt=yes&TrustServerCertificate=no&Connection+Timeout=30"
+                
+                engine = create_engine(conn_str)
+                with engine.connect() as connection:
+                    print("✅ CONNECTION SUCCESSFUL!")
+                    print(f"   Username: {cred['username']}")
+                    print(f"   Password: {cred['password']}")
+                    
+                    # Test basic query
+                    result = connection.execute(text("SELECT @@VERSION"))
+                    version = result.fetchone()[0]
+                    print(f"   SQL Server Version: {version}")
+                    
+                    # Check databases
+                    result = connection.execute(text("SELECT name FROM sys.databases"))
+                    databases = [row[0] for row in result.fetchall()]
+                    print(f"   Available databases: {databases}")
+                    
+                    return cred
+                    
+            except Exception as e:
+                error_msg = str(e)
+                if "Login failed" in error_msg:
+                    print(f"   ❌ Login failed")
+                elif "Cannot open server" in error_msg:
+                    print(f"   ❌ Server access denied (firewall)")
+                else:
+                    print(f"   ❌ {error_msg[:50]}...")
+                continue
+        
+        print("\n❌ All credential combinations failed")
+        print("\n--- Next Steps ---")
+        print("1. Check your Azure portal for the correct server admin credentials")
+        print("2. Go to SQL Server 'greenscanserver' → Active Directory admin")
+        print("3. Or reset the admin password in Azure portal")
+        print("4. The username is usually in format: username@servername")
+        return None
+        
+    except Exception as e:
+        print(f"❌ Test failed: {e}")
+        return None
+
+def get_connection_string_from_portal():
+    """Show how to get connection string from Azure portal"""
+    print("\n📋 How to get connection string from Azure Portal:")
+    print("1. Go to https://portal.azure.com")
+    print("2. Navigate to your SQL Database: heart_disease_db")
+    print("3. Click 'Connection strings' in the left menu")
+    print("4. Copy the ADO.NET connection string")
+    print("5. Look for 'User ID=' and 'Password=' in the connection string")
+    print("\nExample connection string format:")
+    print("Server=tcp:greenscanserver.database.windows.net,1433;Initial Catalog=heart_disease_db;Persist Security Info=False;User ID=your_username;Password=your_password;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;")
+
+if __name__ == "__main__":
+    print("🚀 Azure SQL Server Admin Credential Test")
+    print("=" * 50)
+    
+    # Test common credential combinations
+    working_creds = test_admin_credentials()
+    
+    if working_creds:
+        print(f"\n🎉 Found working credentials!")
+        print(f"Username: {working_creds['username']}")
+        print(f"Password: {working_creds['password']}")
+        print("\nYou can now use these credentials to set up your database.")
+    else:
+        # Show how to get connection string from portal
+        get_connection_string_from_portal() 
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\tests\test_azure_connection.py -----
+import os
+import sys
+from urllib.parse import quote_plus
+
+# Azure SQL Database Configuration
+AZURE_DB_SERVER = "greenscanserver.database.windows.net"
+AZURE_DB_NAME = "heart_disease_db"
+AZURE_DB_USERNAME = "Malay"
+AZURE_DB_PASSWORD = "Greenscan@12"
+
+def test_azure_connection():
+    """Test Azure SQL Database connection"""
+    print("🔍 Testing Azure SQL Database connection...")
+    
+    try:
+        # Try to import required modules
+        try:
+            from sqlalchemy import create_engine, text
+        except ImportError as e:
+            print(f"❌ SQLAlchemy not available: {e}")
+            print("Please install: pip install sqlalchemy")
+            return False
+        
+        try:
+            import pyodbc
+        except ImportError as e:
+            print(f"❌ pyodbc not available: {e}")
+            print("Please install: pip install pyodbc")
+            return False
+        
+        # Check available ODBC drivers
+        print("Available ODBC drivers:")
+        for driver in pyodbc.drivers():
+            print(f"  - {driver}")
+        
+        # URL-encode the password
+        password_encoded = quote_plus(AZURE_DB_PASSWORD)
+        
+        # Try different connection string formats with better error handling
+        connection_strings = [
+            # Format 1: Standard format with ODBC Driver 18
+            f"mssql+pyodbc://{AZURE_DB_USERNAME}:{password_encoded}@{AZURE_DB_SERVER}:1433/{AZURE_DB_NAME}?driver=ODBC+Driver+18+for+SQL+Server&Encrypt=yes&TrustServerCertificate=no&Connection+Timeout=30",
+            
+            # Format 2: Try without database name first (connect to master)
+            f"mssql+pyodbc://{AZURE_DB_USERNAME}:{password_encoded}@{AZURE_DB_SERVER}:1433/master?driver=ODBC+Driver+18+for+SQL+Server&Encrypt=yes&TrustServerCertificate=no&Connection+Timeout=30",
+            
+            # Format 3: Try with different authentication
+            f"mssql+pyodbc://{AZURE_DB_USERNAME}:{password_encoded}@{AZURE_DB_SERVER}:1433/{AZURE_DB_NAME}?driver=ODBC+Driver+18+for+SQL+Server&Encrypt=yes&TrustServerCertificate=no&Connection+Timeout=30&Authentication=ActiveDirectoryPassword",
+            
+            # Format 4: Direct connection string
+            f"mssql+pyodbc:///?odbc_connect=DRIVER={{ODBC Driver 18 for SQL Server}};SERVER={AZURE_DB_SERVER};DATABASE={AZURE_DB_NAME};UID={AZURE_DB_USERNAME};PWD={AZURE_DB_PASSWORD};Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30"
+        ]
+        
+        for i, conn_str in enumerate(connection_strings, 1):
+            print(f"\n--- Trying connection format {i} ---")
+            print(f"Connection string: {conn_str[:100]}...")
+            
+            try:
+                engine = create_engine(conn_str)
+                with engine.connect() as connection:
+                    print("✅ Connection successful!")
+                    
+                    # Test basic query
+                    result = connection.execute(text("SELECT @@VERSION"))
+                    version = result.fetchone()[0]
+                    print(f"SQL Server Version: {version}")
+                    
+                    # Test if we can access the database
+                    if i == 2:  # Format 2 connects to master database
+                        result = connection.execute(text("SELECT name FROM sys.databases WHERE name = 'heart_disease_db'"))
+                        db_exists = result.fetchone()
+                        if db_exists:
+                            print("✅ heart_disease_db database exists")
+                        else:
+                            print("❌ heart_disease_db database not found")
+                    else:
+                        # Test if tables exist
+                        result = connection.execute(text("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE'"))
+                        tables = [row[0] for row in result.fetchall()]
+                        print(f"✅ Found tables: {tables}")
+                    
+                    return True
+                    
+            except Exception as e:
+                error_msg = str(e)
+                print(f"❌ Format {i} failed: {error_msg}")
+                
+                # Provide specific guidance based on error
+                if "Login failed" in error_msg:
+                    print("   → This suggests incorrect username/password or user doesn't exist")
+                elif "Cannot open server" in error_msg:
+                    print("   → This suggests firewall/IP access issue")
+                elif "Data source name not found" in error_msg:
+                    print("   → This suggests ODBC driver issue")
+                
+                continue
+        
+        print("\n❌ All connection formats failed")
+        print("\n--- Troubleshooting Steps ---")
+        print("1. Verify your Azure SQL Database credentials:")
+        print(f"   - Server: {AZURE_DB_SERVER}")
+        print(f"   - Database: {AZURE_DB_NAME}")
+        print(f"   - Username: {AZURE_DB_USERNAME}")
+        print(f"   - Password: {AZURE_DB_PASSWORD}")
+        print("2. Check if the user 'Malay' exists in your Azure SQL Database")
+        print("3. Verify the user has proper permissions")
+        print("4. Try connecting via Azure Data Studio to verify credentials")
+        print("5. Check if the database is paused in Azure portal")
+        return False
+            
+    except Exception as e:
+        print(f"❌ Azure SQL connection failed: {e}")
+        return False
+
+def test_with_different_credentials():
+    """Test with common Azure SQL Database credential patterns"""
+    print("\n🔍 Testing common credential patterns...")
+    
+    # Common Azure SQL Database username patterns
+    test_credentials = [
+        {"username": "Malay", "password": "Greenscan@12"},
+        {"username": "Malay@greenscanserver", "password": "Greenscan@12"},
+        {"username": "Malay@greenscanserver.database.windows.net", "password": "Greenscan@12"},
+        {"username": "admin", "password": "Greenscan@12"},
+        {"username": "admin@greenscanserver", "password": "Greenscan@12"},
+    ]
+    
+    for cred in test_credentials:
+        print(f"\n--- Testing username: {cred['username']} ---")
+        try:
+            from sqlalchemy import create_engine, text
+            password_encoded = quote_plus(cred['password'])
+            
+            conn_str = f"mssql+pyodbc://{cred['username']}:{password_encoded}@{AZURE_DB_SERVER}:1433/{AZURE_DB_NAME}?driver=ODBC+Driver+18+for+SQL+Server&Encrypt=yes&TrustServerCertificate=no&Connection+Timeout=30"
+            
+            engine = create_engine(conn_str)
+            with engine.connect() as connection:
+                print("✅ Connection successful with these credentials!")
+                return True
+                
+        except Exception as e:
+            print(f"❌ Failed: {str(e)[:100]}...")
+            continue
+    
+    return False
+
+if __name__ == "__main__":
+    # First try the original credentials
+    if not test_azure_connection():
+        # If that fails, try different credential patterns
+        test_with_different_credentials() 
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\tests\test_azure_db.py -----
+import os
+from sqlalchemy import create_engine, text
+from urllib.parse import quote_plus
+
+# --- USER CONFIGURATION ---
+# Please fill in your Azure SQL admin username below
+AZURE_DB_USERNAME = "admin"
+# --------------------------
+
+# Details from your Azure portal screenshot and message
+AZURE_DB_SERVER = "greenscanserver.database.windows.net"
+AZURE_DB_NAME = "HeartModel"
+AZURE_DB_PASSWORD = "Greenscan@12" # The script will handle encoding
+
+def test_azure_sql_connection():
+    """Tests the connection to the Azure SQL Database."""
+    print("Testing Azure SQL Database connection...")
+
+    if AZURE_DB_USERNAME == "admin":
+        print("\nERROR: Please open 'test_azure_db.py' and replace 'your_admin_username_here' with your actual Azure SQL admin username.")
+        return
+
+    try:
+        # URL-encode the password
+        password_encoded = quote_plus(AZURE_DB_PASSWORD)
+
+        # Construct the connection string
+        driver = "{ODBC Driver 18 for SQL Server}"
+        conn_str = (
+            f"mssql+pyodbc://{AZURE_DB_USERNAME}:{password_encoded}@"
+            f"{AZURE_DB_SERVER}:1433/{AZURE_DB_NAME}?driver={driver}"
+            "&Encrypt=yes&TrustServerCertificate=no&Connection Timeout=30"
+        )
+
+        print(f"Connecting with server: {AZURE_DB_SERVER} and database: {AZURE_DB_NAME}...")
+
+        # Create an engine and try to connect
+        engine = create_engine(conn_str)
+        with engine.connect() as connection:
+            print("Connection successful!")
+            # Test query
+            result = connection.execute(text("SELECT @@VERSION"))
+            for row in result:
+                print(f"SQL Server Version: {row[0]}")
+            print("\n✅ Azure SQL Database connection test PASSED!")
+
+    except Exception as e:
+        print("\n❌ Azure SQL Database connection test FAILED.")
+        print("\n--- Error Details ---")
+        print(e)
+        print("\n--- Troubleshooting ---")
+        print("1. Is the database 'Resumed' (not 'Paused') in the Azure portal?")
+        print("2. Is your admin username correct?")
+        print("3. Have you added your current IP address to the server's firewall rules in Azure?")
+        print("4. Is the password correct?")
+
+if __name__ == "__main__":
+    test_azure_sql_connection() 
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\tests\test_database_comprehensive.py -----
+import os
+import sys
+import time
+from sqlalchemy import create_engine, text, inspect
+from urllib.parse import quote_plus
+from werkzeug.security import generate_password_hash
+import pandas as pd
+
+# --- CONFIGURATION ---
+# Azure SQL Database Configuration
+AZURE_DB_SERVER = "greenscanserver.database.windows.net"
+AZURE_DB_NAME = "HeartModel"
+AZURE_DB_USERNAME = "admin"
+AZURE_DB_PASSWORD = "Greenscan@12"
+
+# Local MySQL Configuration (alternative)
+LOCAL_MYSQL_HOST = "localhost"
+LOCAL_MYSQL_USER = "root"
+LOCAL_MYSQL_PASSWORD = ""
+LOCAL_MYSQL_DB = "heart_disease_db"
+
+def test_azure_sql_connection():
+    """Test Azure SQL Database connection"""
+    print("🔍 Testing Azure SQL Database connection...")
+    
+    try:
+        # URL-encode the password
+        password_encoded = quote_plus(AZURE_DB_PASSWORD)
+        
+        # Construct the connection string
+        driver = "{ODBC Driver 18 for SQL Server}"
+        conn_str = (
+            f"mssql+pyodbc://{AZURE_DB_USERNAME}:{password_encoded}@"
+            f"{AZURE_DB_SERVER}:1433/{AZURE_DB_NAME}?driver={driver}"
+            "&Encrypt=yes&TrustServerCertificate=no&Connection Timeout=30"
+        )
+        
+        print(f"Connecting to: {AZURE_DB_SERVER}/{AZURE_DB_NAME}")
+        
+        # Create engine and test connection
+        engine = create_engine(conn_str)
+        with engine.connect() as connection:
+            print("✅ Connection successful!")
+            
+            # Test basic query
+            result = connection.execute(text("SELECT @@VERSION"))
+            version = result.fetchone()[0]
+            print(f"SQL Server Version: {version}")
+            
+            return engine
+            
+    except Exception as e:
+        print(f"❌ Azure SQL connection failed: {e}")
+        return None
+
+def test_local_mysql_connection():
+    """Test local MySQL connection"""
+    print("🔍 Testing Local MySQL connection...")
+    
+    try:
+        conn_str = f"mysql+pymysql://{LOCAL_MYSQL_USER}:{LOCAL_MYSQL_PASSWORD}@{LOCAL_MYSQL_HOST}/{LOCAL_MYSQL_DB}"
+        
+        print(f"Connecting to: {LOCAL_MYSQL_HOST}/{LOCAL_MYSQL_DB}")
+        
+        engine = create_engine(conn_str)
+        with engine.connect() as connection:
+            print("✅ Local MySQL connection successful!")
+            
+            # Test basic query
+            result = connection.execute(text("SELECT VERSION()"))
+            version = result.fetchone()[0]
+            print(f"MySQL Version: {version}")
+            
+            return engine
+            
+    except Exception as e:
+        print(f"❌ Local MySQL connection failed: {e}")
+        return None
+
+def create_database_schema(engine, db_type="azure"):
+    """Create the database schema"""
+    print(f"\n🔧 Creating database schema for {db_type}...")
+    
+    try:
+        with engine.connect() as connection:
+            # Create user table
+            if db_type == "azure":
+                user_table_sql = """
+                IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='user' AND xtype='U')
+                CREATE TABLE [user] (
+                    id INT IDENTITY(1,1) PRIMARY KEY,
+                    username NVARCHAR(80) UNIQUE NOT NULL,
+                    email NVARCHAR(120) UNIQUE NOT NULL,
+                    password_hash NVARCHAR(120) NOT NULL,
+                    role NVARCHAR(20) NOT NULL,
+                    created_at DATETIME2 DEFAULT GETDATE()
+                )
+                """
+            else:
+                user_table_sql = """
+                CREATE TABLE IF NOT EXISTS `user` (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    username VARCHAR(80) UNIQUE NOT NULL,
+                    email VARCHAR(120) UNIQUE NOT NULL,
+                    password_hash VARCHAR(120) NOT NULL,
+                    role VARCHAR(20) NOT NULL,
+                    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+                )
+                """
+            
+            connection.execute(text(user_table_sql))
+            print("✅ User table created/verified")
+            
+            # Create patient table
+            if db_type == "azure":
+                patient_table_sql = """
+                IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='patient' AND xtype='U')
+                CREATE TABLE patient (
+                    id INT IDENTITY(1,1) PRIMARY KEY,
+                    name NVARCHAR(100) NOT NULL,
+                    gender NVARCHAR(10) NOT NULL,
+                    age INT NOT NULL,
+                    chest_pain BIT DEFAULT 0,
+                    shortness_of_breath BIT DEFAULT 0,
+                    fatigue BIT DEFAULT 0,
+                    systolic INT NOT NULL,
+                    diastolic INT NOT NULL,
+                    heart_rate INT NOT NULL,
+                    lung_sounds BIT DEFAULT 0,
+                    cholesterol INT NOT NULL,
+                    ldl INT NOT NULL,
+                    hdl INT NOT NULL,
+                    diabetes BIT DEFAULT 0,
+                    atrial_fibrillation BIT DEFAULT 0,
+                    rheumatic_fever BIT DEFAULT 0,
+                    mitral_stenosis BIT DEFAULT 0,
+                    aortic_stenosis BIT DEFAULT 0,
+                    tricuspid_stenosis BIT DEFAULT 0,
+                    pulmonary_stenosis BIT DEFAULT 0,
+                    dilated_cardiomyopathy BIT DEFAULT 0,
+                    hypertrophic_cardiomyopathy BIT DEFAULT 0,
+                    drug_use BIT DEFAULT 0,
+                    fever BIT DEFAULT 0,
+                    chills BIT DEFAULT 0,
+                    alcoholism BIT DEFAULT 0,
+                    hypertension BIT DEFAULT 0,
+                    fainting BIT DEFAULT 0,
+                    dizziness BIT DEFAULT 0,
+                    smoking BIT DEFAULT 0,
+                    obesity BIT DEFAULT 0,
+                    murmur BIT DEFAULT 0,
+                    prediction_result NVARCHAR(100) NOT NULL,
+                    doctor_id INT NOT NULL,
+                    timestamp DATETIME2 DEFAULT GETDATE(),
+                    FOREIGN KEY (doctor_id) REFERENCES [user](id)
+                )
+                """
+            else:
+                patient_table_sql = """
+                CREATE TABLE IF NOT EXISTS patient (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    name VARCHAR(100) NOT NULL,
+                    gender VARCHAR(10) NOT NULL,
+                    age INT NOT NULL,
+                    chest_pain BOOLEAN DEFAULT FALSE,
+                    shortness_of_breath BOOLEAN DEFAULT FALSE,
+                    fatigue BOOLEAN DEFAULT FALSE,
+                    systolic INT NOT NULL,
+                    diastolic INT NOT NULL,
+                    heart_rate INT NOT NULL,
+                    lung_sounds BOOLEAN DEFAULT FALSE,
+                    cholesterol INT NOT NULL,
+                    ldl INT NOT NULL,
+                    hdl INT NOT NULL,
+                    diabetes BOOLEAN DEFAULT FALSE,
+                    atrial_fibrillation BOOLEAN DEFAULT FALSE,
+                    rheumatic_fever BOOLEAN DEFAULT FALSE,
+                    mitral_stenosis BOOLEAN DEFAULT FALSE,
+                    aortic_stenosis BOOLEAN DEFAULT FALSE,
+                    tricuspid_stenosis BOOLEAN DEFAULT FALSE,
+                    pulmonary_stenosis BOOLEAN DEFAULT FALSE,
+                    dilated_cardiomyopathy BOOLEAN DEFAULT FALSE,
+                    hypertrophic_cardiomyopathy BOOLEAN DEFAULT FALSE,
+                    drug_use BOOLEAN DEFAULT FALSE,
+                    fever BOOLEAN DEFAULT FALSE,
+                    chills BOOLEAN DEFAULT FALSE,
+                    alcoholism BOOLEAN DEFAULT FALSE,
+                    hypertension BOOLEAN DEFAULT FALSE,
+                    fainting BOOLEAN DEFAULT FALSE,
+                    dizziness BOOLEAN DEFAULT FALSE,
+                    smoking BOOLEAN DEFAULT FALSE,
+                    obesity BOOLEAN DEFAULT FALSE,
+                    murmur BOOLEAN DEFAULT FALSE,
+                    prediction_result VARCHAR(100) NOT NULL,
+                    doctor_id INT NOT NULL,
+                    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY (doctor_id) REFERENCES `user`(id)
+                )
+                """
+            
+            connection.execute(text(patient_table_sql))
+            print("✅ Patient table created/verified")
+            
+            # Create indexes
+            if db_type == "azure":
+                indexes_sql = [
+                    "IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name='IX_patient_doctor_id') CREATE INDEX IX_patient_doctor_id ON patient(doctor_id)",
+                    "IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name='IX_patient_timestamp') CREATE INDEX IX_patient_timestamp ON patient(timestamp)",
+                    "IF NOT EXISTS (SELECT * FROM sys.indexes WHERE name='IX_user_role') CREATE INDEX IX_user_role ON [user](role)"
+                ]
+            else:
+                indexes_sql = [
+                    "CREATE INDEX IF NOT EXISTS idx_patient_doctor_id ON patient(doctor_id)",
+                    "CREATE INDEX IF NOT EXISTS idx_patient_timestamp ON patient(timestamp)",
+                    "CREATE INDEX IF NOT EXISTS idx_user_role ON `user`(role)"
+                ]
+            
+            for index_sql in indexes_sql:
+                try:
+                    connection.execute(text(index_sql))
+                except:
+                    pass  # Index might already exist
+            
+            print("✅ Indexes created/verified")
+            connection.commit()
+            
+    except Exception as e:
+        print(f"❌ Schema creation failed: {e}")
+        return False
+    
+    return True
+
+def test_crud_operations(engine, db_type="azure"):
+    """Test CRUD operations"""
+    print(f"\n🧪 Testing CRUD operations for {db_type}...")
+    
+    try:
+        with engine.connect() as connection:
+            # Test 1: Insert a test user
+            password_hash = generate_password_hash("test123")
+            
+            if db_type == "azure":
+                insert_user_sql = """
+                IF NOT EXISTS (SELECT 1 FROM [user] WHERE username = 'test_doctor')
+                INSERT INTO [user] (username, email, password_hash, role) 
+                VALUES ('test_doctor', 'test@example.com', :password_hash, 'doctor')
+                """
+            else:
+                insert_user_sql = """
+                INSERT IGNORE INTO `user` (username, email, password_hash, role) 
+                VALUES ('test_doctor', 'test@example.com', :password_hash, 'doctor')
+                """
+            
+            connection.execute(text(insert_user_sql), {"password_hash": password_hash})
+            print("✅ Test user created")
+            
+            # Test 2: Get user ID
+            if db_type == "azure":
+                get_user_sql = "SELECT id FROM [user] WHERE username = 'test_doctor'"
+            else:
+                get_user_sql = "SELECT id FROM `user` WHERE username = 'test_doctor'"
+            
+            result = connection.execute(text(get_user_sql))
+            user_id = result.fetchone()[0]
+            print(f"✅ Retrieved user ID: {user_id}")
+            
+            # Test 3: Insert a test patient
+            if db_type == "azure":
+                insert_patient_sql = """
+                INSERT INTO patient (
+                    name, gender, age, chest_pain, shortness_of_breath, fatigue,
+                    systolic, diastolic, heart_rate, lung_sounds, cholesterol, ldl, hdl,
+                    diabetes, atrial_fibrillation, rheumatic_fever, mitral_stenosis,
+                    aortic_stenosis, tricuspid_stenosis, pulmonary_stenosis,
+                    dilated_cardiomyopathy, hypertrophic_cardiomyopathy, drug_use,
+                    fever, chills, alcoholism, hypertension, fainting, dizziness,
+                    smoking, obesity, murmur, prediction_result, doctor_id
+                ) VALUES (
+                    'John Doe', 'Male', 45, 1, 0, 1, 140, 90, 75, 0, 200, 120, 50,
+                    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 'Normal', :doctor_id
+                )
+                """
+            else:
+                insert_patient_sql = """
+                INSERT INTO patient (
+                    name, gender, age, chest_pain, shortness_of_breath, fatigue,
+                    systolic, diastolic, heart_rate, lung_sounds, cholesterol, ldl, hdl,
+                    diabetes, atrial_fibrillation, rheumatic_fever, mitral_stenosis,
+                    aortic_stenosis, tricuspid_stenosis, pulmonary_stenosis,
+                    dilated_cardiomyopathy, hypertrophic_cardiomyopathy, drug_use,
+                    fever, chills, alcoholism, hypertension, fainting, dizziness,
+                    smoking, obesity, murmur, prediction_result, doctor_id
+                ) VALUES (
+                    'John Doe', 'Male', 45, TRUE, FALSE, TRUE, 140, 90, 75, FALSE, 200, 120, 50,
+                    FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, 'Normal', :doctor_id
+                )
+                """
+            
+            connection.execute(text(insert_patient_sql), {"doctor_id": user_id})
+            print("✅ Test patient created")
+            
+            # Test 4: Query patients
+            if db_type == "azure":
+                query_sql = """
+                SELECT p.name, p.age, p.prediction_result, u.username as doctor_name
+                FROM patient p
+                JOIN [user] u ON p.doctor_id = u.id
+                WHERE u.username = 'test_doctor'
+                """
+            else:
+                query_sql = """
+                SELECT p.name, p.age, p.prediction_result, u.username as doctor_name
+                FROM patient p
+                JOIN `user` u ON p.doctor_id = u.id
+                WHERE u.username = 'test_doctor'
+                """
+            
+            result = connection.execute(text(query_sql))
+            patients = result.fetchall()
+            print(f"✅ Retrieved {len(patients)} patients")
+            
+            for patient in patients:
+                print(f"   - {patient[0]} (Age: {patient[1]}, Prediction: {patient[2]}, Doctor: {patient[3]})")
+            
+            # Test 5: Update patient
+            if db_type == "azure":
+                update_sql = "UPDATE patient SET prediction_result = 'High Risk' WHERE name = 'John Doe'"
+            else:
+                update_sql = "UPDATE patient SET prediction_result = 'High Risk' WHERE name = 'John Doe'"
+            
+            connection.execute(text(update_sql))
+            print("✅ Patient updated")
+            
+            # Test 6: Delete test data
+            if db_type == "azure":
+                delete_sql = "DELETE FROM patient WHERE name = 'John Doe'"
+            else:
+                delete_sql = "DELETE FROM patient WHERE name = 'John Doe'"
+            
+            connection.execute(text(delete_sql))
+            print("✅ Test patient deleted")
+            
+            connection.commit()
+            
+    except Exception as e:
+        print(f"❌ CRUD operations failed: {e}")
+        return False
+    
+    return True
+
+def test_table_structure(engine, db_type="azure"):
+    """Test table structure and constraints"""
+    print(f"\n📋 Testing table structure for {db_type}...")
+    
+    try:
+        inspector = inspect(engine)
+        
+        # Check tables exist
+        tables = inspector.get_table_names()
+        print(f"✅ Found tables: {tables}")
+        
+        # Check user table columns
+        user_columns = inspector.get_columns('user')
+        print(f"✅ User table has {len(user_columns)} columns")
+        
+        # Check patient table columns
+        patient_columns = inspector.get_columns('patient')
+        print(f"✅ Patient table has {len(patient_columns)} columns")
+        
+        # Check foreign key constraints
+        if db_type == "azure":
+            with engine.connect() as connection:
+                result = connection.execute(text("""
+                    SELECT 
+                        fk.name as constraint_name,
+                        OBJECT_NAME(fk.parent_object_id) as table_name,
+                        COL_NAME(fkc.parent_object_id, fkc.parent_column_id) as column_name,
+                        OBJECT_NAME(fk.referenced_object_id) as referenced_table_name,
+                        COL_NAME(fkc.referenced_object_id, fkc.referenced_column_id) as referenced_column_name
+                    FROM sys.foreign_keys fk
+                    INNER JOIN sys.foreign_key_columns fkc ON fk.object_id = fkc.constraint_object_id
+                    WHERE OBJECT_NAME(fk.parent_object_id) = 'patient'
+                """))
+                fks = result.fetchall()
+                print(f"✅ Found {len(fks)} foreign key constraints")
+                
+    except Exception as e:
+        print(f"❌ Table structure test failed: {e}")
+        return False
+    
+    return True
+
+def main():
+    """Main test function"""
+    print("🚀 Starting Comprehensive Database Test")
+    print("=" * 50)
+    
+    # Test Azure SQL Database
+    print("\n1. TESTING AZURE SQL DATABASE")
+    print("-" * 30)
+    
+    azure_engine = test_azure_sql_connection()
+    if azure_engine:
+        if create_database_schema(azure_engine, "azure"):
+            test_crud_operations(azure_engine, "azure")
+            test_table_structure(azure_engine, "azure")
+        else:
+            print("❌ Azure schema creation failed")
+    else:
+        print("❌ Azure connection failed")
+    
+    # Test Local MySQL Database
+    print("\n\n2. TESTING LOCAL MYSQL DATABASE")
+    print("-" * 30)
+    
+    mysql_engine = test_local_mysql_connection()
+    if mysql_engine:
+        if create_database_schema(mysql_engine, "mysql"):
+            test_crud_operations(mysql_engine, "mysql")
+            test_table_structure(mysql_engine, "mysql")
+        else:
+            print("❌ MySQL schema creation failed")
+    else:
+        print("❌ MySQL connection failed")
+    
+    print("\n" + "=" * 50)
+    print("🏁 Database testing completed!")
+
+if __name__ == "__main__":
+    main() 
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\tests\test_docker.py -----
+#!/usr/bin/env python3
+"""
+Test script to verify Docker setup and dependencies
+"""
+
+import os
+import sys
+
+def test_imports():
+    """Test if all required packages can be imported"""
+    print("Testing imports...")
+    
+    try:
+        import flask
+        print("✓ Flask imported successfully")
+    except ImportError as e:
+        print(f"✗ Flask import failed: {e}")
+        return False
+    
+    try:
+        import pandas
+        print("✓ Pandas imported successfully")
+    except ImportError as e:
+        print(f"✗ Pandas import failed: {e}")
+        return False
+    
+    try:
+        import numpy
+        print("✓ NumPy imported successfully")
+    except ImportError as e:
+        print(f"✗ NumPy import failed: {e}")
+        return False
+    
+    try:
+        import sklearn
+        print("✓ Scikit-learn imported successfully")
+    except ImportError as e:
+        print(f"✗ Scikit-learn import failed: {e}")
+        return False
+    
+    try:
+        import matplotlib
+        print("✓ Matplotlib imported successfully")
+    except ImportError as e:
+        print(f"✗ Matplotlib import failed: {e}")
+        return False
+    
+    try:
+        import seaborn
+        print("✓ Seaborn imported successfully")
+    except ImportError as e:
+        print(f"✗ Seaborn import failed: {e}")
+        return False
+    
+    try:
+        import openpyxl
+        print("✓ OpenPyXL imported successfully")
+    except ImportError as e:
+        print(f"✗ OpenPyXL import failed: {e}")
+        return False
+    
+    try:
+        import reportlab
+        print("✓ ReportLab imported successfully")
+    except ImportError as e:
+        print(f"✗ ReportLab import failed: {e}")
+        return False
+    
+    try:
+        import mysqlclient
+        print("✓ MySQL client imported successfully")
+    except ImportError as e:
+        print(f"✗ MySQL client import failed: {e}")
+        return False
+    
+    try:
+        import pymysql
+        print("✓ PyMySQL imported successfully")
+    except ImportError as e:
+        print(f"✗ PyMySQL import failed: {e}")
+        return False
+    
+    try:
+        import pyodbc
+        print("✓ PyODBC imported successfully")
+    except ImportError as e:
+        print(f"✗ PyODBC import failed: {e}")
+        return False
+    
+    return True
+
+def test_model_file():
+    """Test if the model file exists"""
+    print("\nTesting model file...")
+    
+    model_path = "heart_disease_rf_model.pkl"
+    if os.path.exists(model_path):
+        print(f"✓ Model file found: {model_path}")
+        print(f"  Size: {os.path.getsize(model_path)} bytes")
+        return True
+    else:
+        print(f"✗ Model file not found: {model_path}")
+        return False
+
+def test_model_loading():
+    """Test if the model can be loaded"""
+    print("\nTesting model loading...")
+    
+    try:
+        import pickle
+        model_path = "heart_disease_rf_model.pkl"
+        
+        with open(model_path, 'rb') as file:
+            model = pickle.load(file)
+        
+        print("✓ Model loaded successfully")
+        print(f"  Model type: {type(model)}")
+        return True
+    except Exception as e:
+        print(f"✗ Model loading failed: {e}")
+        return False
+
+def test_config():
+    """Test configuration loading"""
+    print("\nTesting configuration...")
+    
+    try:
+        from config import config
+        print("✓ Configuration loaded successfully")
+        return True
+    except Exception as e:
+        print(f"✗ Configuration loading failed: {e}")
+        return False
+
+def main():
+    """Run all tests"""
+    print("Docker Setup Test")
+    print("=" * 50)
+    
+    tests = [
+        test_imports,
+        test_model_file,
+        test_model_loading,
+        test_config
+    ]
+    
+    passed = 0
+    total = len(tests)
+    
+    for test in tests:
+        if test():
+            passed += 1
+        print()
+    
+    print("=" * 50)
+    print(f"Tests passed: {passed}/{total}")
+    
+    if passed == total:
+        print("✓ All tests passed! Docker setup is ready.")
+        return 0
+    else:
+        print("✗ Some tests failed. Please check the errors above.")
+        return 1
+
+if __name__ == "__main__":
+    sys.exit(main()) 
+
+----- File: D:\ML Folders\ml_env\GitHub\Heart-Disease-Model\tests\test_model_loading.py -----
+#!/usr/bin/env python3
+"""
+Model Loading Test Script
+This script helps debug model loading issues on Render deployment.
+"""
+
+import os
+import sys
+import pickle
+from pathlib import Path
+
+def test_model_loading():
+    """Test model loading with detailed error reporting"""
+    print("🔍 Model Loading Test")
+    print("=" * 50)
+    
+    # Check current working directory
+    print(f"Current working directory: {os.getcwd()}")
+    
+    # List all files in current directory
+    print("\n📁 Files in current directory:")
+    for file in os.listdir('.'):
+        if os.path.isfile(file):
+            size = os.path.getsize(file)
+            print(f"  - {file} ({size} bytes)")
+    
+    # Check for model file
+    model_paths = [
+        'heart_disease_rf_model.pkl',
+        './heart_disease_rf_model.pkl',
+        '/app/heart_disease_rf_model.pkl',
+        'mount/src/heart_disease_rf_model.pkl'
+    ]
+    
+    print("\n🔍 Checking model file locations:")
+    for path in model_paths:
+        exists = os.path.exists(path)
+        size = os.path.getsize(path) if exists else 0
+        print(f"  - {path}: {'✅ EXISTS' if exists else '❌ NOT FOUND'} ({size} bytes)")
+    
+    # Try to load model from each location
+    print("\n🧠 Testing model loading:")
+    for path in model_paths:
+        if os.path.exists(path):
+            try:
+                print(f"  Trying to load from: {path}")
+                with open(path, 'rb') as file:
+                    model = pickle.load(file)
+                print(f"  ✅ SUCCESS: Model loaded from {path}")
+                print(f"     Model type: {type(model)}")
+                print(f"     Model attributes: {dir(model)}")
+                return True
+            except Exception as e:
+                print(f"  ❌ FAILED: {e}")
+    
+    # Check environment variables
+    print("\n🌍 Environment variables:")
+    model_path_env = os.environ.get('MODEL_PATH')
+    print(f"  MODEL_PATH: {model_path_env}")
+    
+    if model_path_env and os.path.exists(model_path_env):
+        try:
+            print(f"  Trying to load from MODEL_PATH: {model_path_env}")
+            with open(model_path_env, 'rb') as file:
+                model = pickle.load(file)
+            print(f"  ✅ SUCCESS: Model loaded from MODEL_PATH")
+            return True
+        except Exception as e:
+            print(f"  ❌ FAILED: {e}")
+    
+    print("\n❌ No model could be loaded from any location")
+    return False
+
+def test_scikit_learn():
+    """Test scikit-learn installation"""
+    print("\n🔬 Testing scikit-learn installation:")
+    try:
+        import sklearn
+        print(f"  ✅ scikit-learn version: {sklearn.__version__}")
+        
+        from sklearn.ensemble import RandomForestClassifier
+        print("  ✅ RandomForestClassifier imported successfully")
+        
+        # Test creating a simple model
+        model = RandomForestClassifier()
+        print("  ✅ RandomForestClassifier created successfully")
+        
+        return True
+    except Exception as e:
+        print(f"  ❌ scikit-learn test failed: {e}")
+        return False
+
+def test_pickle():
+    """Test pickle functionality"""
+    print("\n🥒 Testing pickle functionality:")
+    try:
+        import pickle
+        print("  ✅ pickle imported successfully")
+        
+        # Test basic pickle operations
+        test_data = {'test': 'data'}
+        pickled = pickle.dumps(test_data)
+        unpickled = pickle.loads(pickled)
+        
+        if test_data == unpickled:
+            print("  ✅ pickle operations work correctly")
+            return True
+        else:
+            print("  ❌ pickle operations failed")
+            return False
+    except Exception as e:
+        print(f"  ❌ pickle test failed: {e}")
+        return False
+
+def main():
+    """Main test function"""
+    print("🚀 Heart Disease Model Loading Test")
+    print("=" * 60)
+    
+    # Test basic dependencies
+    sklearn_ok = test_scikit_learn()
+    pickle_ok = test_pickle()
+    
+    # Test model loading
+    model_ok = test_model_loading()
+    
+    # Summary
+    print("\n📊 Test Summary:")
+    print("=" * 30)
+    print(f"  scikit-learn: {'✅ OK' if sklearn_ok else '❌ FAILED'}")
+    print(f"  pickle: {'✅ OK' if pickle_ok else '❌ FAILED'}")
+    print(f"  model loading: {'✅ OK' if model_ok else '❌ FAILED'}")
+    
+    if model_ok:
+        print("\n🎉 All tests passed! Model should work correctly.")
+        return 0
+    else:
+        print("\n⚠️  Some tests failed. Check the output above for details.")
+        return 1
+
+if __name__ == "__main__":
+    sys.exit(main()) 
