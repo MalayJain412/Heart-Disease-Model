@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block title %}Doctor Dashboard - Heart Disease Prediction System{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2">
+            <div class="sidebar">
+                <h5 class="mb-3">
+                    <i class="fas fa-user-md me-2"></i>Doctor Panel
+                </h5>
+                <nav class="nav flex-column">
+                    <a class="nav-link active" href="{{ url_for('doctor.doctor_dashboard') }}">
+                        <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                    </a>
+                    <a class="nav-link" href="{{ url_for('doctor.add_patient') }}">
+                        <i class="fas fa-plus me-2"></i>Add Patient
+                    </a>
+                    <a class="nav-link" href="{{ url_for('auth.change_password') }}">
+                        <i class="fas fa-key me-2"></i>Change Password
+                    </a>
+                    <hr>
+                    <a class="nav-link text-danger" href="{{ url_for('auth.logout') }}">
+                        <i class="fas fa-sign-out-alt me-2"></i>Logout
+                    </a>
+                </nav>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-md-9 col-lg-10">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="mb-3">
+                        <i class="fas fa-tachometer-alt me-2"></i>Doctor Dashboard
+                    </h2>
+                    <p class="text-muted">Welcome back, Dr. {{ current_user.username }}!</p>
+                </div>
+            </div>
+            
+            <!-- Stats Cards -->
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="stats-card">
+                        <i class="fas fa-users fa-2x mb-3"></i>
+                        <h3>{{ patients|length }}</h3>
+                        <p class="mb-0">Total Patients</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stats-card" style="background: linear-gradient(135deg, #28A745, #20C997);">
+                        <i class="fas fa-heartbeat fa-2x mb-3"></i>
+                        <h3>{{ patients|selectattr('prediction_result', 'equalto', 'Normal')|list|length }}</h3>
+                        <p class="mb-0">Normal Cases</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stats-card" style="background: linear-gradient(135deg, #DC3545, #E74C3C);">
+                        <i class="fas fa-exclamation-triangle fa-2x mb-3"></i>
+                        <h3>{{ patients|selectattr('prediction_result', 'ne', 'Normal')|list|length }}</h3>
+                        <p class="mb-0">Disease Cases</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Patients -->
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <i class="fas fa-list me-2"></i>Recent Patients
+                    </h5>
+                </div>
+                <div class="card-body">
+                    {% if patients %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Patient Name</th>
+                                    <th>Age</th>
+                                    <th>Gender</th>
+                                    <th>Prediction</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for patient in patients[:10] %}
+                                <tr>
+                                    <td>
+                                        <i class="fas fa-user me-2"></i>
+                                        {{ patient.name }}
+                                    </td>
+                                    <td>{{ patient.age }}</td>
+                                    <td>
+                                        <span class="badge bg-{{ 'primary' if patient.gender == 'Male' else 'secondary' }}">
+                                            {{ patient.gender }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-{{ 'success' if patient.prediction_result == 'Normal' else 'danger' }}">
+                                            {{ patient.prediction_result }}
+                                        </span>
+                                    </td>
+                                    <td>{{ patient.timestamp.strftime('%Y-%m-%d %H:%M') }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="text-center py-4">
+                        <i class="fas fa-users fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">No patients yet</h5>
+                        <p class="text-muted">Start by adding your first patient</p>
+                        <a href="{{ url_for('doctor.add_patient') }}" class="btn btn-primary">
+                            <i class="fas fa-plus me-2"></i>Add Patient
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

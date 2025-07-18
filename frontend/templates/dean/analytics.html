@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+
+{% block title %}Analytics - Heart Disease Prediction System{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2">
+            <div class="sidebar">
+                <h5 class="mb-3">
+                    <i class="fas fa-user-tie me-2"></i>Dean Panel
+                </h5>
+                <nav class="nav flex-column">
+                    <a class="nav-link" href="{{ url_for('dean.dean_dashboard') }}">
+                        <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                    </a>
+                    <a class="nav-link" href="{{ url_for('dean.register_doctor') }}">
+                        <i class="fas fa-user-plus me-2"></i>Add Doctor
+                    </a>
+                    <a class="nav-link active" href="{{ url_for('dean.dean_analytics') }}">
+                        <i class="fas fa-chart-bar me-2"></i>Analytics
+                    </a>
+                    <a class="nav-link" href="{{ url_for('change_password') }}">
+                        <i class="fas fa-key me-2"></i>Change Password
+                    </a>
+                    <hr>
+                    <a class="nav-link text-danger" href="{{ url_for('logout') }}">
+                        <i class="fas fa-sign-out-alt me-2"></i>Logout
+                    </a>
+                </nav>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-md-9 col-lg-10">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="mb-3">
+                        <i class="fas fa-chart-bar me-2"></i>Analytics Dashboard
+                    </h2>
+                    <p class="text-muted">Comprehensive analytics and insights for heart disease predictions</p>
+                </div>
+            </div>
+            
+            <!-- Stats Cards -->
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="stats-card">
+                        <i class="fas fa-users fa-2x mb-3"></i>
+                        <h3>{{ total_patients }}</h3>
+                        <p class="mb-0">Total Patients</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stats-card" style="background: linear-gradient(135deg, #28A745, #20C997);">
+                        <i class="fas fa-heartbeat fa-2x mb-3"></i>
+                        <h3>{{ prediction_counts.get('Normal', 0) }}</h3>
+                        <p class="mb-0">Normal Cases</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stats-card" style="background: linear-gradient(135deg, #DC3545, #E74C3C);">
+                        <i class="fas fa-exclamation-triangle fa-2x mb-3"></i>
+                        <h3>{{ total_patients - prediction_counts.get('Normal', 0) }}</h3>
+                        <p class="mb-0">Disease Cases</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Charts -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="fas fa-chart-pie me-2"></i>Prediction Distribution
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="predictionChart" width="400" height="300"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="fas fa-chart-bar me-2"></i>Patients by Doctor
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="doctorChart" width="400" height="300"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Export Buttons -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="fas fa-download me-2"></i>Export Data
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex gap-2">
+                                <a href="{{ url_for('export.export_excel') }}" class="btn btn-outline-success">
+                                    <i class="fas fa-file-excel me-2"></i>Export to Excel
+                                </a>
+                                <a href="{{ url_for('export.export_pdf') }}" class="btn btn-outline-danger">
+                                    <i class="fas fa-file-pdf me-2"></i>Export to PDF
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Prediction Distribution Chart
+const predictionCtx = document.getElementById('predictionChart').getContext('2d');
+const predictionChart = new Chart(predictionCtx, {
+    type: 'pie',
+    data: {
+        labels: {{ prediction_counts.keys() | list | tojson }},
+        datasets: [{
+            data: {{ prediction_counts.values() | list | tojson }},
+            backgroundColor: [
+                '#28A745',
+                '#DC3545',
+                '#FFC107',
+                '#17A2B8',
+                '#6F42C1',
+                '#FD7E14'
+            ],
+            borderWidth: 2,
+            borderColor: '#fff'
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'bottom'
+            },
+            title: {
+                display: true,
+                text: 'Disease Prediction Distribution'
+            }
+        }
+    }
+});
+
+// Doctor-wise Patient Count Chart
+const doctorCtx = document.getElementById('doctorChart').getContext('2d');
+const doctorChart = new Chart(doctorCtx, {
+    type: 'bar',
+    data: {
+        labels: {{ doctor_counts.keys() | list | tojson }},
+        datasets: [{
+            label: 'Number of Patients',
+            data: {{ doctor_counts.values() | list | tojson }},
+            backgroundColor: 'rgba(74, 144, 226, 0.8)',
+            borderColor: 'rgba(74, 144, 226, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    stepSize: 1
+                }
+            }
+        },
+        plugins: {
+            legend: {
+                display: false
+            },
+            title: {
+                display: true,
+                text: 'Patients per Doctor'
+            }
+        }
+    }
+});
+</script>
+{% endblock %} 
